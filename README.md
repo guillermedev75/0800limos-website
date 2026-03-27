@@ -1,73 +1,134 @@
-# React + TypeScript + Vite
+# 0800 Limos Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Cavalgada Executiva 2026-2027
 
-Currently, two official plugins are available:
+Site executivo/premium para 0800 Limos em React + TypeScript + Tailwind CSS, com tema "Cavalgada 2026-2027" e integração Moovs API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Tecnologias
 
-## React Compiler
+- **React 18** - Framework UI
+- **TypeScript** - Tipagem estática
+- **Vite** - Build tool
+- **Tailwind CSS v4** - Estilização
+- **Framer Motion** - Animações
+- **Lucide React** - Ícones
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎨 Design System
 
-## Expanding the ESLint configuration
+- **Cores:**
+  - Midnight Black: `#0A0A0A`
+  - Executive Gold: `#C9A961`
+  - Success Green: `#27AE60`
+  
+- **Fontes:**
+  - Headlines: Montserrat
+  - Body: Inter
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📁 Estrutura
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── layout/      # Header, Footer, Container
+│   ├── sections/    # Hero, Services, Fleet, etc.
+│   ├── ui/          # Button, etc.
+│   └── moovs/       # Widget Moovs
+├── hooks/           # Custom hooks
+├── lib/             # Utils
+└── types/           # TypeScript types
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔧 Comandos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Instalar dependências
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Desenvolvimento
+npm run dev
+
+# Build produção
+npm run build
+
+# Preview build
+npm run preview
 ```
+
+## 🌐 Deploy na Vercel
+
+### Opção 1: Deploy via GitHub Integration (Recomendado)
+
+1. Acesse [vercel.com](https://vercel.com)
+2. Faça login com sua conta GitHub
+3. Clique em "Add New Project"
+4. Importe o repositório `guillermedev75/0800limos-website`
+5. Configure:
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+6. Clique em "Deploy"
+
+### Opção 2: Deploy via CLI
+
+```bash
+# Instalar Vercel CLI
+npm i -g vercel
+
+# Login
+vercel login
+
+# Deploy
+vercel --prod
+```
+
+## 🔌 Integração Moovs
+
+O widget Moovs está integrado na seção de Booking. O script é carregado automaticamente:
+
+```
+https://operator.moovs.app/widget.js
+```
+
+Configurações:
+- Operator ID: `0800limos`
+- Theme: `dark`
+- Primary Color: `#C9A961`
+
+## 📝 Configuração de DNS (GoDaddy)
+
+Após o deploy na Vercel, configure o domínio customizado:
+
+1. Na dashboard da Vercel, vá em Project Settings > Domains
+2. Adicione o domínio: `0800limos.com`
+3. A Vercel fornecerá registros DNS:
+   - Tipo A: `76.76.21.21`
+   - ou CNAME: `cname.vercel-dns.com`
+
+4. No GoDaddy:
+   - Acesse DNS Management
+   - Adicione o registro A ou CNAME conforme fornecido pela Vercel
+   - Remova registros antigos conflitantes
+   - Aguarde propagação (até 48h)
+
+## ✅ Checklist
+
+- [x] Site responsivo (mobile-first)
+- [x] Hero com carrossel animado (5 slides)
+- [x] Widget Moovs integrado
+- [x] Seções: Services, Fleet, WhyUs, Testimonials, Areas
+- [x] Animações com Framer Motion
+- [x] Build otimizado
+- [x] Deploy configurado
+
+## 📞 Contatos
+
+- **Site:** [0800limos.com](https://0800limos.com)
+- **Telefone:** 650-666-9333
+- **Email:** hussein@0800limos.com
+- **Moovs:** operator.moovs.app
+
+---
+
+**Cavalgada Executiva 2026-2027**
+
+Sua jornada de luxo começa aqui.
