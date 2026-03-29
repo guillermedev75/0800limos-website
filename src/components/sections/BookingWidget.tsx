@@ -8,11 +8,16 @@ export function BookingWidget() {
   useEffect(() => {
     // Load Moovs widget script
     const script = document.createElement('script');
-    script.src = 'https://operator.moovs.app/widget.js';
-    script.async = true;
-    script.setAttribute('data-operator-id', '0800limos');
-    script.setAttribute('data-theme', 'dark');
-    script.setAttribute('data-primary-color', '#C9A961');
+    script.innerHTML = `
+      window["moovsAPI"] = window["moovsAPI"] || [];
+      window["moovsAPI"].push(["operator", "437c042c-0f8b-11f1-a424-dbca522aa2ee"]);
+      (function(m, oo, v, s) {
+        s = m.createElement(oo);
+        s.src = v;
+        s.async = 1;
+        m.head.appendChild(s);
+      })(document, "script", "https://static.moovs.app");
+    `;
     
     if (widgetRef.current) {
       widgetRef.current.appendChild(script);
@@ -51,12 +56,14 @@ export function BookingWidget() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-4xl mx-auto bg-midnight rounded-lg p-8 border border-white/10"
         >
-          <div ref={widgetRef} className="moovs-widget-container">
+          <div ref={widgetRef} className="moovs-widget-container min-h-[400px]">
             <div className="text-center py-12">
               <div className="w-16 h-16 border-4 border-gold/30 border-t-gold rounded-full animate-spin mx-auto mb-4"></div>
               <p className="text-soft-silver">Carregando sistema de reservas...</p>
               <p className="text-white/40 text-sm mt-2">
-                Se o widget não carregar, entre em contato diretamente pelo telefone{' '}
+                Se o widget não carregar,{' '}
+                <a href="https://customer.moovs.app/0800-limos-inc/request/new" target="_blank" rel="noopener noreferrer" className="text-gold hover:underline">clique aqui para reservar</a>
+                {' '}ou ligue{' '}
                 <a href="tel:6506669333" className="text-gold hover:underline">650-666-9333</a>
               </p>
             </div>
