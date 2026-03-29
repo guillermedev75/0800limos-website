@@ -7,7 +7,7 @@ const vehicles = [
   {
     id: 1,
     name: 'Executive Sedan',
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',
     capacity: 3,
     luggage: 3,
     description: 'O epítome do luxo e conforto. Perfeito para executivos que valorizam discrição e elegância.',
@@ -17,7 +17,7 @@ const vehicles = [
   {
     id: 2,
     name: 'Luxury SUV',
-    image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=80',
     capacity: 6,
     luggage: 6,
     description: 'Espaço e sofisticação em um único veículo. Ideal para famílias e grupos pequenos.',
@@ -27,7 +27,7 @@ const vehicles = [
   {
     id: 3,
     name: 'Sprinter Van',
-    image: 'https://images.unsplash.com/photo-1566008885218-90abf9200ddb?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1614088748826-63282e555a43?w=800&q=80',
     capacity: 14,
     luggage: 14,
     description: 'A solução perfeita para eventos corporativos e grupos maiores sem comprometer o conforto.',
@@ -37,7 +37,7 @@ const vehicles = [
   {
     id: 4,
     name: 'Stretch Limo',
-    image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1566008885218-90abf9200ddb?w=800&q=80',
     capacity: 10,
     luggage: 4,
     description: 'O máximo em luxo e estilo para ocasiões especiais que merecem uma entrada memorável.',
