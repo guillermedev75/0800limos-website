@@ -32,7 +32,7 @@ const slides = [
     id: 5,
     image: '/images/hero/slide-5.jpg',
     title: 'Sua Jornada, Nossa Excelência',
-    subtitle: 'De 2026 a 2027 e além',
+    subtitle: 'Excelência em cada trajeto',
   },
 ];
 
@@ -92,42 +92,30 @@ export function Hero() {
             transition={{ duration: 0.5 }}
             className="max-w-4xl"
           >
-            {/* Year Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-4"
-            >
-              <span className="text-gold font-display text-lg tracking-[0.3em] uppercase">
-                2026-2027
-              </span>
-            </motion.div>
-
             {/* Main Title */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
               className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-wider mb-2"
             >
-              Cavalgada
+              Transporte
             </motion.h1>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
               className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-wider mb-6"
             >
-              <span className="text-gradient-gold">Executiva</span>
+              <span className="text-gradient-gold">Executivo</span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
               className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide mb-10"
             >
               {slides[currentSlide].subtitle}
@@ -137,7 +125,7 @@ export function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
+              transition={{ delay: 0.7, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button
