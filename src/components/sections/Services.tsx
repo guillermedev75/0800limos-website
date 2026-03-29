@@ -9,7 +9,7 @@ const services = [
     title: 'Airport Transfers',
     description: 'Serviço de transfer para os principais aeroportos da região com monitoramento de voos em tempo real.',
     features: ['SFO, OAK, SJC', 'Flight tracking', 'Meet & Greet'],
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80',
+    image: '/images/services/airport.jpg',
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const services = [
     title: 'Corporate Travel',
     description: 'Soluções de transporte executivo para reuniões de negócios, road shows e eventos corporativos.',
     features: ['Business meetings', 'Road shows', 'Executive transport'],
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+    image: '/images/services/corporate.jpg',
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const services = [
     title: 'Special Occasions',
     description: 'Torne momentos especiais ainda mais memoráveis com nosso serviço de luxo personalizado.',
     features: ['Weddings', 'Anniversaries', 'Nights out'],
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
+    image: '/images/services/wedding.jpg',
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const services = [
     title: 'Wine Tours',
     description: 'Passeios exclusivos pelas melhores vinícolas da Califórnia com conforto e sofisticação.',
     features: ['Napa Valley', 'Sonoma', 'Custom tours'],
-    image: 'https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?w=800&q=80',
+    image: '/images/services/wine-tour.jpg',
   },
 ];
 

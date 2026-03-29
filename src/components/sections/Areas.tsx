@@ -7,37 +7,37 @@ const areas = [
     id: 1,
     name: 'San Francisco',
     description: 'Atendimento completo em toda a cidade e arredores do centro financeiro.',
-    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80',
+    image: '/images/areas/sf.jpg',
   },
   {
     id: 2,
     name: 'Napa Valley',
     description: 'Tours exclusivos pelas melhores vinícolas da região vinícola mais famosa.',
-    image: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=800&q=80',
+    image: '/images/areas/napa.jpg',
   },
   {
     id: 3,
     name: 'Sonoma',
     description: 'Experiências premium nas vinícolas charmosas de Sonoma County.',
-    image: 'https://images.unsplash.com/photo-1528326910900-7e36392642da?w=800&q=80',
+    image: '/images/areas/sonoma.jpg',
   },
   {
     id: 4,
     name: 'Monterey',
     description: 'Viagens costeiras com vistas deslumbrantes da Pacific Coast Highway.',
-    image: 'https://images.unsplash.com/photo-1565354785692-3da5c3e3e272?w=800&q=80',
+    image: '/images/areas/monterey.jpg',
   },
   {
     id: 5,
     name: 'Lake Tahoe',
     description: 'Transporte confortável para as estâncias de esqui e lazer.',
-    image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80',
+    image: '/images/areas/tahoe.jpg',
   },
   {
     id: 6,
     name: 'Silicon Valley',
     description: 'Serviço executivo para empresas de tecnologia e startups.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+    image: '/images/areas/silicon-valley.jpg',
   },
 ];
 

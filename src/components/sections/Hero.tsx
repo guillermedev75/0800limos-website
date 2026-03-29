@@ -6,31 +6,31 @@ import { Button } from '../ui/Button';
 const slides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1920&q=80',
+    image: '/images/hero/slide-1.jpg',
     title: 'Cavalgada Executiva',
     subtitle: 'Sua jornada de luxo começa aqui',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1920&q=80',
+    image: '/images/hero/slide-2.jpg',
     title: 'Conforto Inigualável',
     subtitle: 'Interiores premium para sua experiência',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1614088748826-63282e555a43?w=1920&q=80',
+    image: '/images/hero/slide-3.jpg',
     title: 'Punctualidade & Discrição',
     subtitle: 'Serviço de aeroporto sem preocupações',
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1920&q=80',
+    image: '/images/hero/slide-4.jpg',
     title: 'Soluções Corporativas',
     subtitle: 'Transporte executivo para sua empresa',
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80',
+    image: '/images/hero/slide-5.jpg',
     title: 'Sua Jornada, Nossa Excelência',
     subtitle: 'De 2026 a 2027 e além',
   },
