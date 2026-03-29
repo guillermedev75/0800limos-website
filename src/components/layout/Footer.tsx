@@ -112,10 +112,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="py-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-sm">
-            © 2026-2027 0800 Limos. All rights reserved.
+            © 2026 0800 Limos. All rights reserved.
           </p>
           <p className="text-white/40 text-sm">
-            Cavalgada Executiva 2026-2027
+            Transporte Executivo Premium
           </p>
         </div>
       </Container>
