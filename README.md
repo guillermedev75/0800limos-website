@@ -129,6 +129,6 @@ Após o deploy na Vercel, configure o domínio customizado:
 
 ---
 
-**Cavalgada Executiva 2026-2027**
+**Transporte Executivo**
 
 Sua jornada de luxo começa aqui.

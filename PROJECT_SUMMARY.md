@@ -191,4 +191,4 @@ O site **0800 Limos** está pronto para deploy!
 
 ---
 
-*Cavalgada Executiva 2026-2027 - Sua jornada de luxo começa aqui.* 🚀
+*Transporte Executivo - Sua jornada de luxo começa aqui.* 🚀

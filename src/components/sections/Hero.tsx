@@ -7,31 +7,26 @@ const slides = [
   {
     id: 1,
     image: '/images/hero/slide-1.jpg',
-    title: 'Cavalgada Executiva',
     subtitle: 'Sua jornada de luxo começa aqui',
   },
   {
     id: 2,
     image: '/images/hero/slide-2.jpg',
-    title: 'Conforto Inigualável',
     subtitle: 'Interiores premium para sua experiência',
   },
   {
     id: 3,
     image: '/images/hero/slide-3.jpg',
-    title: 'Punctualidade & Discrição',
     subtitle: 'Serviço de aeroporto sem preocupações',
   },
   {
     id: 4,
     image: '/images/hero/slide-4.jpg',
-    title: 'Soluções Corporativas',
     subtitle: 'Transporte executivo para sua empresa',
   },
   {
     id: 5,
     image: '/images/hero/slide-5.jpg',
-    title: 'Sua Jornada, Nossa Excelência',
     subtitle: 'Excelência em cada trajeto',
   },
 ];
@@ -57,7 +52,7 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
-      {/* Background Slides */}
+      {/* Background Slides - Changes every 6s with Ken Burns effect */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -72,7 +67,7 @@ export function Hero() {
         >
           <img
             src={slides[currentSlide].image}
-            alt={slides[currentSlide].title}
+            alt="Hero background"
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -81,70 +76,67 @@ export function Hero() {
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-midnight/80 via-midnight/40 to-midnight/90" />
 
-      {/* Content */}
+      {/* Content - Animates only once on page load */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl"
+        <div className="max-w-4xl">
+          {/* Main Title - Fixed content, animates only on initial load */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-wider mb-2"
           >
-            {/* Main Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-wider mb-2"
-            >
-              Transporte
-            </motion.h1>
+            Transporte
+          </motion.h1>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-wider mb-6"
-            >
-              <span className="text-gradient-gold">Executivo</span>
-            </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-wider mb-6"
+          >
+            <span className="text-gradient-gold">Executivo</span>
+          </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide mb-10"
-            >
-              {slides[currentSlide].subtitle}
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => scrollToSection('#booking')}
+          {/* Subtitle - Changes with slide but without full re-animation */}
+          <div className="h-8 sm:h-10 mb-10 overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={currentSlide}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide"
               >
-                Reserve Agora
-              </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                onClick={() => scrollToSection('#fleet')}
-              >
-                Conheça a Frota
-              </Button>
-            </motion.div>
+                {slides[currentSlide].subtitle}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
+          {/* CTAs - Fixed, animates only on initial load */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => scrollToSection('#booking')}
+            >
+              Reserve Agora
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => scrollToSection('#fleet')}
+            >
+              Conheça a Frota
+            </Button>
           </motion.div>
-        </AnimatePresence>
+        </div>
 
         {/* Slide Indicators */}
         <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2">
