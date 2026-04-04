@@ -15,12 +15,12 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <BookingWidget />
         <Services />
         <Destinations />
         <WhyUs />
         <Testimonials />
         <Areas />
+        <BookingWidget />
       </main>
       <FloatingQuoteButton />
       <Footer />

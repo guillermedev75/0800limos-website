@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Container } from '../layout/Container';
+import { motion } from 'framer-motion';
+import { MapPin } from 'lucide-react';
 
 const destinations = [
   {
@@ -9,71 +7,49 @@ const destinations = [
     name: 'Mount Shasta',
     location: 'Northern California',
     image: '/images/destinations/mount-shasta.jpg',
-    description: 'Vistas deslumbrantes da montanha sagrada, perfeita para day trips e retiros espirituais.',
+    description: 'Vistas deslumbrantes da montanha sagrada, perfeita para day trips e retiros espirituais. Explore trilhas, cachoeiras e a energia única deste destino icônico.',
   },
   {
     id: 2,
     name: 'Parasailing',
     location: 'San Francisco Bay',
     image: '/images/destinations/parasailing.jpg',
-    description: 'Aventura sobre as águas da baía com vistas panorâmicas da cidade e Golden Gate.',
+    description: 'Aventura sobre as águas da baía com vistas panorâmicas da cidade e Golden Gate. Uma experiência única de adrenalina e paisagens deslumbrantes.',
   },
   {
     id: 3,
     name: 'Napa Valley Vineyards',
     location: 'Wine Country',
     image: '/images/destinations/vineyard.jpg',
-    description: 'Os mais renomados vinhedos da Califórnia. Tours exclusivos e degustações privadas.',
+    description: 'Os mais renomados vinhedos da Califórnia. Tours exclusivos e degustações privadas nas melhores adegas da região.',
   },
   {
     id: 4,
     name: 'Premium Wineries',
-    location: 'Sonoma & Napa',
+    location: 'Sonoma \u0026 Napa',
     image: '/images/destinations/winery.jpg',
-    description: 'Adegas históricas com arquitetura única e vinhos premiados.',
+    description: 'Adegas históricas com arquitetura única e vinhos premiados. Experiências gourmet e passeios exclusivos pelo mundo do vinho.',
   },
   {
     id: 5,
     name: 'Wine Tours',
     location: 'Bay Area',
     image: '/images/destinations/winery-tour.jpg',
-    description: 'Roteiros personalizados pelas melhores regiões vinícolas da Califórnia.',
+    description: 'Roteiros personalizados pelas melhores regiões vinícolas da Califórnia. Transporte luxuoso entre vinícolas selecionadas.',
   },
 ];
 
 export function Destinations() {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
-
-  const openLightbox = (index: number) => {
-    setSelectedImage(index);
-  };
-
-  const closeLightbox = () => {
-    setSelectedImage(null);
-  };
-
-  const nextImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % destinations.length);
-    }
-  };
-
-  const prevImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((selectedImage - 1 + destinations.length) % destinations.length);
-    }
-  };
-
   return (
-    <section id="destinations" className="py-24 bg-white">
-      <Container>
-        {/* Header */}
+    <section id="destinations" className="bg-white">
+      {/* Header */}
+      <div className="py-16 px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center max-w-3xl mx-auto"
         >
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
             Explore
@@ -82,137 +58,79 @@ export function Destinations() {
             Destinos Bay Area
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 text-lg">
             Descubra os lugares mais incríveis da Califórnia com o conforto e segurança da 0800 Limos.
           </p>
         </motion.div>
+      </div>
 
-        {/* Photo Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {destinations.map((dest, index) => (
+      {/* Destinos - Layout Scroll */}
+      <div className="space-y-0">
+        {destinations.map((dest, index) => {
+          const isEven = index % 2 === 0;
+          
+          return (
             <motion.div
               key={dest.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`group relative overflow-hidden rounded-lg cursor-pointer shadow-md hover:shadow-xl transition-shadow ${
-                index === 0 || index === 3 ? 'md:col-span-2 lg:col-span-2' : ''
-              }`}
-              onClick={() => openLightbox(index)}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="relative min-h-[70vh] md:min-h-[80vh] flex items-center"
             >
-              <div className={`relative ${index === 0 || index === 3 ? 'aspect-[16/9]' : 'aspect-square'}`}>
+              {/* Background Image - Full Width */}
+              <div className="absolute inset-0">
                 <img
                   src={dest.image}
                   alt={dest.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                 />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <div className="flex items-center gap-1 text-gold text-xs mb-1">
-                    <MapPin size={12} />
-                    <span>{dest.location}</span>
+                {/* Overlay gradiente sutil */}
+                <div className={`absolute inset-0 ${
+                  isEven 
+                    ? 'bg-gradient-to-r from-black/60 via-black/30 to-transparent' 
+                    : 'bg-gradient-to-l from-black/60 via-black/30 to-transparent'
+                }`} />
+              </div>
+
+              {/* Content Card */}
+              <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-12">
+                <div className={`max-w-xl ${isEven ? 'mr-auto' : 'ml-auto'}`}>
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-6 md:p-8 shadow-2xl">
+                    {/* Location tag */}
+                    <div className="flex items-center gap-2 text-gold mb-4">
+                      <MapPin size={18} />
+                      <span className="text-sm font-medium uppercase tracking-wider">{dest.location}</span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-display font-bold text-2xl md:text-3xl text-gray-900 uppercase tracking-wider mb-4">
+                      {dest.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      {dest.description}
+                    </p>
+
+                    {/* CTA */}
+                    <a
+                      href="#booking"
+                      className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                      style={{ backgroundColor: '#C9A961' }}
+                    >
+                      Reservar Tour
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
                   </div>
-                  <h3 className="font-display font-bold text-white uppercase tracking-wider text-sm md:text-base">
-                    {dest.name}
-                  </h3>
-                  <p className="text-white/70 text-xs mt-1 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {dest.description}
-                  </p>
                 </div>
-
-                {/* Hover border */}
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-gold/50 transition-colors rounded-lg" />
               </div>
             </motion.div>
-          ))}
-        </div>
-
-        {/* View All Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <p className="text-gray-500 text-sm">
-            Clique nas fotos para ver em tamanho maior
-          </p>
-        </motion.div>
-      </Container>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-gray-900/95 flex items-center justify-center p-4"
-            onClick={closeLightbox}
-          >
-            {/* Close button */}
-            <button
-              onClick={closeLightbox}
-              className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-10"
-            >
-              <X size={32} />
-            </button>
-
-            {/* Previous button */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10 p-2"
-            >
-              <ChevronLeft size={40} />
-            </button>
-
-            {/* Next button */}
-            <button
-              onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors z-10 p-2"
-            >
-              <ChevronRight size={40} />
-            </button>
-
-            {/* Image container */}
-            <motion.div
-              key={selectedImage}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              className="max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={destinations[selectedImage].image}
-                alt={destinations[selectedImage].name}
-                className="w-full max-h-[70vh] object-contain rounded-lg"
-              />
-              <div className="text-center mt-4">
-                <h3 className="font-display font-bold text-white text-xl uppercase tracking-wider">
-                  {destinations[selectedImage].name}
-                </h3>
-                <p className="text-gold text-sm mt-1">
-                  {destinations[selectedImage].location}
-                </p>
-                <p className="text-gray-300 text-sm mt-2 max-w-xl mx-auto">
-                  {destinations[selectedImage].description}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Image counter */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
-              {selectedImage + 1} / {destinations.length}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          );
+        })}
+      </div>
     </section>
   );
 }

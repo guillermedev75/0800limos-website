@@ -14,10 +14,10 @@ export function BookingWidget() {
           className="text-center mb-12"
         >
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
-            Reservas
+            Contato
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
-            Reserve Sua Viagem
+            Entre em Contato
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
