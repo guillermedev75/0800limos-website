@@ -15,7 +15,7 @@ export default {
     slides: [
       { subtitle: 'BMW Série 7 - Elegância alemã em cada detalhe' },
       { subtitle: 'Mercedes S-Class - O padrão do luxo' },
-      { subtitle: 'Cadillac CTS - Sofisticação americana' },
+      { subtitle: 'Cadillac CTS - Sedans compatíveis' },
       { subtitle: 'Cadillac Escalade - Presença imponente' },
       { subtitle: 'Mercedes Sprinter - Conforto para grupos' },
       { subtitle: 'Frota completa para eventos corporativos' },
@@ -30,12 +30,12 @@ export default {
       airport: {
         title: 'Airport Transfers',
         description: 'Serviço de transfer para os principais aeroportos da região com monitoramento de voos em tempo real. Atendemos FBOs e aviação privada.',
-        features: ['SFO, OAK, SJC, STS', 'FBOs - Aviação Privada', 'Flight tracking', 'Meet & Greet'],
+        features: ['SFO, OAK, SJC, STS, MRY', 'FBOs - Aviação Privada', 'Flight tracking', 'Meet & Greet (opcional)', 'TARMAC where available'],
       },
       fbo: {
         title: 'FBOs & Private Aviation',
         description: 'Serviço especializado para FBOs (Fixed Base Operators) na Bay Area. Transporte executivo para aviação privada e corporativa.',
-        features: ['Bay Area FBOs', 'STS Airport', 'Private terminals', 'Discrete service'],
+        features: ['Bay Area FBOs', 'Private terminals', 'Discrete service', 'TARMAC where available'],
       },
       corporate: {
         title: 'Corporate Travel',
