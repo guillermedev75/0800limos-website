@@ -69,11 +69,6 @@ export default {
         location: 'San Francisco Bay',
         description: 'Adventure over the bay waters with panoramic views of the city and Golden Gate. A unique experience of adrenaline and stunning landscapes.',
       },
-      vineyard: {
-        name: 'Napa Valley Vineyards',
-        location: 'Wine Country',
-        description: 'The most renowned vineyards in California. Exclusive tours and private tastings at the best wineries in the region.',
-      },
       winery: {
         name: 'Premium Wineries',
         location: 'Sonoma & Napa',

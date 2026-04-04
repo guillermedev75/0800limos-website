@@ -5,9 +5,8 @@ import { useTranslation } from 'react-i18next';
 const getDestinations = () => [
   { id: 1, key: 'shasta', image: '/images/destinations/mount-shasta.jpg' },
   { id: 2, key: 'parasailing', image: '/images/destinations/parasailing.jpg' },
-  { id: 3, key: 'vineyard', image: '/images/destinations/vineyard.jpg' },
-  { id: 4, key: 'winery', image: '/images/destinations/winery.jpg' },
-  { id: 5, key: 'tours', image: '/images/destinations/winery-tour.jpg' },
+  { id: 3, key: 'winery', image: '/images/destinations/winery.jpg' },
+  { id: 4, key: 'tours', image: '/images/destinations/winery-tour.jpg' },
 ];
 
 export function Destinations() {
