@@ -6,28 +6,33 @@ import { Button } from '../ui/Button';
 const slides = [
   {
     id: 1,
-    image: '/images/hero/slide-1.jpg',
-    subtitle: 'Sua jornada de luxo começa aqui',
+    image: '/images/hero/slide-1-bmw-serie7.jpg',
+    subtitle: 'BMW Série 7 - Elegância alemã em cada detalhe',
   },
   {
     id: 2,
-    image: '/images/hero/slide-2.jpg',
-    subtitle: 'Interiores premium para sua experiência',
+    image: '/images/hero/slide-2-mercedes-sclass.webp',
+    subtitle: 'Mercedes S-Class - O padrão do luxo',
   },
   {
     id: 3,
-    image: '/images/hero/slide-3.jpg',
-    subtitle: 'Serviço de aeroporto sem preocupações',
+    image: '/images/hero/slide-3-cadillac-cts.jpg',
+    subtitle: 'Cadillac CTS - Sofisticação americana',
   },
   {
     id: 4,
-    image: '/images/hero/slide-4.jpg',
-    subtitle: 'Transporte executivo para sua empresa',
+    image: '/images/hero/slide-4-escalade.jpg',
+    subtitle: 'Cadillac Escalade - Presença imponente',
   },
   {
     id: 5,
-    image: '/images/hero/slide-5.jpg',
-    subtitle: 'Excelência em cada trajeto',
+    image: '/images/hero/slide-5-sprinter.jpg',
+    subtitle: 'Mercedes Sprinter - Conforto para grupos',
+  },
+  {
+    id: 6,
+    image: '/images/hero/slide-6-sprinters.jpg',
+    subtitle: 'Frota completa para eventos corporativos',
   },
 ];
 
@@ -131,9 +136,9 @@ export function Hero() {
             <Button
               variant="secondary"
               size="lg"
-              onClick={() => scrollToSection('#fleet')}
+              onClick={() => scrollToSection('#destinations')}
             >
-              Conheça a Frota
+              Explore a Bay Area
             </Button>
           </motion.div>
         </div>
