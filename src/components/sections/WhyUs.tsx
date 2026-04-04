@@ -35,11 +35,11 @@ const differentials = [
 
 export function WhyUs() {
   return (
-    <section className="py-24 bg-midnight relative overflow-hidden">
+    <section className="py-24 bg-gray-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, #C9A961 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
       </div>
@@ -56,7 +56,7 @@ export function WhyUs() {
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
             Por Que Escolher
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-wider mt-4 mb-6">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
             0800 Limos
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
@@ -73,22 +73,22 @@ export function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center group"
+                className="text-center group bg-white p-6 rounded-lg border border-gray-200 hover:border-gold/50 transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg"
               >
                 <div className="relative mb-6">
                   <div className="w-20 h-20 mx-auto bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-all duration-300 group-hover:scale-110">
                     <Icon className="text-gold" size={32} />
                   </div>
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-success text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
                     {item.stats}
                   </div>
                 </div>
 
-                <h3 className="font-display font-bold text-xl text-white uppercase tracking-wider mb-3">
+                <h3 className="font-display font-bold text-xl text-gray-900 uppercase tracking-wider mb-3">
                   {item.title}
                 </h3>
 
-                <p className="text-soft-silver leading-relaxed">
+                <p className="text-gray-600 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>

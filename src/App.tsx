@@ -10,7 +10,7 @@ import { Areas } from './components/sections/Areas';
 
 function App() {
   return (
-    <div className="min-h-screen bg-midnight">
+    <div className="min-h-screen bg-white">
       <Header />
       <main>
         <Hero />

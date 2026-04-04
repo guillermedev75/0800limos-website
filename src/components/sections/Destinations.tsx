@@ -65,7 +65,7 @@ export function Destinations() {
   };
 
   return (
-    <section id="destinations" className="py-24 bg-charcoal">
+    <section id="destinations" className="py-24 bg-white">
       <Container>
         {/* Header */}
         <motion.div
@@ -78,11 +78,11 @@ export function Destinations() {
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
             Explore
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-wider mt-4 mb-6">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
             Destinos Bay Area
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
-          <p className="text-soft-silver max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto">
             Descubra os lugares mais incríveis da Califórnia com o conforto e segurança da 0800 Limos.
           </p>
         </motion.div>
@@ -96,7 +96,7 @@ export function Destinations() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`group relative overflow-hidden rounded-lg cursor-pointer ${
+              className={`group relative overflow-hidden rounded-lg cursor-pointer shadow-md hover:shadow-xl transition-shadow ${
                 index === 0 || index === 3 ? 'md:col-span-2 lg:col-span-2' : ''
               }`}
               onClick={() => openLightbox(index)}
@@ -108,7 +108,7 @@ export function Destinations() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
                 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -138,7 +138,7 @@ export function Destinations() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <p className="text-soft-silver text-sm">
+          <p className="text-gray-500 text-sm">
             Clique nas fotos para ver em tamanho maior
           </p>
         </motion.div>
@@ -151,7 +151,7 @@ export function Destinations() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-midnight/95 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-gray-900/95 flex items-center justify-center p-4"
             onClick={closeLightbox}
           >
             {/* Close button */}
@@ -200,7 +200,7 @@ export function Destinations() {
                 <p className="text-gold text-sm mt-1">
                   {destinations[selectedImage].location}
                 </p>
-                <p className="text-soft-silver text-sm mt-2 max-w-xl mx-auto">
+                <p className="text-gray-300 text-sm mt-2 max-w-xl mx-auto">
                   {destinations[selectedImage].description}
                 </p>
               </div>

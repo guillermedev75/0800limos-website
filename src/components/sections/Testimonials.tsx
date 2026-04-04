@@ -46,7 +46,7 @@ export function Testimonials() {
   };
 
   return (
-    <section className="py-24 bg-charcoal relative overflow-hidden">
+    <section className="py-24 bg-gray-100 relative overflow-hidden">
       <Container>
         {/* Header */}
         <motion.div
@@ -59,7 +59,7 @@ export function Testimonials() {
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
             Depoimentos
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-wider mt-4 mb-6">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
             O Que Dizem Nossos Clientes
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
@@ -67,7 +67,7 @@ export function Testimonials() {
 
         {/* Testimonial Carousel */}
         <div className="max-w-4xl mx-auto relative">
-          <div className="bg-midnight rounded-2xl p-8 md:p-12 border border-white/10 relative">
+          <div className="bg-white rounded-2xl p-8 md:p-12 border border-gray-200 relative shadow-lg">
             <Quote className="absolute top-6 left-6 text-gold/20" size={64} />
 
             <AnimatePresence mode="wait">
@@ -87,16 +87,16 @@ export function Testimonials() {
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-xl md:text-2xl text-white font-light italic mb-8 leading-relaxed">
+                <blockquote className="text-xl md:text-2xl text-gray-800 font-light italic mb-8 leading-relaxed">
                   "{testimonials[current].content}"
                 </blockquote>
 
                 {/* Author */}
                 <div>
-                  <p className="font-display font-bold text-lg text-gold">
+                  <p className="font-display font-bold text-lg text-gray-900">
                     {testimonials[current].name}
                   </p>
-                  <p className="text-soft-silver">
+                  <p className="text-gray-600">
                     {testimonials[current].role}
                   </p>
                 </div>
@@ -107,7 +107,7 @@ export function Testimonials() {
             <div className="flex justify-center items-center gap-4 mt-8">
               <button
                 onClick={prev}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
+                className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gold hover:text-gold transition-colors"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft size={24} />
@@ -119,7 +119,7 @@ export function Testimonials() {
                     key={index}
                     onClick={() => setCurrent(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === current ? 'bg-gold w-6' : 'bg-white/30 hover:bg-white/50'
+                      index === current ? 'bg-gold w-6' : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -128,7 +128,7 @@ export function Testimonials() {
 
               <button
                 onClick={next}
-                className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
+                className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gold hover:text-gold transition-colors"
                 aria-label="Next testimonial"
               >
                 <ChevronRight size={24} />

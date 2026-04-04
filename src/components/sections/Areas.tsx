@@ -43,7 +43,7 @@ const areas = [
 
 export function Areas() {
   return (
-    <section id="areas" className="py-24 bg-midnight">
+    <section id="areas" className="py-24 bg-gray-50">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -56,26 +56,26 @@ export function Areas() {
             <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
               Região de Atuação
             </span>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white uppercase tracking-wider mt-4 mb-6">
+            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
               Áreas Atendidas
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-gold to-transparent mb-6"></div>
             
-            <p className="text-soft-silver text-lg mb-8 leading-relaxed">
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Cobrimos toda a região da Baía de São Francisco e áreas circundantes, 
               oferecendo serviço de transporte premium onde quer que você precise ir.
             </p>
 
-            <div className="bg-charcoal/50 rounded-lg p-6 border border-white/10">
-              <h4 className="font-display font-semibold text-white uppercase tracking-wider mb-4">
+            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+              <h4 className="font-display font-semibold text-gray-900 uppercase tracking-wider mb-4">
                 Precisa de um destino diferente?
               </h4>
-              <p className="text-soft-silver mb-4">
+              <p className="text-gray-600 mb-4">
                 Entre em contato conosco para verificar disponibilidade em outras regiões da Califórnia.
               </p>
               <a
                 href="tel:6506669333"
-                className="inline-flex items-center gap-2 text-gold hover:text-white transition-colors font-semibold"
+                className="inline-flex items-center gap-2 text-gold hover:text-gray-900 transition-colors font-semibold"
               >
                 Ligar agora
                 <ArrowRight size={18} />
@@ -92,16 +92,16 @@ export function Areas() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-charcoal/30 border border-white/10 rounded-lg overflow-hidden hover:border-gold/50 transition-all duration-300"
+                className="group relative bg-white border border-gray-200 rounded-lg overflow-hidden hover:border-gold/50 transition-all duration-300 shadow-sm hover:shadow-lg"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <img
                     src={area.image}
                     alt={area.name}
-                    className="w-full h-full object-cover opacity-40 group-hover:opacity-30 group-hover:scale-110 transition-all duration-500"
+                    className="w-full h-full object-cover opacity-30 group-hover:opacity-20 group-hover:scale-110 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/80 to-midnight/40"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900/40"></div>
                 </div>
                 
                 {/* Content */}
@@ -114,7 +114,7 @@ export function Areas() {
                       <h4 className="font-display font-bold text-white uppercase tracking-wider mb-1">
                         {area.name}
                       </h4>
-                      <p className="text-soft-silver text-sm">
+                      <p className="text-white/80 text-sm">
                         {area.description}
                       </p>
                     </div>

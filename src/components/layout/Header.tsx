@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X } from 'lucide-react';
+import { Phone, Menu, X, MessageCircle } from 'lucide-react';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useMobileMenu } from '../../hooks/useMobileMenu';
 import { Container } from './Container';
@@ -8,7 +8,7 @@ import { Button } from '../ui/Button';
 const navLinks = [
   { name: 'Home', href: '#hero' },
   { name: 'Serviços', href: '#services' },
-  { name: 'Frota', href: '#fleet' },
+  { name: 'Destinos', href: '#destinations' },
   { name: 'Áreas', href: '#areas' },
   { name: 'Contato', href: '#footer' },
 ];
@@ -32,7 +32,9 @@ export function Header() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass-header py-3' : 'bg-transparent py-5'
+          isScrolled 
+            ? 'bg-white shadow-md py-3' 
+            : 'bg-white/90 backdrop-blur-sm py-4'
         }`}
       >
         <Container>
@@ -47,7 +49,7 @@ export function Header() {
               className="flex items-center gap-2 group"
             >
               <div className="text-2xl font-display font-bold tracking-wider">
-                <span className="text-white group-hover:text-gold transition-colors">0800</span>
+                <span className="text-gray-900 group-hover:text-gold transition-colors">0800</span>
                 <span className="text-gold">LIMOS</span>
               </div>
             </a>
@@ -62,7 +64,7 @@ export function Header() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-sm font-medium text-white/80 hover:text-gold transition-colors uppercase tracking-wider"
+                  className="text-sm font-medium text-gray-600 hover:text-gold transition-colors uppercase tracking-wider"
                 >
                   {link.name}
                 </a>
@@ -72,8 +74,17 @@ export function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-4">
               <a
+                href="https://wa.me/16506669333"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle size={20} />
+              </a>
+              <a
                 href="tel:6506669333"
-                className="flex items-center gap-2 text-white hover:text-gold transition-colors"
+                className="flex items-center gap-2 text-gray-900 hover:text-gold transition-colors"
               >
                 <Phone size={18} />
                 <span className="font-medium">650-666-9333</span>
@@ -90,7 +101,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggle}
-              className="lg:hidden text-white p-2"
+              className="lg:hidden text-gray-900 p-2"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -107,7 +118,7 @@ export function Header() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-0 z-40 bg-midnight lg:hidden"
+            className="fixed inset-0 z-40 bg-white lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, index) => (
@@ -121,7 +132,7 @@ export function Header() {
                     e.preventDefault();
                     scrollToSection(link.href);
                   }}
-                  className="text-2xl font-display font-semibold text-white hover:text-gold transition-colors uppercase tracking-wider"
+                  className="text-2xl font-display font-semibold text-gray-900 hover:text-gold transition-colors uppercase tracking-wider"
                 >
                   {link.name}
                 </motion.a>
@@ -132,6 +143,15 @@ export function Header() {
                 transition={{ delay: navLinks.length * 0.1 }}
                 className="flex flex-col items-center gap-4 mt-8"
               >
+                <a
+                  href="https://wa.me/16506669333"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-green-600"
+                >
+                  <MessageCircle size={24} />
+                  <span className="font-medium">WhatsApp</span>
+                </a>
                 <a
                   href="tel:6506669333"
                   className="flex items-center gap-2 text-gold"
