@@ -31,10 +31,10 @@ export function FloatingQuoteButton() {
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`shadow-lg flex items-center justify-center gap-2 px-6 py-3 rounded-full transition-all duration-300 ${
+          className={`shadow-lg flex items-center justify-center rounded-full transition-all duration-300 ${
             isOpen 
-              ? 'bg-gray-800 w-12 h-12 p-0' 
-              : 'bg-gold hover:bg-gold-hover hover:scale-105'
+              ? 'bg-gray-800 w-12 h-12 hover:bg-gray-700' 
+              : 'bg-gold hover:bg-gold-hover hover:scale-105 px-6 py-3'
           }`}
           style={{ 
             backgroundColor: isOpen ? '#1f2937' : '#C9A961',
@@ -42,11 +42,9 @@ export function FloatingQuoteButton() {
           aria-label={isOpen ? 'Fechar' : t('floatingButton.label')}
         >
           {isOpen ? (
-            <X size={24} className="text-white" />
+            <X size={24} className="text-white" strokeWidth={3} />
           ) : (
-            <>
-              <span className="text-white font-bold text-sm">{t('floatingButton.label')}</span>
-            </>
+            <span className="text-white font-bold text-sm whitespace-nowrap">{t('floatingButton.label')}</span>
           )}
         </button>
 

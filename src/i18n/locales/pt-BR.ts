@@ -179,7 +179,7 @@ export default {
     tagline: 'Transporte Executivo Premium',
   },
   floatingButton: {
-    label: 'Get a Quote',
+    label: 'Solicitar Orçamento',
     menuTitle: 'Como podemos ajudar?',
     options: {
       online: { title: 'Reservar Online', subtitle: 'Sistema Moovs' },
