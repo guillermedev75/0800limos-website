@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, X, Phone, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export function FloatingQuoteButton() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Só mostrar o botão após scrollar um pouco
     const handleScroll = () => {
       setIsVisible(window.scrollY > 300);
     };
@@ -18,7 +19,6 @@ export function FloatingQuoteButton() {
 
   return (
     <>
-      {/* Botão Principal Flutuante */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
         animate={{ 
@@ -39,18 +39,17 @@ export function FloatingQuoteButton() {
           style={{ 
             backgroundColor: isOpen ? '#1f2937' : '#C9A961',
           }}
-          aria-label={isOpen ? 'Fechar' : 'Get a quote'}
+          aria-label={isOpen ? 'Fechar' : t('floatingButton.label')}
         >
           {isOpen ? (
             <X size={24} className="text-white" />
           ) : (
             <>
-              <span className="text-white font-bold text-sm">Get a Quote</span>
+              <span className="text-white font-bold text-sm">{t('floatingButton.label')}</span>
             </>
           )}
         </button>
 
-        {/* Menu de Opções */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -61,7 +60,7 @@ export function FloatingQuoteButton() {
               className="absolute bottom-16 right-0 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden min-w-[240px]"
             >
               <div className="p-4 border-b border-gray-100">
-                <p className="text-gray-900 font-semibold text-center">Como podemos ajudar?</p>
+                <p className="text-gray-900 font-semibold text-center">{t('floatingButton.menuTitle')}</p>
               </div>
               
               <div className="p-2">
@@ -75,8 +74,8 @@ export function FloatingQuoteButton() {
                     <ExternalLink size={18} className="text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-900 font-medium">Reservar Online</p>
-                    <p className="text-gray-500 text-xs">Sistema Moovs</p>
+                    <p className="text-gray-900 font-medium">{t('floatingButton.options.online.title')}</p>
+                    <p className="text-gray-500 text-xs">{t('floatingButton.options.online.subtitle')}</p>
                   </div>
                 </a>
 
@@ -90,8 +89,8 @@ export function FloatingQuoteButton() {
                     <MessageCircle size={18} className="text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-900 font-medium">WhatsApp</p>
-                    <p className="text-gray-500 text-xs">Resposta rápida</p>
+                    <p className="text-gray-900 font-medium">{t('floatingButton.options.whatsapp.title')}</p>
+                    <p className="text-gray-500 text-xs">{t('floatingButton.options.whatsapp.subtitle')}</p>
                   </div>
                 </a>
 
@@ -103,8 +102,8 @@ export function FloatingQuoteButton() {
                     <Phone size={18} className="text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-900 font-medium">Ligar Agora</p>
-                    <p className="text-gray-500 text-xs">650-666-9333</p>
+                    <p className="text-gray-900 font-medium">{t('floatingButton.options.call.title')}</p>
+                    <p className="text-gray-500 text-xs">{t('floatingButton.options.call.subtitle')}</p>
                   </div>
                 </a>
               </div>

@@ -1,51 +1,46 @@
 import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Container } from './Container';
 
-const footerLinks = {
-  services: [
-    { name: 'Airport Transfers', href: '#services' },
-    { name: 'Corporate Travel', href: '#services' },
-    { name: 'Special Occasions', href: '#services' },
-    { name: 'Wine Tours', href: '#services' },
-  ],
-  destinations: [
-    { name: 'Mount Shasta', href: '#destinations' },
-    { name: 'Napa Valley', href: '#destinations' },
-    { name: 'Sonoma', href: '#destinations' },
-    { name: 'San Francisco', href: '#destinations' },
-  ],
-  company: [
-    { name: 'About Us', href: '#' },
-    { name: 'Careers', href: '#' },
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Terms of Service', href: '#' },
-  ],
-};
-
 export function Footer() {
+  const { t } = useTranslation();
+
+  const serviceLinks = [
+    { name: t('services.items.airport.title'), href: '#services' },
+    { name: t('services.items.corporate.title'), href: '#services' },
+    { name: t('services.items.special.title'), href: '#services' },
+    { name: t('services.items.wine.title'), href: '#services' },
+  ];
+
+  const destinationLinks = [
+    { name: t('destinations.items.shasta.name'), href: '#destinations' },
+    { name: t('destinations.items.vineyard.name'), href: '#destinations' },
+    { name: t('destinations.items.winery.name'), href: '#destinations' },
+    { name: 'San Francisco', href: '#destinations' },
+  ];
+
   return (
     <footer id="footer" className="bg-gray-100 border-t border-gray-200">
       <Container>
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <div className="text-3xl font-display font-bold tracking-wider mb-4">
               <span className="text-gray-900">0800</span>
               <span className="text-gold">LIMOS</span>
             </div>
-            <p className="text-gray-600 mb-6 max-w-sm">
-              Professional transportation services in the San Francisco Bay Area. 
-              Experience luxury, comfort, and reliability with our premium fleet.
+            <p className="text-gray-600 mb-6">
+              {t('footer.brand')}
             </p>
           </div>
 
           {/* Services */}
           <div>
             <h4 className="font-display font-semibold text-gray-900 uppercase tracking-wider mb-4">
-              Serviços
+              {t('footer.links.services')}
             </h4>
             <ul className="space-y-2">
-              {footerLinks.services.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -61,10 +56,10 @@ export function Footer() {
           {/* Destinations */}
           <div>
             <h4 className="font-display font-semibold text-gray-900 uppercase tracking-wider mb-4">
-              Destinos
+              {t('footer.links.destinations')}
             </h4>
             <ul className="space-y-2">
-              {footerLinks.destinations.map((link) => (
+              {destinationLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -80,7 +75,7 @@ export function Footer() {
           {/* Contact */}
           <div>
             <h4 className="font-display font-semibold text-gray-900 uppercase tracking-wider mb-4">
-              Contato
+              {t('footer.links.contact')}
             </h4>
             <ul className="space-y-3">
               <li>
@@ -123,10 +118,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="py-6 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm">
-            © 2026 0800 Limos. All rights reserved.
+            {t('footer.copyright')}
           </p>
           <p className="text-gray-500 text-sm">
-            Transporte Executivo Premium
+            {t('footer.tagline')}
           </p>
         </div>
       </Container>

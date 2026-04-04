@@ -1,21 +1,24 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, MessageCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useMobileMenu } from '../../hooks/useMobileMenu';
 import { Container } from './Container';
 import { Button } from '../ui/Button';
-
-const navLinks = [
-  { name: 'Home', href: '#hero' },
-  { name: 'Serviços', href: '#services' },
-  { name: 'Destinos', href: '#destinations' },
-  { name: 'Áreas', href: '#areas' },
-  { name: 'Contato', href: '#booking' },
-];
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 export function Header() {
+  const { t } = useTranslation();
   const { isScrolled } = useScrollPosition();
   const { isOpen, toggle, close } = useMobileMenu();
+
+  const navLinks = [
+    { name: t('header.nav.home'), href: '#hero' },
+    { name: t('header.nav.services'), href: '#services' },
+    { name: t('header.nav.destinations'), href: '#destinations' },
+    { name: t('header.nav.areas'), href: '#areas' },
+    { name: t('header.nav.contact'), href: '#booking' },
+  ];
 
   const scrollToSection = (href: string) => {
     close();
@@ -38,7 +41,7 @@ export function Header() {
         }`}
       >
         <Container>
-          <div className="flex items-center justify-between">
+          <div className="grid grid-cols-3 items-center">
             {/* Logo */}
             <a
               href="#hero"
@@ -46,7 +49,7 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection('#hero');
               }}
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-2 group justify-self-start"
             >
               <div className="text-2xl font-display font-bold tracking-wider">
                 <span className="text-gray-900 group-hover:text-gold transition-colors">0800</span>
@@ -54,8 +57,8 @@ export function Header() {
               </div>
             </a>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
+            {/* Desktop Navigation - Centered */}
+            <nav className="hidden lg:flex items-center justify-center gap-8">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -72,7 +75,8 @@ export function Header() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4 justify-self-end">
+              <LanguageSwitcher />
               <a
                 href="https://wa.me/16506669333"
                 target="_blank"
@@ -94,14 +98,14 @@ export function Header() {
                 size="sm"
                 onClick={() => scrollToSection('#booking')}
               >
-                Reserve Já
+                {t('header.cta')}
               </Button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggle}
-              className="lg:hidden text-gray-900 p-2"
+              className="lg:hidden text-gray-900 p-2 justify-self-end"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -121,6 +125,9 @@ export function Header() {
             className="fixed inset-0 z-40 bg-white lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
+              <div className="mb-4">
+                <LanguageSwitcher />
+              </div>
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
@@ -160,7 +167,7 @@ export function Header() {
                   <span className="font-medium">650-666-9333</span>
                 </a>
                 <Button variant="primary" onClick={() => scrollToSection('#booking')}>
-                  Reserve Já
+                  {t('header.cta')}
                 </Button>
               </motion.div>
             </div>

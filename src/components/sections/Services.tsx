@@ -1,51 +1,45 @@
 import { motion } from 'framer-motion';
 import { Plane, Briefcase, Sparkles, Grape, Building2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Container } from '../layout/Container';
 
-const services = [
+const getServices = () => [
   {
     id: 1,
     icon: Plane,
-    title: 'Airport Transfers',
-    description: 'Serviço de transfer para os principais aeroportos da região com monitoramento de voos em tempo real. Atendemos FBOs e aviação privada.',
-    features: ['SFO, OAK, SJC, STS', 'FBOs - Aviação Privada', 'Flight tracking', 'Meet & Greet'],
+    key: 'airport',
     image: '/images/services/airport.jpg',
   },
   {
     id: 2,
     icon: Building2,
-    title: 'FBOs & Private Aviation',
-    description: 'Serviço especializado para FBOs (Fixed Base Operators) na Bay Area. Transporte executivo para aviação privada e corporativa.',
-    features: ['Bay Area FBOs', 'STS Airport', 'Private terminals', 'Discrete service'],
+    key: 'fbo',
     image: '/images/services/corporate.jpg',
   },
   {
     id: 3,
     icon: Briefcase,
-    title: 'Corporate Travel',
-    description: 'Soluções de transporte executivo para reuniões de negócios, road shows e eventos corporativos.',
-    features: ['Business meetings', 'Road shows', 'Executive transport'],
+    key: 'corporate',
     image: '/images/services/corporate.jpg',
   },
   {
     id: 4,
     icon: Sparkles,
-    title: 'Special Occasions',
-    description: 'Torne momentos especiais ainda mais memoráveis com nosso serviço de luxo personalizado.',
-    features: ['Weddings', 'Anniversaries', 'Nights out'],
+    key: 'special',
     image: '/images/services/wedding.jpg',
   },
   {
     id: 5,
     icon: Grape,
-    title: 'Wine Tours',
-    description: 'Passeios exclusivos pelas melhores vinícolas da Califórnia com conforto e sofisticação.',
-    features: ['Napa Valley', 'Sonoma', 'Custom tours'],
+    key: 'wine',
     image: '/images/services/wine-tour.jpg',
   },
 ];
 
 export function Services() {
+  const { t } = useTranslation();
+  const services = getServices();
+
   return (
     <section id="services" className="py-24 bg-gray-50">
       <Container>
@@ -58,10 +52,10 @@ export function Services() {
           className="text-center mb-16"
         >
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
-            Nossos Serviços
+            {t('services.label')}
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 uppercase tracking-wider mt-4 mb-6">
-            Experiência Premium
+            {t('services.title')}
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
         </motion.div>
@@ -70,6 +64,8 @@ export function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
+            const features = t(`services.items.${service.key}.features`, { returnObjects: true }) as string[];
+            
             return (
               <motion.div
                 key={service.id}
@@ -84,16 +80,16 @@ export function Services() {
                 </div>
 
                 <h3 className="font-display font-bold text-xl text-gray-900 uppercase tracking-wider mb-4">
-                  {service.title}
+                  {t(`services.items.${service.key}.title`)}
                 </h3>
 
                 <p className="text-gray-600 mb-6 leading-relaxed">
-                  {service.description}
+                  {t(`services.items.${service.key}.description`)}
                 </p>
 
                 <ul className="space-y-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-gray-700">
+                  {features.map((feature: string, idx: number) => (
+                    <li key={idx} className="flex items-center gap-2 text-gray-700">
                       <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
                       {feature}
                     </li>

@@ -1,47 +1,26 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '../ui/Button';
 
-const slides = [
-  {
-    id: 1,
-    image: '/images/hero/slide-1-bmw-serie7.jpg',
-    subtitle: 'BMW Série 7 - Elegância alemã em cada detalhe',
-  },
-  {
-    id: 2,
-    image: '/images/hero/slide-2-mercedes-sclass.webp',
-    subtitle: 'Mercedes S-Class - O padrão do luxo',
-  },
-  {
-    id: 3,
-    image: '/images/hero/slide-3-cadillac-cts.jpg',
-    subtitle: 'Cadillac CTS - Sofisticação americana',
-  },
-  {
-    id: 4,
-    image: '/images/hero/slide-4-escalade.jpg',
-    subtitle: 'Cadillac Escalade - Presença imponente',
-  },
-  {
-    id: 5,
-    image: '/images/hero/slide-5-sprinter.jpg',
-    subtitle: 'Mercedes Sprinter - Conforto para grupos',
-  },
-  {
-    id: 6,
-    image: '/images/hero/slide-6-sprinters.jpg',
-    subtitle: 'Frota completa para eventos corporativos',
-  },
+const getSlides = (t: (key: string) => string) => [
+  { id: 1, image: '/images/hero/slide-1-bmw-serie7.jpg', subtitle: t('hero.slides.0.subtitle') },
+  { id: 2, image: '/images/hero/slide-2-mercedes-sclass.webp', subtitle: t('hero.slides.1.subtitle') },
+  { id: 3, image: '/images/hero/slide-3-cadillac-cts.jpg', subtitle: t('hero.slides.2.subtitle') },
+  { id: 4, image: '/images/hero/slide-4-escalade.jpg', subtitle: t('hero.slides.3.subtitle') },
+  { id: 5, image: '/images/hero/slide-5-sprinter.jpg', subtitle: t('hero.slides.4.subtitle') },
+  { id: 6, image: '/images/hero/slide-6-sprinters.jpg', subtitle: t('hero.slides.5.subtitle') },
 ];
 
 export function Hero() {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = getSlides(t);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  }, []);
+  }, [slides.length]);
 
   useEffect(() => {
     const timer = setInterval(nextSlide, 6000);
@@ -57,7 +36,7 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
-      {/* Background Slides - Changes every 6s with Ken Burns effect */}
+      {/* Background Slides */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
@@ -79,19 +58,18 @@ export function Hero() {
       </AnimatePresence>
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-midnight/80 via-midnight/40 to-midnight/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
 
-      {/* Content - Animates only once on page load */}
+      {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
         <div className="max-w-4xl">
-          {/* Main Title - Fixed content, animates only on initial load */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
             className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white uppercase tracking-wider mb-2"
           >
-            Transporte
+            {t('hero.title')}
           </motion.h1>
 
           <motion.h1
@@ -100,10 +78,9 @@ export function Hero() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl uppercase tracking-wider mb-6"
           >
-            <span className="text-gradient-gold">Executivo</span>
+            <span className="text-gradient-gold">{t('hero.titleHighlight')}</span>
           </motion.h1>
 
-          {/* Subtitle - Changes with slide but without full re-animation */}
           <div className="h-8 sm:h-10 mb-10 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.p
@@ -119,7 +96,6 @@ export function Hero() {
             </AnimatePresence>
           </div>
 
-          {/* CTAs - Fixed, animates only on initial load */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,14 +107,14 @@ export function Hero() {
               size="lg"
               onClick={() => scrollToSection('#booking')}
             >
-              Reserve Agora
+              {t('hero.ctaPrimary')}
             </Button>
             <Button
               variant="secondary"
               size="lg"
               onClick={() => scrollToSection('#destinations')}
             >
-              Explore a Bay Area
+              {t('hero.ctaSecondary')}
             </Button>
           </motion.div>
         </div>
