@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'Serviços', href: '#services' },
   { name: 'Destinos', href: '#destinations' },
   { name: 'Áreas', href: '#areas' },
-  { name: 'Contato', href: '#footer' },
+  { name: 'Contato', href: '#booking' },
 ];
 
 export function Header() {
