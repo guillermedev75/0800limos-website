@@ -31,10 +31,10 @@ export function FloatingQuoteButton() {
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
+          className={`shadow-lg flex items-center justify-center gap-2 px-6 py-3 rounded-full transition-all duration-300 ${
             isOpen 
-              ? 'bg-gray-800 rotate-45' 
-              : 'bg-gold hover:bg-gold-hover hover:scale-110'
+              ? 'bg-gray-800 w-12 h-12 p-0' 
+              : 'bg-gold hover:bg-gold-hover hover:scale-105'
           }`}
           style={{ 
             backgroundColor: isOpen ? '#1f2937' : '#C9A961',
@@ -44,7 +44,9 @@ export function FloatingQuoteButton() {
           {isOpen ? (
             <X size={24} className="text-white" />
           ) : (
-            <span className="text-white font-bold text-sm">Get a Quote</span>
+            <>
+              <span className="text-white font-bold text-sm">Get a Quote</span>
+            </>
           )}
         </button>
 
