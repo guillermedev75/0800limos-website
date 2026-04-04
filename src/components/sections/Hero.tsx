@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../ui/Button';
 
 const getSlides = (t: (key: string) => string) => [
   { id: 1, image: '/images/hero/slide-1-bmw-serie7.jpg', subtitle: t('hero.slides.0.subtitle') },
-  { id: 2, image: '/images/hero/slide-2-mercedes-sclass.webp', subtitle: t('hero.slides.1.subtitle') },
+  { id: 2, image: '/images/hero/slide-2-mercedes-sclass.jpg', subtitle: t('hero.slides.1.subtitle') },
   { id: 3, image: '/images/hero/slide-3-cadillac-cts.jpg', subtitle: t('hero.slides.2.subtitle') },
   { id: 4, image: '/images/hero/slide-4-escalade.jpg', subtitle: t('hero.slides.3.subtitle') },
   { id: 5, image: '/images/hero/slide-5-sprinter.jpg', subtitle: t('hero.slides.4.subtitle') },
@@ -36,32 +36,35 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
-      {/* Background Slides */}
-      <AnimatePresence mode="wait">
+      {/* Background Slides - Crossfade suave */}
+      {slides.map((slide, index) => (
         <motion.div
-          key={currentSlide}
+          key={slide.id}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: 1, scale: 1.08 }}
-          exit={{ opacity: 0 }}
+          animate={{
+            opacity: index === currentSlide ? 1 : 0,
+            scale: index === currentSlide ? 1.08 : 1,
+          }}
           transition={{
-            opacity: { duration: 1 },
+            opacity: { duration: 1.5, ease: 'easeInOut' },
             scale: { duration: 6, ease: 'linear' },
           }}
           className="absolute inset-0"
+          style={{ zIndex: index === currentSlide ? 1 : 0 }}
         >
           <img
-            src={slides[currentSlide].image}
-            alt="Hero background"
+            src={slide.image}
+            alt={slide.subtitle}
             className="w-full h-full object-cover"
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 z-10" />
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+      <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
         <div className="max-w-4xl">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -82,18 +85,20 @@ export function Hero() {
           </motion.h1>
 
           <div className="h-8 sm:h-10 mb-10 overflow-hidden">
-            <AnimatePresence mode="wait">
+            {slides.map((slide, index) => (
               <motion.p
-                key={currentSlide}
+                key={slide.id}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                animate={{
+                  opacity: index === currentSlide ? 1 : 0,
+                  y: index === currentSlide ? 0 : -20,
+                }}
                 transition={{ duration: 0.5 }}
-                className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide"
+                className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide absolute w-full left-0"
               >
-                {slides[currentSlide].subtitle}
+                {slide.subtitle}
               </motion.p>
-            </AnimatePresence>
+            ))}
           </div>
 
           <motion.div
@@ -120,7 +125,7 @@ export function Hero() {
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -140,7 +145,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
         >
           <motion.button
             onClick={() => scrollToSection('#booking')}
