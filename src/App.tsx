@@ -7,6 +7,7 @@ import { Destinations } from './components/sections/Destinations';
 import { WhyUs } from './components/sections/WhyUs';
 import { Testimonials } from './components/sections/Testimonials';
 import { Areas } from './components/sections/Areas';
+import { FloatingQuoteButton } from './components/FloatingQuoteButton';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Testimonials />
         <Areas />
       </main>
+      <FloatingQuoteButton />
       <Footer />
     </div>
   );
