@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useMobileMenu } from '../../hooks/useMobileMenu';
 import { Container } from './Container';
-import { Button } from '../ui/Button';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 
 export function Header() {
@@ -94,16 +93,10 @@ export function Header() {
                 <span className="font-medium">650-666-9333</span>
               </a>
               <button
-                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-gray-700 border border-gray-300 rounded hover:border-gold hover:text-gold transition-all duration-300"
+                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
                 onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
               >
                 {t('header.instantQuote')}
-              </button>
-              <button
-                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
-                onClick={() => scrollToSection('#booking')}
-              >
-                {t('header.cta')}
               </button>
             </div>
 
@@ -171,9 +164,12 @@ export function Header() {
                   <Phone size={20} />
                   <span className="font-medium">650-666-9333</span>
                 </a>
-                <Button variant="primary" onClick={() => scrollToSection('#booking')}>
-                  {t('header.cta')}
-                </Button>
+                <button
+                  className="px-6 py-3 text-sm font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
+                  onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
+                >
+                  {t('header.instantQuote')}
+                </button>
               </motion.div>
             </div>
           </motion.div>
