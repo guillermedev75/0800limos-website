@@ -75,13 +75,13 @@ export function Header() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-4 justify-self-end">
+            <div className="hidden lg:flex items-center gap-3 justify-self-end">
               <LanguageSwitcher />
               <a
                 href="https://wa.me/16506669333"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors"
+                className="flex items-center gap-2 text-[#25D366] hover:text-[#128C7E] transition-colors"
                 aria-label="WhatsApp"
               >
                 <MessageCircle size={20} />
@@ -93,6 +93,13 @@ export function Header() {
                 <Phone size={18} />
                 <span className="font-medium">650-666-9333</span>
               </a>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
+              >
+                {t('header.instantQuote')}
+              </Button>
               <Button
                 variant="primary"
                 size="sm"

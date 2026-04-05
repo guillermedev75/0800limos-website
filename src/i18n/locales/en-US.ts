@@ -8,6 +8,7 @@ export default {
       contact: 'Contact',
     },
     cta: 'Book Now',
+    instantQuote: 'Instant Quote',
   },
   hero: {
     title: 'Executive',

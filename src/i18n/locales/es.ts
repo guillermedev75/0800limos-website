@@ -8,6 +8,7 @@ export default {
       contact: 'Contacto',
     },
     cta: 'Reservar',
+    instantQuote: 'Cotización Instantánea',
   },
   hero: {
     title: 'Transporte',
