@@ -25,9 +25,12 @@ export function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="text-3xl font-display font-bold tracking-wider mb-4">
+            <div className="text-4xl font-logo tracking-wide mb-2">
               <span className="text-gray-900">0800</span>
               <span className="text-gold">LIMOS</span>
+            </div>
+            <div className="text-lg font-logo tracking-wide text-gray-500 mb-4">
+              0800limos inc.
             </div>
             <p className="text-gray-600 mb-6">
               {t('footer.brand')}

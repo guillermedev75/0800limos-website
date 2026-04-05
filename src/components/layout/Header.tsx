@@ -48,9 +48,9 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection('#hero');
               }}
-              className="flex items-center gap-2 group justify-self-start"
+              className="flex items-center gap-1 group justify-self-start"
             >
-              <div className="text-2xl font-display font-bold tracking-wider">
+              <div className="text-3xl font-logo tracking-wide">
                 <span className="text-gray-900 group-hover:text-gold transition-colors">0800</span>
                 <span className="text-gold">LIMOS</span>
               </div>
