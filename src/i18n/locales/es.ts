@@ -88,7 +88,7 @@ export default {
     items: {
       chauffeurs: {
         title: 'Chóferes Profesionales',
-        description: 'Nuestros conductores pasan por rigurosas verificaciones de antecedentes y entrenamiento continuo para garantizar su seguridad y confort.',
+        description: 'Nuestros conductores pasan por entrenamiento continuo para garantizar su seguridad y confort.',
         stat: '100% Verificados',
       },
       fleet: {
@@ -114,8 +114,8 @@ export default {
     items: [
       {
         content: '0800 Limos es nuestra elección para transporte ejecutivo en eventos tech. Puntualidad impecable y conductores profesionales. Excelente para equipos de desarrollo.',
-        name: 'Guilherme',
-        role: 'Lead Developer, Dreamteam',
+        name: 'Guillerme',
+        role: 'Team Leader, Dreamteam',
       },
       {
         content: 'Lo uso para transporte de clientes y reuniones corporativas. El servicio FBO es excepcional para recibir inversores en el aeropuerto. Altamente recomendado.',
@@ -126,11 +126,6 @@ export default {
         content: 'Viajo constantemente entre conferencias y 0800 Limos facilita mi rutina. El monitoreo de vuelos y el servicio discreto hacen toda la diferencia para un CTO.',
         name: 'Fabio',
         role: 'CTO, Dreamteam',
-      },
-      {
-        content: 'Organicé un retreat del equipo en Napa. 0800 Limos se encargó de todo el transporte del equipo de desarrollo. ¡Experiencia perfecta de principio a fin!',
-        name: 'Nightguide',
-        role: 'Product Owner, Dreamteam',
       },
     ],
   },

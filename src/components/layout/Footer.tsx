@@ -13,10 +13,10 @@ export function Footer() {
   ];
 
   const destinationLinks = [
-    { name: t('destinations.items.shasta.name'), href: '#destinations' },
-    { name: t('destinations.items.parasailing.name'), href: '#destinations' },
-    { name: t('destinations.items.winery.name'), href: '#destinations' },
-    { name: 'San Francisco', href: '#destinations' },
+    { name: 'Napa Valley', href: '#destinations' },
+    { name: 'SF Peninsula', href: '#destinations' },
+    { name: 'Silicon Valley', href: '#destinations' },
+    { name: 'Monterey', href: '#destinations' },
   ];
 
   return (

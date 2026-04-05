@@ -93,20 +93,18 @@ export function Header() {
                 <Phone size={18} />
                 <span className="font-medium">650-666-9333</span>
               </a>
-              <Button
-                variant="secondary"
-                size="sm"
+              <button
+                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-gray-700 border border-gray-300 rounded hover:border-gold hover:text-gold transition-all duration-300"
                 onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
               >
                 {t('header.instantQuote')}
-              </Button>
-              <Button
-                variant="primary"
-                size="sm"
+              </button>
+              <button
+                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
                 onClick={() => scrollToSection('#booking')}
               >
                 {t('header.cta')}
-              </Button>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}

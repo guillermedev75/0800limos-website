@@ -1,8 +1,8 @@
 # 0800 Limos Website
 
-## Cavalgada Executiva 2026-2027
+## Transporte Executivo
 
-Site executivo/premium para 0800 Limos em React + TypeScript + Tailwind CSS, com tema "Cavalgada 2026-2027" e integração Moovs API.
+Site executivo/premium para 0800 Limos em React + TypeScript + Tailwind CSS, com integração Moovs API.
 
 ## 🚀 Tecnologias
 

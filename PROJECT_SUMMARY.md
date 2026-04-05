@@ -88,7 +88,7 @@ Na Vercel Dashboard → Project → Domains:
 ### 1. Hero Section
 - ✅ Carrossel fullscreen com 5 slides
 - ✅ Efeito Ken Burns (zoom suave)
-- ✅ Texto "Cavalgada Executiva 2026-2027"
+- ✅ Texto "Transporte Executivo"
 - ✅ Animações com Framer Motion
 - ✅ CTAs: "Reserve Agora" e "Conheça a Frota"
 
