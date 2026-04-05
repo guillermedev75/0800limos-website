@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../ui/Button';
@@ -16,9 +16,11 @@ const getSlides = (t: (key: string) => string) => [
 export function Hero() {
   const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState(1);
   const slides = getSlides(t);
 
   const nextSlide = useCallback(() => {
+    setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
@@ -34,31 +36,45 @@ export function Hero() {
     }
   };
 
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+    }),
+  };
+
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
-      {/* Background Slides - Crossfade suave */}
-      {slides.map((slide, index) => (
+      {/* Background Slides - Slide horizontal */}
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          key={slide.id}
-          initial={{ opacity: 0, scale: 1 }}
-          animate={{
-            opacity: index === currentSlide ? 1 : 0,
-            scale: index === currentSlide ? 1.08 : 1,
-          }}
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
           transition={{
-            opacity: { duration: 1.5, ease: 'easeInOut' },
-            scale: { duration: 6, ease: 'linear' },
+            x: { type: 'tween', duration: 0.8, ease: 'easeInOut' },
+            opacity: { duration: 0.5 },
           }}
           className="absolute inset-0"
-          style={{ zIndex: index === currentSlide ? 1 : 0 }}
         >
           <img
-            src={slide.image}
-            alt={slide.subtitle}
-            className="w-full h-full object-cover"
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].subtitle}
+            className="w-full h-full object-cover object-center"
           />
         </motion.div>
-      ))}
+      </AnimatePresence>
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 z-10" />
@@ -84,21 +100,19 @@ export function Hero() {
             <span className="text-gradient-gold">{t('hero.titleHighlight')}</span>
           </motion.h1>
 
-          <div className="h-8 sm:h-10 mb-10 overflow-hidden">
-            {slides.map((slide, index) => (
+          <div className="h-8 sm:h-10 mb-10 overflow-hidden relative">
+            <AnimatePresence mode="wait">
               <motion.p
-                key={slide.id}
+                key={currentSlide}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: index === currentSlide ? 1 : 0,
-                  y: index === currentSlide ? 0 : -20,
-                }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
                 className="text-lg sm:text-xl md:text-2xl text-white/80 font-light tracking-wide absolute w-full left-0"
               >
-                {slide.subtitle}
+                {slides[currentSlide].subtitle}
               </motion.p>
-            ))}
+            </AnimatePresence>
           </div>
 
           <motion.div
@@ -129,7 +143,10 @@ export function Hero() {
           {slides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => {
+                setDirection(index > currentSlide ? 1 : -1);
+                setCurrentSlide(index);
+              }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide
                   ? 'bg-gold w-8'

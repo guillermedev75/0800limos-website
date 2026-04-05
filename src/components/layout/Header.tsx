@@ -40,7 +40,7 @@ export function Header() {
         }`}
       >
         <Container>
-          <div className="grid grid-cols-3 items-center">
+          <div className="flex items-center justify-between lg:grid lg:grid-cols-3 lg:items-center">
             {/* Logo */}
             <a
               href="#hero"
@@ -48,7 +48,7 @@ export function Header() {
                 e.preventDefault();
                 scrollToSection('#hero');
               }}
-              className="flex items-center gap-1 group justify-self-start"
+              className="flex items-center gap-1 group"
             >
               <div className="text-3xl font-logo tracking-wide">
                 <span className="text-gray-900 group-hover:text-gold transition-colors">0800</span>
@@ -103,7 +103,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={toggle}
-              className="lg:hidden text-gray-900 p-2 justify-self-end"
+              className="lg:hidden text-gray-900 p-2 ml-auto"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
