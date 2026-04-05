@@ -1,6 +1,14 @@
 @import 'tailwindcss';
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Core Rhino';
+  src: url('/fonts/fonnts.com-CoreRhino65.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --color-midnight: #0A0A0A;
@@ -12,7 +20,7 @@
   
   --font-family-sans: 'Inter', sans-serif;
   --font-family-display: 'Montserrat', sans-serif;
-  --font-family-logo: 'Bebas Neue', sans-serif;
+  --font-family-logo: 'Core Rhino', 'Bebas Neue', sans-serif;
   
   --animate-fade-in: fadeIn 0.8s ease-out forwards;
   --animate-slide-up: slideUp 0.8s ease-out forwards;
@@ -81,8 +89,8 @@
   }
   
   .font-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    letter-spacing: 0.05em;
+    font-family: 'Core Rhino', 'Bebas Neue', sans-serif;
+    letter-spacing: 0.02em;
   }
 }
 
