@@ -99,7 +99,7 @@ export default {
       punctuality: {
         title: 'Guaranteed Punctuality',
         description: 'Commitment to punctuality. Real-time flight monitoring for automatic pickup adjustments.',
-        stat: '99% On-time',
+        stat: '100% On-time',
       },
       support: {
         title: '24/7 Support',
