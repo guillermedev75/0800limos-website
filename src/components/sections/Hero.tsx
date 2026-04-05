@@ -53,8 +53,8 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative w-full overflow-hidden">
-      {/* Container da imagem - altura reduzida no mobile */}
-      <div className="relative h-[55vh] md:h-screen">
+      {/* Container da imagem - altura maior no mobile para mostrar mais do carro */}
+      <div className="relative h-[65vh] md:h-screen">
         {/* Background Slides - Slide horizontal */}
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -73,17 +73,13 @@ export function Hero() {
             <img
               src={slides[currentSlide].image}
               alt={slides[currentSlide].subtitle}
-              className="w-full h-full object-cover object-[20%_center] md:object-center"
+              className="w-full h-full object-cover object-center md:object-center"
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* Overlays de Safe Zone - gradientes nas laterais (mobile only) */}
-        <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black/60 to-transparent z-10 md:hidden" />
-        <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black/60 to-transparent z-10 md:hidden" />
-        
         {/* Overlay principal */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/70 z-10" />
       </div>
 
       {/* Content - abaixo da imagem no mobile, sobreposto no desktop */}
@@ -148,8 +144,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Slide Indicators - posicionado corretamente para mobile/desktop */}
-      <div className="absolute bottom-[32%] md:bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+      {/* Slide Indicators - dentro da área da imagem no mobile */}
+      <div className="absolute bottom-4 md:bottom-24 left-1/2 -translate-x-1/2 flex gap-2 z-30">
         {slides.map((_, index) => (
           <button
             key={index}
