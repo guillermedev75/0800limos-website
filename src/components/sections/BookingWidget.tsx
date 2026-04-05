@@ -57,13 +57,13 @@ export function BookingWidget() {
                 href="https://wa.me/16506669333"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300"
+                className="flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300"
               >
                 <MessageCircle size={20} />
                 <span>{t('contact.buttons.whatsapp')}</span>
               </a>
             </div>
-            <p className="text-gray-500 text-sm text-center mt-6">
+            <p className="text-gray-500 text-sm text-center mt-6 font-medium">
               {t('contact.response')}
             </p>
           </div>
@@ -76,38 +76,49 @@ export function BookingWidget() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
         >
-          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 transition-colors group">
+          <a
+            href="tel:6506669333"
+            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 hover:shadow-md transition-all group block"
+          >
             <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
               <Phone size={24} className="text-gold" />
             </div>
             <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.phone.title')}</h4>
-            <a href="tel:6506669333" className="text-gray-600 hover:text-gold transition-colors text-lg">
+            <span className="text-gray-600 group-hover:text-gold transition-colors text-lg">
               {t('contact.cards.phone.value')}
-            </a>
-          </div>
+            </span>
+          </a>
 
-          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 transition-colors group">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-200 transition-colors">
-              <MessageCircle size={24} className="text-green-600" />
+          <a
+            href="https://wa.me/16506669333"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#25D366]/50 hover:shadow-md transition-all group block"
+          >
+            <div className="w-12 h-12 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#25D366]/20 transition-colors">
+              <MessageCircle size={24} className="text-[#25D366]" />
             </div>
             <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.whatsapp.title')}</h4>
-            <a href="https://wa.me/16506669333" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-green-600 transition-colors">
+            <span className="text-gray-600 group-hover:text-[#25D366] transition-colors">
               {t('contact.cards.whatsapp.value')}
-            </a>
-          </div>
+            </span>
+          </a>
 
-          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 transition-colors group">
+          <a
+            href="mailto:hussein@0800limos.com"
+            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 hover:shadow-md transition-all group block"
+          >
             <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
               <Mail size={24} className="text-gold" />
             </div>
             <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.email.title')}</h4>
-            <a href="mailto:hussein@0800limos.com" className="text-gray-600 hover:text-gold transition-colors text-sm">
+            <span className="text-gray-600 group-hover:text-gold transition-colors text-sm">
               {t('contact.cards.email.value')}
-            </a>
-          </div>
+            </span>
+          </a>
 
-          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 transition-colors group">
-            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
+          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Clock size={24} className="text-gold" />
             </div>
             <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.availability.title')}</h4>

@@ -30,7 +30,7 @@ export default {
       airport: {
         title: 'Airport Transfers',
         description: 'Transfer service to major airports in the region with real-time flight monitoring. We serve FBOs and private aviation.',
-        features: ['SFO, OAK, SJC, STS, MRY', 'FBOs - Private Aviation', 'Flight tracking', 'Meet & Greet (optional)', 'TARMAC where available'],
+        features: ['SFO, OAK, SJC, STS, MRY', 'FBOs', 'Flight tracking', 'Meet & Greet', 'TARMAC where available'],
       },
       fbo: {
         title: 'FBOs & Private Aviation',
@@ -39,8 +39,8 @@ export default {
       },
       corporate: {
         title: 'Corporate Travel',
-        description: 'Executive transportation solutions for business meetings, road shows, and corporate events.',
-        features: ['Business meetings', 'Road shows', 'Executive transport'],
+        description: 'Executive transportation solutions for business meetings, road shows, conventions and corporate events.',
+        features: ['Business meetings', 'Road shows', 'Conventions', 'Executive transport'],
       },
       special: {
         title: 'Special Occasions',
@@ -66,8 +66,8 @@ export default {
       },
       parasailing: {
         name: 'Parasailing',
-        location: 'San Francisco Bay',
-        description: 'Adventure over the bay waters with panoramic views of the city and Golden Gate. A unique experience of adrenaline and stunning landscapes.',
+        location: 'Santa Cruz',
+        description: 'Adventure over the water with panoramic views of the city. A unique experience of adrenaline and stunning landscapes.',
       },
       winery: {
         name: 'Premium Wineries',
@@ -112,24 +112,24 @@ export default {
     title: 'What Our Clients Say',
     items: [
       {
-        content: '0800 Limos transformed our corporate transportation experience. The impeccable punctuality and professionalism of the chauffeurs are unparalleled. I strongly recommend it for executives who value excellence.',
-        name: 'Michael Chen',
-        role: 'CEO, TechVentures Inc.',
+        content: '0800 Limos is our choice for executive transportation at tech events. Impeccable punctuality and professional drivers. Excellent for development teams.',
+        name: 'Guilherme',
+        role: 'Lead Developer, Dreamteam',
       },
       {
-        content: 'I use 0800 Limos services for all the weddings I plan. The limousine fleet is stunning and the service always exceeds the expectations of the bride and groom. A reliable partner!',
-        name: 'Sarah Johnson',
-        role: 'Wedding Planner',
+        content: 'I use it for client transportation and corporate meetings. The FBO service is exceptional for receiving investors at the airport. Highly recommended.',
+        name: 'Renan',
+        role: 'Tech Lead, Dreamteam',
       },
       {
-        content: 'I travel constantly for work and 0800 Limos is my number one choice for airport transfers. Flight monitoring and the Meet & Greet service make all the difference.',
-        name: 'David Rodriguez',
-        role: 'Frequent Business Traveler',
+        content: 'I travel constantly between conferences and 0800 Limos facilitates my routine. Flight monitoring and discreet service make all the difference for a CTO.',
+        name: 'Fabio',
+        role: 'CTO, Dreamteam',
       },
       {
-        content: 'I organized a winery tour in Napa for a group of 12 people. 0800 Limos took care of all the details, from transportation to winery suggestions. Perfect experience!',
-        name: 'Emily Thompson',
-        role: 'Event Coordinator',
+        content: 'I organized a team retreat in Napa. 0800 Limos handled all transportation for the development team. Perfect experience from start to finish!',
+        name: 'Nightguide',
+        role: 'Product Owner, Dreamteam',
       },
     ],
   },
@@ -160,7 +160,7 @@ export default {
       call: 'Call',
       whatsapp: 'WhatsApp',
     },
-    response: 'Responses within 15 minutes during business hours',
+    response: 'Fast response',
     cards: {
       phone: { title: 'Phone', value: '650-666-9333' },
       whatsapp: { title: 'WhatsApp', value: '650-666-9333' },
@@ -182,9 +182,9 @@ export default {
     label: 'Get a Quote',
     menuTitle: 'How can we help?',
     options: {
-      online: { title: 'Book Online', subtitle: 'Moovs System' },
-      whatsapp: { title: 'WhatsApp', subtitle: 'Quick response' },
-      call: { title: 'Call Now', subtitle: '650-666-9333' },
+      online: { title: 'Book Online' },
+      whatsapp: { title: 'WhatsApp' },
+      call: { title: 'Call Now' },
     },
   },
   languages: {

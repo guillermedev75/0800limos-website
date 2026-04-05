@@ -30,7 +30,7 @@ export default {
       airport: {
         title: 'Airport Transfers',
         description: 'Serviço de transfer para os principais aeroportos da região com monitoramento de voos em tempo real. Atendemos FBOs e aviação privada.',
-        features: ['SFO, OAK, SJC, STS, MRY', 'FBOs - Aviação Privada', 'Flight tracking', 'Meet & Greet (opcional)', 'TARMAC where available'],
+        features: ['SFO, OAK, SJC, STS, MRY', 'FBOs', 'Flight tracking', 'Meet & Greet', 'TARMAC where available'],
       },
       fbo: {
         title: 'FBOs & Private Aviation',
@@ -39,8 +39,8 @@ export default {
       },
       corporate: {
         title: 'Corporate Travel',
-        description: 'Soluções de transporte executivo para reuniões de negócios, road shows e eventos corporativos.',
-        features: ['Business meetings', 'Road shows', 'Executive transport'],
+        description: 'Soluções de transporte executivo para reuniões de negócios, road shows, convenções e eventos corporativos.',
+        features: ['Business meetings', 'Road shows', 'Convenções', 'Executive transport'],
       },
       special: {
         title: 'Special Occasions',
@@ -66,8 +66,8 @@ export default {
       },
       parasailing: {
         name: 'Parasailing',
-        location: 'San Francisco Bay',
-        description: 'Aventura sobre as águas da baía com vistas panorâmicas da cidade e Golden Gate. Uma experiência única de adrenalina e paisagens deslumbrantes.',
+        location: 'Santa Cruz',
+        description: 'Aventura sobre as águas com vistas panorâmicas da cidade. Uma experiência única de adrenalina e paisagens deslumbrantes.',
       },
       winery: {
         name: 'Premium Wineries',
@@ -112,24 +112,24 @@ export default {
     title: 'O Que Dizem Nossos Clientes',
     items: [
       {
-        content: 'A 0800 Limos transformou nossa experiência de transporte corporativo. A pontualidade impecável e o profissionalismo dos chauffeurs são incomparáveis. Recomendo fortemente para executivos que valorizam excelência.',
-        name: 'Michael Chen',
-        role: 'CEO, TechVentures Inc.',
+        content: 'A 0800 Limos é nossa escolha para transporte executivo em eventos tech. Pontualidade impecável e motoristas profissionais. Excelente para equipes de desenvolvimento.',
+        name: 'Guilherme',
+        role: 'Lead Developer, Dreamteam',
       },
       {
-        content: 'Utilizo os serviços da 0800 Limos para todos os casamentos que planejo. A frota de limousines é deslumbrante e o serviço sempre supera as expectativas dos noivos. Um parceiro confiável!',
-        name: 'Sarah Johnson',
-        role: 'Wedding Planner',
+        content: 'Utilizo para transporte de clientes e reuniões corporativas. O serviço de FBO é excepcional para receber investidores no aeroporto. Altamente recomendado.',
+        name: 'Renan',
+        role: 'Tech Lead, Dreamteam',
       },
       {
-        content: 'Viajo constantemente a trabalho e a 0800 Limos é minha escolha número um para transfers de aeroporto. O monitoramento de voos e o serviço Meet & Greet fazem toda a diferença.',
-        name: 'David Rodriguez',
-        role: 'Frequent Business Traveler',
+        content: 'Viajo constantemente entre conferências e a 0800 Limos facilita minha rotina. O monitoramento de voos e o serviço discreto fazem toda a diferença para um CTO.',
+        name: 'Fabio',
+        role: 'CTO, Dreamteam',
       },
       {
-        content: 'Organizei um tour de vinícolas em Napa para um grupo de 12 pessoas. A 0800 Limos cuidou de todos os detalhes, desde o transporte até as sugestões de vinícolas. Experiência perfeita!',
-        name: 'Emily Thompson',
-        role: 'Event Coordinator',
+        content: 'Organizei um retreat da equipe em Napa. A 0800 Limos cuidou de todo o transporte do time de desenvolvimento. Experiência perfeita do início ao fim!',
+        name: 'Nightguide',
+        role: 'Product Owner, Dreamteam',
       },
     ],
   },
@@ -160,7 +160,7 @@ export default {
       call: 'Ligar',
       whatsapp: 'WhatsApp',
     },
-    response: 'Respostas em até 15 minutos durante o horário comercial',
+    response: 'Fast response',
     cards: {
       phone: { title: 'Telefone', value: '650-666-9333' },
       whatsapp: { title: 'WhatsApp', value: '650-666-9333' },
@@ -182,9 +182,9 @@ export default {
     label: 'Solicitar Orçamento',
     menuTitle: 'Como podemos ajudar?',
     options: {
-      online: { title: 'Reservar Online', subtitle: 'Sistema Moovs' },
-      whatsapp: { title: 'WhatsApp', subtitle: 'Resposta rápida' },
-      call: { title: 'Ligar Agora', subtitle: '650-666-9333' },
+      online: { title: 'Reservar Online' },
+      whatsapp: { title: 'WhatsApp' },
+      call: { title: 'Ligar Agora' },
     },
   },
   languages: {
