@@ -14,7 +14,7 @@ export function Footer() {
 
   const destinationLinks = [
     { name: t('destinations.items.shasta.name'), href: '#destinations' },
-    { name: t('destinations.items.vineyard.name'), href: '#destinations' },
+    { name: t('destinations.items.parasailing.name'), href: '#destinations' },
     { name: t('destinations.items.winery.name'), href: '#destinations' },
     { name: 'San Francisco', href: '#destinations' },
   ];
