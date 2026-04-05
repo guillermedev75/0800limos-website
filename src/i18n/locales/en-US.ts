@@ -14,7 +14,7 @@ export default {
     title: 'Executive',
     titleHighlight: 'Transportation',
     slides: [
-      { subtitle: 'BMW Series 7 - German elegance in every detail' },
+      { subtitle: 'BMW 7 Series - German elegance in every detail' },
       { subtitle: 'Mercedes S-Class - The luxury standard' },
       { subtitle: 'Cadillac CTS - Compatible Sedans' },
       { subtitle: 'Cadillac Escalade - Imposing presence' },
