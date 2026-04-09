@@ -6,12 +6,12 @@ import { Container } from '../layout/Container';
 import 'leaflet/dist/leaflet.css';
 
 const AREAS = [
-  { key: 'sf',       lat: 37.7749, lng: -122.4194, radius: 18000, image: '/images/areas/sf.jpg' },
-  { key: 'napa',     lat: 38.2975, lng: -122.2869, radius: 22000, image: '/images/areas/napa.jpg' },
-  { key: 'sonoma',   lat: 38.2919, lng: -122.4580, radius: 20000, image: '/images/areas/sonoma.jpg' },
-  { key: 'monterey', lat: 36.5500, lng: -121.8947, radius: 20000, image: '/images/areas/monterey.jpg' },
-  { key: 'tahoe',    lat: 38.9399, lng: -120.0324, radius: 20000, image: '/images/areas/tahoe.jpg' },
-  { key: 'silicon',  lat: 37.3861, lng: -122.0839, radius: 18000, image: '/images/areas/silicon-valley.jpg' },
+  { key: 'sf',       lat: 37.7749, lng: -122.4194, image: '/images/areas/sf.jpg' },
+  { key: 'napa',     lat: 38.2975, lng: -122.2869, image: '/images/areas/napa.jpg' },
+  { key: 'sonoma',   lat: 38.2919, lng: -122.4580, image: '/images/areas/sonoma.jpg' },
+  { key: 'monterey', lat: 36.6002, lng: -121.8947, image: '/images/areas/monterey.jpg' },
+  { key: 'tahoe',    lat: 38.9399, lng: -120.0324, image: '/images/areas/tahoe.jpg' },
+  { key: 'silicon',  lat: 37.3861, lng: -122.0839, image: '/images/areas/silicon-valley.jpg' },
 ];
 
 type AreaItem = typeof AREAS[number];
@@ -35,8 +35,8 @@ export function Areas() {
       if (!isMounted || !mapRef.current) return;
 
       const map = L.map(mapRef.current, {
-        center: [37.6, -122.1],
-        zoom: 7,
+        center: [37.7, -121.9],
+        zoom: 8,
         zoomControl: false,
         scrollWheelZoom: false,
         dragging: true,
@@ -52,34 +52,29 @@ export function Areas() {
       const tilePane = map.getPanes().tilePane as HTMLElement;
       tilePane.style.filter = 'grayscale(100%) brightness(1.05)';
 
+      // Gold SVG pin icon
+      const pinIcon = L.divIcon({
+        html: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+          <path d="M14 0C6.268 0 0 6.268 0 14c0 9.333 14 22 14 22S28 23.333 28 14C28 6.268 21.732 0 14 0z" fill="#C9A961"/>
+          <circle cx="14" cy="14" r="5" fill="white"/>
+        </svg>`,
+        className: '',
+        iconSize: [28, 36],
+        iconAnchor: [14, 36],
+        popupAnchor: [0, -36],
+      });
+
       AREAS.forEach((area) => {
         const name = (locations as Record<string, { name: string }>)[area.key]?.name ?? area.key;
-
-        // Filled area circle
-        const circle = L.circle([area.lat, area.lng], {
-          radius: area.radius,
-          color: '#C9A961',
-          fillColor: '#C9A961',
-          fillOpacity: 0.15,
-          weight: 1.5,
-          opacity: 0.5,
-        }).addTo(map);
-
-        circle.bindTooltip(name, {
+        const marker = L.marker([area.lat, area.lng], { icon: pinIcon }).addTo(map);
+        marker.bindTooltip(name, {
           permanent: false,
-          direction: 'center',
+          direction: 'top',
+          offset: [0, -38],
           className: 'leaflet-gold-tooltip',
         });
-
-        circle.on('click', () => {
+        marker.on('click', () => {
           setSelected(area);
-        });
-
-        circle.on('mouseover', () => {
-          circle.setStyle({ fillOpacity: 0.3, opacity: 0.9 });
-        });
-        circle.on('mouseout', () => {
-          circle.setStyle({ fillOpacity: 0.15, opacity: 0.5 });
         });
       });
 
