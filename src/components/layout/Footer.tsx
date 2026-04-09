@@ -25,12 +25,8 @@ export function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="text-4xl font-logo tracking-wide mb-2">
-              <span className="text-gray-900">0800</span>
-              <span className="text-gold">LIMOS</span>
-            </div>
-            <div className="text-lg font-logo tracking-wide text-gray-500 mb-4">
-              0800limos inc.
+            <div className="text-3xl font-logo tracking-wide mb-4 text-gray-500">
+              0800LIMOS inc.
             </div>
             <p className="text-gray-600 mb-6">
               {t('footer.brand')}
@@ -88,7 +84,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-green-600 hover:text-green-700 transition-colors"
                 >
-                  <MessageCircle size={16} />
+                  <MessageCircle size={18} />
                   WhatsApp
                 </a>
               </li>
@@ -97,7 +93,7 @@ export function Footer() {
                   href="tel:6506669333"
                   className="flex items-center gap-2 text-gray-600 hover:text-gold transition-colors"
                 >
-                  <Phone size={16} />
+                  <Phone size={18} />
                   650-666-9333
                 </a>
               </li>
@@ -106,12 +102,12 @@ export function Footer() {
                   href="mailto:hussein@0800limos.com"
                   className="flex items-center gap-2 text-gray-600 hover:text-gold transition-colors"
                 >
-                  <Mail size={16} />
+                  <Mail size={18} />
                   hussein@0800limos.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-gray-600">
-                <MapPin size={16} className="mt-1 flex-shrink-0" />
+                <MapPin size={18} className="mt-1 flex-shrink-0" />
                 <span>San Francisco Bay Area</span>
               </li>
             </ul>

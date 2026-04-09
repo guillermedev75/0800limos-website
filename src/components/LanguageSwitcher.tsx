@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { Globe } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const languages = [
@@ -35,10 +34,10 @@ export function LanguageSwitcher() {
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 px-3 py-1.5 rounded-full border border-gray-300 hover:border-gold hover:text-gold transition-colors text-sm font-medium text-gray-700"
+        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-gray-300 hover:border-gold hover:text-gold transition-colors text-sm font-medium text-gray-700"
         aria-label="Change language"
       >
-        <Globe size={14} />
+        <span className="text-base leading-none">{currentLanguage.flag}</span>
         <span>{currentLanguage.label}</span>
       </button>
 

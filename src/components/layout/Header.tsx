@@ -40,7 +40,7 @@ export function Header() {
         }`}
       >
         <Container>
-          <div className="flex items-center justify-between lg:grid lg:grid-cols-3 lg:items-center">
+          <div className="flex items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-4">
             {/* Logo */}
             <a
               href="#hero"
@@ -57,7 +57,7 @@ export function Header() {
             </a>
 
             {/* Desktop Navigation - Centered */}
-            <nav className="hidden lg:flex items-center justify-center gap-8">
+            <nav className="hidden lg:flex items-center justify-center gap-5">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -74,36 +74,37 @@ export function Header() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3 justify-self-end">
+            <div className="hidden lg:flex items-center gap-2">
               <LanguageSwitcher />
               <a
                 href="https://wa.me/16506669333"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#25D366] hover:text-[#128C7E] transition-colors"
+                className="flex items-center text-[#25D366] hover:text-[#128C7E] transition-colors"
                 aria-label="WhatsApp"
               >
                 <MessageCircle size={20} />
               </a>
               <a
                 href="tel:6506669333"
-                className="flex items-center gap-2 text-gray-900 hover:text-gold transition-colors"
+                className="flex items-center gap-1 text-gray-900 hover:text-gold transition-colors whitespace-nowrap"
               >
-                <Phone size={18} />
-                <span className="font-medium">650-666-9333</span>
+                <Phone size={16} />
+                <span className="hidden xl:inline font-medium text-sm">650-666-9333</span>
               </a>
               <button
-                className="px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
+                className="relative px-3 py-2 text-xs font-display font-semibold uppercase tracking-wider text-white bg-gold rounded overflow-hidden hover:scale-105 hover:shadow-lg transition-all duration-300 whitespace-nowrap cursor-pointer group"
                 onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
               >
-                {t('header.instantQuote')}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                <span className="relative">{t('header.instantQuote')}</span>
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggle}
-              className="lg:hidden text-gray-900 p-2 ml-auto"
+              className="lg:hidden text-gray-900 p-2 ml-auto cursor-pointer"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -165,10 +166,11 @@ export function Header() {
                   <span className="font-medium">650-666-9333</span>
                 </a>
                 <button
-                  className="px-6 py-3 text-sm font-display font-semibold uppercase tracking-wider text-white bg-gold rounded hover:bg-gold-hover transition-all duration-300"
+                  className="relative px-6 py-3 text-sm font-display font-semibold uppercase tracking-wider text-white bg-gold rounded overflow-hidden hover:scale-105 hover:shadow-lg transition-all duration-300 cursor-pointer group"
                   onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
                 >
-                  {t('header.instantQuote')}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                  <span className="relative">{t('header.instantQuote')}</span>
                 </button>
               </motion.div>
             </div>

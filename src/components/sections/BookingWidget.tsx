@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Container } from '../layout/Container';
-import { ExternalLink, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
+import { ExternalLink, Phone, MessageCircle } from 'lucide-react';
 
 export function BookingWidget() {
   const { t } = useTranslation();
 
   return (
-    <section id="booking" className="py-20 bg-white">
+    <section id="booking" className="py-10 md:py-16 bg-white">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -69,62 +69,6 @@ export function BookingWidget() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto"
-        >
-          <a
-            href="tel:6506669333"
-            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 hover:shadow-md transition-all group block"
-          >
-            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
-              <Phone size={24} className="text-gold" />
-            </div>
-            <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.phone.title')}</h4>
-            <span className="text-gray-600 group-hover:text-gold transition-colors text-lg">
-              {t('contact.cards.phone.value')}
-            </span>
-          </a>
-
-          <a
-            href="https://wa.me/16506669333"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-[#25D366]/50 hover:shadow-md transition-all group block"
-          >
-            <div className="w-12 h-12 bg-[#25D366]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#25D366]/20 transition-colors">
-              <MessageCircle size={24} className="text-[#25D366]" />
-            </div>
-            <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.whatsapp.title')}</h4>
-            <span className="text-gray-600 group-hover:text-[#25D366] transition-colors">
-              {t('contact.cards.whatsapp.value')}
-            </span>
-          </a>
-
-          <a
-            href="mailto:hussein@0800limos.com"
-            className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-gold/50 hover:shadow-md transition-all group block"
-          >
-            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/20 transition-colors">
-              <Mail size={24} className="text-gold" />
-            </div>
-            <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.email.title')}</h4>
-            <span className="text-gray-600 group-hover:text-gold transition-colors text-sm">
-              {t('contact.cards.email.value')}
-            </span>
-          </a>
-
-          <div className="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
-            <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Clock size={24} className="text-gold" />
-            </div>
-            <h4 className="font-display font-semibold text-gray-900 mb-2">{t('contact.cards.availability.title')}</h4>
-            <p className="text-gray-600">{t('contact.cards.availability.value')}</p>
-          </div>
-        </motion.div>
       </Container>
     </section>
   );

@@ -28,7 +28,7 @@ export function Button({
   return (
     <button
       className={cn(
-        'font-display font-semibold uppercase tracking-widest rounded transition-all duration-300',
+        'font-display font-semibold uppercase tracking-widest rounded transition-all duration-300 cursor-pointer',
         variants[variant],
         sizes[size],
         className

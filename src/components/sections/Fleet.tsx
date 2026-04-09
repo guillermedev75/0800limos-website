@@ -55,7 +55,7 @@ export function Fleet() {
   };
 
   return (
-    <section id="fleet" className="py-24 bg-charcoal">
+    <section id="fleet" className="py-12 md:py-24 bg-charcoal">
       <Container>
         {/* Header */}
         <motion.div
@@ -63,7 +63,7 @@ export function Fleet() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
           <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
             Nossa Frota
@@ -78,7 +78,7 @@ export function Fleet() {
         </motion.div>
 
         {/* Fleet Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-2 gap-3 md:gap-8">
           {vehicles.map((vehicle, index) => (
             <motion.div
               key={vehicle.id}
@@ -89,7 +89,7 @@ export function Fleet() {
               className="group bg-midnight rounded-lg overflow-hidden border border-white/10 hover:border-gold/50 transition-all duration-300"
             >
               {/* Image */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-32 md:h-64 overflow-hidden">
                 <img
                   src={vehicle.image}
                   alt={vehicle.name}
@@ -102,29 +102,29 @@ export function Fleet() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="font-display font-bold text-2xl text-white uppercase tracking-wider mb-2">
+              <div className="p-3 md:p-6">
+                <h3 className="font-display font-bold text-sm md:text-2xl text-white uppercase tracking-wider mb-1 md:mb-2">
                   {vehicle.name}
                 </h3>
 
-                <p className="text-soft-silver mb-4">
+                <p className="hidden md:block text-soft-silver mb-4">
                   {vehicle.description}
                 </p>
 
                 {/* Specs */}
-                <div className="flex items-center gap-6 mb-4 text-sm">
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Users size={16} className="text-gold" />
-                    <span>{vehicle.capacity} passageiros</span>
+                <div className="flex items-center gap-3 md:gap-6 mb-3 md:mb-4 text-xs md:text-sm">
+                  <div className="flex items-center gap-1 md:gap-2 text-white/70">
+                    <Users size={12} className="text-gold" />
+                    <span>{vehicle.capacity}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Luggage size={16} className="text-gold" />
-                    <span>{vehicle.luggage} malas</span>
+                  <div className="flex items-center gap-1 md:gap-2 text-white/70">
+                    <Luggage size={12} className="text-gold" />
+                    <span>{vehicle.luggage}</span>
                   </div>
                 </div>
 
                 {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="hidden md:flex flex-wrap gap-2 mb-4">
                   {vehicle.features.map((feature) => (
                     <span
                       key={feature}
@@ -136,12 +136,13 @@ export function Fleet() {
                 </div>
 
                 {/* Ideal for */}
-                <div className="text-sm text-gold mb-6">
+                <div className="hidden md:block text-sm text-gold mb-6">
                   Ideal para: {vehicle.idealFor}
                 </div>
 
                 <Button variant="outline" size="sm" onClick={scrollToBooking}>
-                  Reservar
+                  <span className="hidden md:inline">Reservar</span>
+                  <span className="md:hidden text-xs">Book</span>
                 </Button>
               </div>
             </motion.div>

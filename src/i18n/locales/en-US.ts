@@ -94,7 +94,7 @@ export default {
       fleet: {
         title: 'Luxury Fleet',
         description: 'Recent model vehicles, meticulously maintained and equipped with the latest comfort and safety technologies.',
-        stat: '2024-2026 Models',
+        stat: 'Newest Models',
       },
       punctuality: {
         title: 'Guaranteed Punctuality',
@@ -133,18 +133,18 @@ export default {
     label: 'Service Area',
     title: 'Areas Served',
     description: 'We cover the entire San Francisco Bay Area and surrounding regions, offering premium transportation service wherever you need to go.',
-    cta: 'Call now',
+    cta: 'Book a ride',
     customDestination: {
       title: 'Need a different destination?',
       description: 'Contact us to check availability in other regions of California.',
     },
     locations: {
-      sf: { name: 'San Francisco', description: 'Complete service throughout the city and financial district surroundings.' },
-      napa: { name: 'Napa Valley', description: 'Exclusive tours to the best wineries in the most famous wine region.' },
-      sonoma: { name: 'Sonoma', description: 'Premium experiences at the charming wineries of Sonoma County.' },
-      monterey: { name: 'Monterey', description: 'Coastal trips with stunning views of the Pacific Coast Highway.' },
-      tahoe: { name: 'Lake Tahoe', description: 'Comfortable transportation to ski resorts and leisure destinations.' },
-      silicon: { name: 'Silicon Valley', description: 'Executive service for technology companies and startups.' },
+      sf: { name: 'San Francisco', description: 'One of the world\'s most iconic cities — home to the Golden Gate Bridge, Fisherman\'s Wharf, and a vibrant arts and culinary scene. From the fog-kissed hills of Pacific Heights to the buzzing streets of SoMa, San Francisco offers a unique blend of culture, history, and innovation.', highlights: ['Golden Gate Bridge', 'Michelin-star dining', 'Tech & Finance hub'] },
+      napa: { name: 'Napa Valley', description: 'America\'s premier wine country, nestled between rolling hills and world-class estates. With over 400 wineries producing some of the finest Cabernet Sauvignons and Chardonnays on the planet, Napa is a must for food and wine lovers seeking elegance in every sip.', highlights: ['400+ wineries', 'Michelin dining', 'Luxury resorts'] },
+      sonoma: { name: 'Sonoma', description: 'Sonoma County blends rustic charm with sophistication. Broader and more relaxed than Napa, it\'s known for its artisan farms, organic vineyards, coastal redwoods, and a laid-back wine culture that welcomes exploration without pretense.', highlights: ['Organic vineyards', 'Coastal redwoods', 'Farm-to-table cuisine'] },
+      monterey: { name: 'Monterey', description: 'A jewel of the California coast, Monterey enchants visitors with its dramatic cliffs, marine wildlife, and the legendary 17-Mile Drive. Home to one of the world\'s finest aquariums, it\'s equally beloved by nature lovers and luxury travelers alike.', highlights: ['17-Mile Drive', 'World-class aquarium', 'Pacific Coast views'] },
+      tahoe: { name: 'Lake Tahoe', description: 'Straddling the California-Nevada border at 6,200 feet, Lake Tahoe is a year-round alpine paradise. Crystal-clear blue waters, premier ski resorts in winter, and hiking and boating in summer make it a destination unlike any other in North America.', highlights: ['World-class ski resorts', 'Crystal-clear alpine lake', 'Summer hiking & boating'] },
+      silicon: { name: 'Silicon Valley', description: 'The global epicenter of technology and innovation. From Apple\'s spaceship campus to the Stanford Research Park, Silicon Valley pulses with entrepreneurial energy. We provide discreet executive transportation for meetings, conferences, and corporate events across the region.', highlights: ['Corporate campuses', 'Conference transfers', 'Airport connections'] },
     },
   },
   contact: {

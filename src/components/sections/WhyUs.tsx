@@ -15,7 +15,7 @@ export function WhyUs() {
   const items = getItems();
 
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
+    <section className="py-12 md:py-24 bg-gray-50 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #C9A961 1px, transparent 0)`,
@@ -40,7 +40,7 @@ export function WhyUs() {
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {items.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -50,24 +50,34 @@ export function WhyUs() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="text-center group bg-white p-6 rounded-lg border border-gray-200 hover:border-gold/50 transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg"
+                className="group bg-white p-4 md:p-6 rounded-lg border border-gray-200 hover:border-gold/50 transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg
+                  flex flex-row items-start gap-4
+                  md:flex-col md:text-center md:items-center"
               >
-                <div className="relative mb-6">
-                  <div className="w-20 h-20 mx-auto bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-all duration-300 group-hover:scale-110">
-                    <Icon className="text-gold" size={32} />
+                {/* Icon + badge (desktop: overlapping bottom of icon, mobile: inline row) */}
+                <div className="flex-shrink-0 relative flex flex-col items-center mb-0 md:mb-5">
+                  <div className="w-12 h-12 md:w-20 md:h-20 bg-gold/10 rounded-full flex items-center justify-center group-hover:bg-gold/20 transition-all duration-300">
+                    <Icon className="text-gold" size={22} />
                   </div>
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  {/* Badge overlapping inside bottom of icon on desktop */}
+                  <div className="hidden md:flex absolute bottom-1 left-1/2 -translate-x-1/2 bg-green-600 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full whitespace-nowrap shadow-sm">
                     {t(`whyUs.items.${item.key}.stat`)}
                   </div>
                 </div>
 
-                <h3 className="font-display font-bold text-xl text-gray-900 uppercase tracking-wider mb-3">
-                  {t(`whyUs.items.${item.key}.title`)}
-                </h3>
-
-                <p className="text-gray-600 leading-relaxed">
-                  {t(`whyUs.items.${item.key}.description`)}
-                </p>
+                {/* Text */}
+                <div className="flex-1">
+                  {/* Badge inline on mobile */}
+                  <div className="inline-flex md:hidden bg-green-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full mb-1">
+                    {t(`whyUs.items.${item.key}.stat`)}
+                  </div>
+                  <h3 className="font-display font-bold text-sm md:text-xl text-gray-900 uppercase tracking-wider mb-1 md:mb-3 leading-tight">
+                    {t(`whyUs.items.${item.key}.title`)}
+                  </h3>
+                  <p className="text-gray-600 text-xs md:text-base leading-relaxed">
+                    {t(`whyUs.items.${item.key}.description`)}
+                  </p>
+                </div>
               </motion.div>
             );
           })}

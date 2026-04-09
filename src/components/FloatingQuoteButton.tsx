@@ -31,7 +31,7 @@ export function FloatingQuoteButton() {
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`shadow-lg flex items-center justify-center rounded-full transition-all duration-300 ${
+          className={`shadow-lg flex items-center justify-center rounded-full transition-all duration-300 cursor-pointer ${
             isOpen 
               ? 'bg-gray-800 w-12 h-12 hover:bg-gray-700' 
               : 'bg-gold hover:bg-gold-hover hover:scale-105 px-6 py-3'
