@@ -6,12 +6,19 @@ import { Container } from '../layout/Container';
 import 'leaflet/dist/leaflet.css';
 
 const AREAS = [
-  { key: 'sf',       lat: 37.7749, lng: -122.4194, image: '/images/areas/sf.jpg' },
-  { key: 'napa',     lat: 38.2975, lng: -122.2869, image: '/images/areas/napa.jpg' },
-  { key: 'sonoma',   lat: 38.2919, lng: -122.4580, image: '/images/areas/sonoma.jpg' },
-  { key: 'monterey', lat: 36.6002, lng: -121.8947, image: '/images/areas/monterey.jpg' },
-  { key: 'tahoe',    lat: 38.9399, lng: -120.0324, image: '/images/areas/tahoe.jpg' },
-  { key: 'silicon',  lat: 37.3861, lng: -122.0839, image: '/images/areas/silicon-valley.jpg' },
+  { key: 'sf',          lat: 37.7749, lng: -122.4194, image: '/images/areas/sf.jpg' },
+  { key: 'napa',        lat: 38.2975, lng: -122.2869, image: '/images/areas/napa.jpg' },
+  { key: 'sonoma',      lat: 38.2919, lng: -122.4580, image: '/images/areas/sonoma.jpg' },
+  { key: 'monterey',    lat: 36.6002, lng: -121.8947, image: '/images/areas/monterey.jpg' },
+  { key: 'tahoe',       lat: 38.9399, lng: -120.0324, image: '/images/areas/tahoe.jpg' },
+  { key: 'silicon',     lat: 37.3861, lng: -122.0839, image: '/images/areas/silicon-valley.jpg' },
+  { key: 'carmel',      lat: 36.5552, lng: -121.9233, image: '/images/areas/monterey.jpg' },
+  { key: 'sacramento',  lat: 38.5816, lng: -121.4944, image: '/images/areas/sf.jpg' },
+  { key: 'pebble',      lat: 36.5713, lng: -121.9470, image: '/images/areas/monterey.jpg' },
+  { key: 'santacruz',   lat: 36.9741, lng: -122.0308, image: '/images/areas/monterey.jpg' },
+  { key: 'calistoga',   lat: 38.5788, lng: -122.5797, image: '/images/areas/napa.jpg' },
+  { key: 'yountville',  lat: 38.4024, lng: -122.3614, image: '/images/areas/napa.jpg' },
+  { key: 'halfmoon',    lat: 37.4636, lng: -122.4286, image: '/images/areas/sf.jpg' },
 ];
 
 type AreaItem = typeof AREAS[number];
@@ -35,8 +42,8 @@ export function Areas() {
       if (!isMounted || !mapRef.current) return;
 
       const map = L.map(mapRef.current, {
-        center: [37.7, -121.9],
-        zoom: 8,
+        center: [37.8, -122.1],
+        zoom: 7,
         zoomControl: false,
         scrollWheelZoom: false,
         dragging: true,
