@@ -28,7 +28,7 @@ export function Services() {
 
       scrollTimeout.current = setTimeout(() => {
         const viewportCenter = window.innerHeight / 2;
-        let closest: { key: string; dist: number } | null = null;
+        let closest: { key: string; dist: number } | null = null as { key: string; dist: number } | null;
 
         cardRefs.current.forEach((el, key) => {
           const rect = el.getBoundingClientRect();
