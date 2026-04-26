@@ -1,0 +1,13 @@
+{
+  "name": "0800 Limos",
+  "short_name": "0800 Limos",
+  "description": "Luxury executive transportation in the San Francisco Bay Area.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#C9A961",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

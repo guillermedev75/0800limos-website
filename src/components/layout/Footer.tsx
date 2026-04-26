@@ -1,5 +1,6 @@
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Container } from './Container';
 
 export function Footer() {
@@ -109,6 +110,15 @@ export function Footer() {
               <li className="flex items-start gap-2 text-gray-600">
                 <MapPin size={18} className="mt-1 flex-shrink-0" />
                 <span>San Francisco Bay Area</span>
+              </li>
+              <li>
+                <Link
+                  to="/blog"
+                  className="flex items-center gap-2 text-gray-600 hover:text-gold transition-colors"
+                >
+                  <BookOpen size={18} />
+                  Blog
+                </Link>
               </li>
             </ul>
           </div>

@@ -165,7 +165,7 @@ export default {
       whatsapp: 'WhatsApp',
     },
     emailCopied: 'Email da 0800 Limos copiado para a área de transferência',
-    response: 'Fast response',
+    response: 'Respostas rápidas',
     cards: {
       phone: { title: 'Telefone', value: '650-666-9333' },
       whatsapp: { title: 'WhatsApp', value: '650-666-9333' },

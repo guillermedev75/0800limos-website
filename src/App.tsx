@@ -1,30 +1,33 @@
-import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
-import { Hero } from './components/sections/Hero';
-import { BookingWidget } from './components/sections/BookingWidget';
-import { Services } from './components/sections/Services';
-import { Destinations } from './components/sections/Destinations';
-import { WhyUs } from './components/sections/WhyUs';
-import { Testimonials } from './components/sections/Testimonials';
-import { Areas } from './components/sections/Areas';
-import { FloatingQuoteButton } from './components/FloatingQuoteButton';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Landing } from './pages/Landing';
+import { BlogIndex } from './pages/BlogIndex';
+import { BlogPost } from './pages/BlogPost';
+import { Analytics } from './components/Analytics';
+
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) return; // anchor scroll handled by Landing
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname, hash]);
+  return null;
+}
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <main>
-        <Hero />
-        <Services />
-        <Destinations />
-        <WhyUs />
-        <Testimonials />
-        <Areas />
-        <BookingWidget />
-      </main>
-      <FloatingQuoteButton />
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <ScrollToTop />
+      <Analytics />
+      <Routes>
+        <Route path="/" element={<Landing locale="pt-BR" />} />
+        <Route path="/en" element={<Landing locale="en-US" />} />
+        <Route path="/es" element={<Landing locale="es" />} />
+        <Route path="/blog" element={<BlogIndex />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="*" element={<Landing locale="pt-BR" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

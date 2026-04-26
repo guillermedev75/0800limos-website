@@ -165,7 +165,7 @@ export default {
       whatsapp: 'WhatsApp',
     },
     emailCopied: '0800 Limos email copied to clipboard',
-    response: 'Fast response',
+    response: 'Fast responses',
     cards: {
       phone: { title: 'Phone', value: '650-666-9333' },
       whatsapp: { title: 'WhatsApp', value: '650-666-9333' },
