@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Container } from '../layout/Container';
-import { ExternalLink, Phone, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MessageCircle } from 'lucide-react';
 
 export function BookingWidget() {
   const { t } = useTranslation();
@@ -38,13 +38,11 @@ export function BookingWidget() {
           <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <a
-                href="https://customer.moovs.app/0800-limos-inc/request/new"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:hussein@0800limos.com"
                 className="flex items-center justify-center gap-3 bg-gold hover:bg-gold-hover text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 group"
               >
-                <ExternalLink size={20} />
-                <span>{t('contact.buttons.online')}</span>
+                <Mail size={20} />
+                <span>{t('contact.buttons.email')}</span>
               </a>
               <a
                 href="tel:6506669333"

@@ -159,7 +159,7 @@ export default {
     title: 'Póngase en Contacto',
     description: 'Solicite una cotización o haga su reserva. Rápido, fácil y seguro.',
     buttons: {
-      online: 'Reservar Online',
+      email: 'Email',
       call: 'Llamar',
       whatsapp: 'WhatsApp',
     },

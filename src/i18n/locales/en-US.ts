@@ -159,7 +159,7 @@ export default {
     title: 'Get in Touch',
     description: 'Request a quote or make your reservation. Fast, easy, and secure.',
     buttons: {
-      online: 'Book Online',
+      email: 'Email',
       call: 'Call',
       whatsapp: 'WhatsApp',
     },

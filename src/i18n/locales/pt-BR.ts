@@ -159,7 +159,7 @@ export default {
     title: 'Entre em Contato',
     description: 'Solicite um orçamento ou faça sua reserva. Rápido, fácil e seguro.',
     buttons: {
-      online: 'Reservar Online',
+      email: 'Email',
       call: 'Ligar',
       whatsapp: 'WhatsApp',
     },

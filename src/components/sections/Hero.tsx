@@ -123,7 +123,7 @@ export function Hero() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => scrollToSection('#booking')}
+              onClick={() => window.open('https://customer.moovs.app/0800-limos-inc/request/new', '_blank')}
             >
               {t('hero.ctaPrimary')}
             </Button>
