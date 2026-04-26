@@ -160,9 +160,11 @@ export default {
     description: 'Solicite una cotización o haga su reserva. Rápido, fácil y seguro.',
     buttons: {
       email: 'Email',
+      copyEmail: 'Copiar dirección de email',
       call: 'Llamar',
       whatsapp: 'WhatsApp',
     },
+    emailCopied: 'Email de 0800 Limos copiado al portapapeles',
     response: 'Fast response',
     cards: {
       phone: { title: 'Teléfono', value: '650-666-9333' },

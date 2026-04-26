@@ -160,9 +160,11 @@ export default {
     description: 'Request a quote or make your reservation. Fast, easy, and secure.',
     buttons: {
       email: 'Email',
+      copyEmail: 'Copy email address',
       call: 'Call',
       whatsapp: 'WhatsApp',
     },
+    emailCopied: '0800 Limos email copied to clipboard',
     response: 'Fast response',
     cards: {
       phone: { title: 'Phone', value: '650-666-9333' },
