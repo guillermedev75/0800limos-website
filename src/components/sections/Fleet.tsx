@@ -93,6 +93,8 @@ export function Fleet() {
                 <img
                   src={vehicle.image}
                   alt={vehicle.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute top-4 right-4 bg-gold text-midnight px-3 py-1 rounded text-sm font-semibold flex items-center gap-1">

@@ -70,6 +70,8 @@ export function Hero() {
           <img
             src={slides[currentSlide].image}
             alt={slides[currentSlide].subtitle}
+            fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+            decoding="async"
             className="w-full h-full object-cover object-center"
           />
         </motion.div>

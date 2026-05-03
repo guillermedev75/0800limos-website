@@ -1,7 +1,7 @@
 export default {
   header: {
     nav: {
-      home: 'Home',
+      home: 'Início',
       services: 'Serviços',
       destinations: 'Destinos',
       areas: 'Áreas',

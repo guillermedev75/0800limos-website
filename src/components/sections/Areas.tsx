@@ -331,7 +331,7 @@ export function Areas() {
                 /* ── Area modal ── */
                 <>
                   <div className="relative h-52">
-                    <img src={selected.data.image} alt={locations[selected.data.key]?.name} className="w-full h-full object-cover" />
+                    <img src={selected.data.image} alt={locations[selected.data.key]?.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <button onClick={() => setSelected(null)} className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer">
                       <X size={16} />

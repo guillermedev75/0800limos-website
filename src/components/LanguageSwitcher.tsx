@@ -3,12 +3,12 @@ import { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const languages = [
-  { code: 'pt-BR', label: 'PT', flag: '🇧🇷', path: '/' },
-  { code: 'en-US', label: 'EN', flag: '🇺🇸', path: '/en' },
+  { code: 'en-US', label: 'EN', flag: '🇺🇸', path: '/' },
+  { code: 'pt-BR', label: 'PT', flag: '🇧🇷', path: '/pt' },
   { code: 'es', label: 'ES', flag: '🇪🇸', path: '/es' },
 ];
 
-const LOCALE_PATHS = ['/', '/en', '/es'];
+const LOCALE_PATHS = ['/', '/pt', '/es'];
 
 export function LanguageSwitcher() {
   const { i18n } = useTranslation();
@@ -20,14 +20,15 @@ export function LanguageSwitcher() {
   const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    if (!isOpen) return;
+    const handleClickOutside = (event: PointerEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    document.addEventListener('pointerdown', handleClickOutside);
+    return () => document.removeEventListener('pointerdown', handleClickOutside);
+  }, [isOpen]);
 
   const changeLanguage = (code: string, path: string) => {
     setIsOpen(false);

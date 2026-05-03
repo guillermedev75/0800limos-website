@@ -22,14 +22,14 @@ const SEO: Record<Props['locale'], { title: string; description: string; canonic
     title: 'Transporte Executivo Bay Area | SFO, Napa, Sonoma | 0800 Limos',
     description:
       'Serviço de chauffeur de luxo na Bay Area. Transfers SFO/OAK/SJC, FBO/aviação privada, tours em Napa e Sonoma, viagens corporativas e casamentos. Reserva 24/7.',
-    canonical: 'https://0800limos.com/',
+    canonical: 'https://0800limos.com/pt',
     htmlLang: 'pt-BR',
   },
   'en-US': {
     title: 'Bay Area Limo Service | SFO Airport Transfer & Napa Wine Tours — 0800 Limos',
     description:
       'Luxury chauffeur service across the SF Bay Area. SFO/OAK/SJC transfers, FBO private aviation, Napa & Sonoma wine tours, corporate roadshows, weddings. 24/7 booking.',
-    canonical: 'https://0800limos.com/en',
+    canonical: 'https://0800limos.com/',
     htmlLang: 'en-US',
   },
   es: {

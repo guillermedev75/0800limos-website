@@ -109,6 +109,8 @@ export function BlogPost() {
             <img
               src={post.heroImage}
               alt={post.heroImageAlt}
+              fetchPriority="high"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/40 to-black/80" />
@@ -256,6 +258,7 @@ export function BlogPost() {
                         src={p.heroImage}
                         alt={p.heroImageAlt}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>

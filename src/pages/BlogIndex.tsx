@@ -87,6 +87,8 @@ export function BlogIndex() {
                         src={post.heroImage}
                         alt={post.heroImageAlt}
                         loading={idx > 1 ? 'lazy' : 'eager'}
+                        decoding="async"
+                        fetchPriority={idx === 0 ? 'high' : 'auto'}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute top-4 left-4">

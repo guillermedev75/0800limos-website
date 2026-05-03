@@ -31,12 +31,12 @@ function App() {
       <Analytics />
       <Suspense fallback={<PageFallback />}>
         <Routes>
-          <Route path="/" element={<Landing locale="pt-BR" />} />
-          <Route path="/en" element={<Landing locale="en-US" />} />
+          <Route path="/" element={<Landing locale="en-US" />} />
+          <Route path="/pt" element={<Landing locale="pt-BR" />} />
           <Route path="/es" element={<Landing locale="es" />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="*" element={<Landing locale="pt-BR" />} />
+          <Route path="*" element={<Landing locale="en-US" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
