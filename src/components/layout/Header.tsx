@@ -101,14 +101,17 @@ export function Header() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={toggle}
-              className="lg:hidden text-gray-900 p-2 ml-auto cursor-pointer"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile: language + hamburger */}
+            <div className="flex items-center gap-2 lg:hidden ml-auto">
+              <LanguageSwitcher />
+              <button
+                onClick={toggle}
+                className="text-gray-900 p-2 cursor-pointer"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </Container>
       </motion.header>
@@ -124,9 +127,6 @@ export function Header() {
             className="fixed inset-0 z-40 bg-white lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
-              <div className="mb-4">
-                <LanguageSwitcher />
-              </div>
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}

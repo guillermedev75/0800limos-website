@@ -240,11 +240,11 @@ export function Areas() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Mode toggle */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
               <div className="flex bg-white border border-gray-200 rounded-full p-1 shadow-sm">
                 <button
                   onClick={() => setMode('areas')}
-                  className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     mode === 'areas' ? 'bg-gold text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
@@ -252,11 +252,11 @@ export function Areas() {
                 </button>
                 <button
                   onClick={() => setMode('michelin')}
-                  className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     mode === 'michelin' ? 'bg-[#9B2335] text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
-                  ★ Michelin Stars
+                  <span aria-hidden="true">★</span> Michelin Stars
                 </button>
               </div>
 
@@ -267,13 +267,13 @@ export function Areas() {
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -8 }}
-                    className="flex bg-white border border-gray-200 rounded-full p-1 shadow-sm gap-0.5"
+                    className="flex bg-white border border-gray-200 rounded-full p-1 shadow-sm gap-0.5 max-w-full"
                   >
                     {([0, 1, 2, 3] as StarsFilter[]).map((n) => (
                       <button
                         key={n}
                         onClick={() => setStarsFilter(n)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
+                        className={`px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                           starsFilter === n
                             ? n === 0 ? 'bg-gray-800 text-white' : `text-white shadow-sm`
                             : 'text-gray-500 hover:text-gray-800'
