@@ -4,6 +4,7 @@
 
 | Status | Milestone | Descrição | Prazo estimado |
 |--------|-----------|-----------|----------------|
+| 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations"; unificar tudo na Areas com 3 abas (Service Areas / Michelin Restaurants / **Golf Courses**) + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. Pebble Beach (Monterey) é o pin âncora da aba de golf. | Semana de 2026-05-11 |
 | 🔲 | Pré-renderização estática | Migrar de SPA pura para `vite-ssg` para que Googlebot indexe HTML pronto, não shell | Semana de 2026-05-18 |
 | 🔲 | Tradução do blog (pt-BR + es) | Traduzir os 5 posts existentes e criar rotas `/pt/blog` e `/es/blog` | Semana de 2026-05-25 |
 | 🔲 | Imagens otimizadas (WebP/AVIF) | Converter heros e imagens de áreas, adicionar `<picture>` responsivo | Semana de 2026-06-01 |
