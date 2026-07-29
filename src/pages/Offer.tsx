@@ -105,7 +105,7 @@ export function Offer() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="pb-24 md:pb-0">
+      <main>
         {/* Hero */}
         <section className="relative bg-gradient-to-br from-midnight via-charcoal to-midnight pt-32 pb-20 md:pt-40 md:pb-28">
           <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #C9A961 0%, transparent 45%)' }} />
@@ -235,8 +235,8 @@ export function Offer() {
         </section>
       </main>
 
-      <MobileContactBar />
       <Footer />
+      <MobileContactBar />
     </div>
   );
 }

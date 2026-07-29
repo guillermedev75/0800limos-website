@@ -294,10 +294,12 @@ export function Areas() {
           >
             {/* Mode toggle */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <div className="flex bg-white border border-gray-200 rounded-full p-1 shadow-sm">
+              {/* Wraps below ~360px: three tabs don't fit one row on a small phone,
+                  and letting it overflow pushes the whole document sideways. */}
+              <div className="flex flex-wrap justify-center bg-white border border-gray-200 rounded-2xl sm:rounded-full p-1 shadow-sm max-w-full">
                 <button
                   onClick={() => setMode('areas')}
-                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     mode === 'areas' ? 'bg-gold text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
@@ -305,7 +307,7 @@ export function Areas() {
                 </button>
                 <button
                   onClick={() => setMode('michelin')}
-                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     mode === 'michelin' ? 'bg-[#9B2335] text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
@@ -313,7 +315,7 @@ export function Areas() {
                 </button>
                 <button
                   onClick={() => setMode('golf')}
-                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     mode === 'golf' ? 'text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                   style={mode === 'golf' ? { backgroundColor: GOLF_COLOR } : {}}
@@ -388,19 +390,19 @@ export function Areas() {
 
             {/* Legend */}
             {mode === 'michelin' && (
-              <div className="flex items-center gap-4 mt-3 px-1">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 px-1">
                 {[3, 2, 1].map(n => (
                   <div key={n} className="flex items-center gap-1.5">
                     <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: STAR_COLORS[n] }} />
                     <span className="text-xs text-gray-500 font-medium">{'★'.repeat(n)}</span>
                   </div>
                 ))}
-                <span className="text-xs text-gray-400 ml-auto">{t('areas.golf.hint')}</span>
+                <span className="text-xs text-gray-400 w-full sm:w-auto sm:ml-auto">{t('areas.golf.hint')}</span>
               </div>
             )}
 
             {mode === 'golf' && (
-              <div className="flex items-center gap-4 mt-3 px-1">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 px-1">
                 <div className="flex items-center gap-1.5">
                   <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: GOLF_COLOR }} />
                   <span className="text-xs text-gray-500 font-medium">{t('areas.golf.tab')}</span>
@@ -409,7 +411,7 @@ export function Areas() {
                   <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: GOLF_CLOSED_COLOR }} />
                   <span className="text-xs text-gray-500 font-medium">{t('areas.golf.closedBadge')}</span>
                 </div>
-                <span className="text-xs text-gray-400 ml-auto">{t('areas.golf.hint')}</span>
+                <span className="text-xs text-gray-400 w-full sm:w-auto sm:ml-auto">{t('areas.golf.hint')}</span>
               </div>
             )}
           </motion.div>

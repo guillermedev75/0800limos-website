@@ -44,6 +44,11 @@ Lote de pedidos do cliente via WhatsApp em 2026-07-24.
 - `Destinations.tsx`: `mod` e a lista de destinos hoisted para fora do componente e `useCallback` removido — o React Compiler estava pulando a otimização do componente inteiro por causa da memoização manual
 - Lint saiu de 5 erros para 0
 
+### Corrigido (responsividade, auditoria em 320/375/768/1280)
+- **Scroll horizontal na landing em telas de 320px**, causado pela própria entrega: com duas abas o seletor cabia numa linha, com a terceira ele passou a medir 399px e empurrou o documento para 446. Agora quebra em duas linhas (`flex-wrap` + `rounded-2xl sm:rounded-full`) e o padding dos botões afina no mobile
+- Legendas do mapa (golfe e Michelin) ganharam `flex-wrap`; a dica "toque num pin" desce para a própria linha abaixo de `sm`
+- A barra de contato mobile agora **reserva a própria altura no fim do documento**. O padding estava no `<main>`, mas o `<footer>` fica fora dele — sobravam 7px entre o copyright e a barra na `/offer`. Agora são 59px, e o `<MobileContactBar />` é renderizado depois do `<Footer />` para o espaçador cair no fim de verdade
+
 ### Removido do escopo
 - Pipeline de SMS / mala direta (Twilio, registro A2P 10DLC, consentimento TCPA) — abortado pelo cliente
 - Cupom automático no Moovs — o plano dele não expõe a funcionalidade, então o desconto é aplicado à mão na confirmação

@@ -71,8 +71,7 @@ export function Landing({ locale }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      {/* Bottom padding on mobile so the fixed contact bar never covers the footer */}
-      <main className="pb-16 md:pb-0">
+      <main>
         <Hero />
         <Services />
         <Destinations />
@@ -82,8 +81,8 @@ export function Landing({ locale }: Props) {
         <BookingWidget />
       </main>
       <FloatingQuoteButton />
-      <MobileContactBar />
       <Footer />
+      <MobileContactBar />
     </div>
   );
 }
