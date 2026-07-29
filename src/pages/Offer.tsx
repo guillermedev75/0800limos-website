@@ -77,7 +77,11 @@ export function Offer() {
     try {
       const res = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        // text/plain keeps this a CORS "simple request" so the browser skips the
+        // preflight. Google Apps Script web apps don't answer OPTIONS, so sending
+        // application/json here makes the POST fail before it ever leaves.
+        // The body is still JSON — the script parses it the same way.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           name: data.get('name'),
           email: data.get('email'),

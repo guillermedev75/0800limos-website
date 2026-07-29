@@ -134,22 +134,40 @@ variáveis em build time, não em runtime.
 
 Caminho mais barato (grátis) e o que o cliente consegue acompanhar sozinho:
 
-1. Criar uma planilha no Google Sheets com as colunas `data`, `nome`, `email`, `idioma`.
-2. Extensões → Apps Script, colar:
+1. Criar uma planilha no Google Sheets. Na primeira linha, os cabeçalhos:
+   `data | nome | email | codigo | idioma | pagina`
+2. Extensões → Apps Script, apagar o conteúdo e colar:
 
 ```javascript
 function doPost(e) {
   const d = JSON.parse(e.postData.contents);
-  SpreadsheetApp.getActiveSheet().appendRow([new Date(), d.name, d.email, d.locale]);
-  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+  SpreadsheetApp.getActiveSheet().appendRow([
+    new Date(), d.name, d.email, d.promo, d.locale, d.page
+  ]);
+  return ContentService
+    .createTextOutput(JSON.stringify({ ok: true }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 ```
 
-3. Implantar → Nova implantação → Tipo "App da Web", executar como você, acesso "Qualquer pessoa".
-4. Copiar a URL gerada e colar em `VITE_LEAD_ENDPOINT` na Vercel. Redeployar.
+3. Salvar. Implantar → Nova implantação → engrenagem → **App da Web**.
+   - Executar como: **eu**
+   - Quem tem acesso: **qualquer pessoa**
+4. Autorizar quando o Google pedir (vai aparecer um aviso de "app não verificado" —
+   é o seu próprio script, seguir em "Avançado → Acessar projeto").
+5. Copiar a URL `/exec` gerada, colar em `VITE_LEAD_ENDPOINT` na Vercel e redeployar.
 
-Alternativa sem código: criar um form no Formspree e usar a URL do endpoint deles.
+> **Não troque o `Content-Type` do fetch em `Offer.tsx` para `application/json`.**
+> O envio usa `text/plain` de propósito: isso mantém a requisição como "simple request"
+> e evita o preflight CORS, que um web app do Apps Script não sabe responder. O corpo
+> continua sendo JSON e o `JSON.parse` acima funciona normalmente.
+
+Depois de qualquer alteração no script é preciso criar uma **nova versão** da implantação
+(Implantar → Gerenciar implantações → editar → Versão: nova). Salvar o código sozinho não
+atualiza o endpoint.
+
+Alternativa sem código: criar um form no Formspree e usar a URL do endpoint deles — aí o
+`Content-Type` pode ser `application/json` normalmente.
 
 O formulário coleta **apenas nome e email** — nada de telefone. Capturar telefone só faz
 sentido se um dia for montado o pipeline de SMS, que exige registro A2P 10DLC na operadora
