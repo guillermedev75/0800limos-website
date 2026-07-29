@@ -30,6 +30,7 @@ There is no test suite. TypeScript strict mode is on; the build does `tsc -b` fi
 | `/`   | `en-US` (default) |
 | `/pt` | `pt-BR` |
 | `/es` | `es` |
+| `/offer` | Promo landing, renders in whatever locale i18n is on; canonical is always `/offer` |
 | `/blog`, `/blog/:slug` | EN-only for now |
 
 `src/pages/Landing.tsx` receives `locale` as a prop and calls `i18n.changeLanguage(locale)` on mount. Do **not** add a locale-switching mechanism that doesn't update the URL — it breaks hreflang and SEO.
@@ -63,12 +64,24 @@ The site is a client-rendered SPA; Googlebot does execute JS but indexes the pos
 
 `src/pages/Landing.tsx` composes sections from `src/components/sections/`. Two sections have non-trivial behavior worth knowing:
 
-- **`Areas.tsx`** — Leaflet 2D map (NOT react-leaflet) with two modes: "Service Areas" (13 city pins) and "Michelin Stars" (40 restaurants, filterable by stars). Coordinates and content are **hardcoded inside the component**, not in i18n locales. The map container has `position: relative; zIndex: 0` to create a stacking context so the navbar (`z-50`) and modal (`z-[9999]`) sit above it. Leaflet CSS is statically imported (used to be dynamic — caused FOUC).
+- **`Areas.tsx`** — Leaflet 2D map (NOT react-leaflet) with three modes: "Service Areas" (13 city pins), "Michelin Stars" (40 restaurants, filterable by stars) and "Golf Courses" (16 courses, filterable by region). Areas and Michelin coordinates are **hardcoded inside the component**; golf lives in `src/data/golf.ts` with its prose in the locales under `areas.golf.courses.<key>`. The map container has `position: relative; zIndex: 0` to create a stacking context so the navbar (`z-50`) and modal (`z-[9999]`) sit above it. Leaflet CSS is statically imported (used to be dynamic — caused FOUC).
+
+  **Golf courses are never ranked.** No stars, no scores, no "top 10" ordering — the client asked explicitly that no venue read as lesser than another. Group and filter geographically instead. A course that is closed gets `closed: true`, which greys its pin and shows a badge; keep that flag current or the site sells rides to a course nobody can play.
 - **`Services.tsx`** — accordion is **mobile-only**. Desktop renders all cards expanded. Active card is determined by scroll position (`getBoundingClientRect`), not IntersectionObserver — observers caused two-cards-open glitches.
 
 ### Analytics — disabled by default
 
 `src/components/Analytics.tsx` injects GA4 / GTM scripts at runtime, but only if `VITE_GA_ID` (`G-XXXXXXX`) and/or `VITE_GTM_ID` are set in the Vercel environment. Until the client provides those IDs, the component renders nothing. Don't hard-code an ID.
+
+`src/lib/analytics.ts` is the call-site wrapper: `trackEvent`, `trackBookingClick` and `moovsUrl`. Every booking link should go through `moovsUrl(source)` so it carries UTMs, and fire `trackBookingClick(source)` on click. **That outbound click is the only conversion signal we have** — the client's Moovs plan doesn't include tracking, so nothing tells us whether a booking actually completed. Don't design reporting that assumes otherwise.
+
+Nothing here breaks when `VITE_GA_ID` is unset; `trackEvent` no-ops. Write call sites without guards.
+
+## Promo landing (`/offer`)
+
+Lazy-loaded like the blog. Shows the `FIRST20` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `DEPLOY.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
+
+The form collects name and email only. No phone: US promotional SMS needs A2P 10DLC registration plus explicit TCPA consent, and the client dropped messaging from scope. Don't reintroduce a phone field without that pipeline.
 
 ## Conventions
 
@@ -86,6 +99,8 @@ The site is a client-rendered SPA; Googlebot does execute JS but indexes the pos
 
 ## What's pending vs. shipped (P0 done; P1+ open)
 
-Shipped: full SEO meta + JSON-LD, robots/sitemap, locale URLs with hreflang, lazy-loaded blog with 5 researched posts (EN), analytics scaffolding, security headers.
+Shipped: full SEO meta + JSON-LD, robots/sitemap, locale URLs with hreflang, lazy-loaded blog with 5 researched posts (EN), analytics scaffolding, security headers, golf courses tab, mobile contact bar, `/offer` promo landing.
 
-Open / not started: pre-rendering (vite-ssg), pt-BR/es translations of the 5 posts, more posts, WebP/AVIF + `<picture>`, Google Business Profile setup, real OG image at `/public/og-image.jpg`, real `apple-touch-icon.png`. Several of these wait on credentials/assets from the client.
+Open / not started: AI fleet image bank (13 models), pre-rendering (vite-ssg), pt-BR/es translations of the 5 posts, more posts, WebP/AVIF + `<picture>`, Google Business Profile setup, real OG image at `/public/og-image.jpg`, real `apple-touch-icon.png`.
+
+Waiting on the client: `VITE_GA_ID` (nothing is measured without it — no visit counter, no conversion proxy), his own list of golf courses to add or drop, and confirmation of whether the fleet images are 3 or 4 shots per model (his message says 3 and describes 4).

@@ -1,8 +1,11 @@
 import { useRef, useEffect, useState } from 'react';
+import type { Map as LeafletMap, LayerGroup } from 'leaflet';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, MapPin, ExternalLink, Navigation } from 'lucide-react';
+import { ArrowRight, X, MapPin, ExternalLink, Navigation, Flag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Container } from '../layout/Container';
+import { GOLF_COURSES, GOLF_REGIONS, type GolfCourse, type GolfRegion } from '../../data/golf';
+import { moovsUrl, trackBookingClick } from '../../lib/analytics';
 import 'leaflet/dist/leaflet.css';
 
 // ── Service Areas ─────────────────────────────────────────────────────────────
@@ -69,17 +72,21 @@ const MICHELIN = [
   { key: 'wakuriya',        stars: 1, name: 'Wakuriya',             chef: 'Katsuhiro Yamasaki',     cuisine: 'Japanese Kaiseki',            city: 'San Mateo',       lat: 37.5677, lng: -122.3227, reservation: 'https://www.yelp.com/biz/wakuriya-san-mateo',        maps: 'https://maps.google.com/?q=Wakuriya,+San+Mateo,+CA' },
 ];
 
-type MapMode = 'areas' | 'michelin';
+type MapMode = 'areas' | 'michelin' | 'golf';
 type StarsFilter = 0 | 1 | 2 | 3;
+type RegionFilter = 'all' | GolfRegion;
 type AreaItem = typeof AREAS[number];
 type MichelinItem = typeof MICHELIN[number];
 type Selected =
   | { type: 'area'; data: AreaItem }
   | { type: 'michelin'; data: MichelinItem }
+  | { type: 'golf'; data: GolfCourse }
   | null;
 
 const STAR_COLORS: Record<number, string> = { 3: '#9B2335', 2: '#C0392B', 1: '#C9A961' };
 const STAR_LABEL = (n: number) => '★'.repeat(n);
+const GOLF_COLOR = '#1F7A4D';
+const GOLF_CLOSED_COLOR = '#8A8F98';
 
 function michelinIcon(stars: number) {
   const color = STAR_COLORS[stars];
@@ -102,6 +109,29 @@ function michelinIcon(stars: number) {
     ">${STAR_LABEL(stars)}</div>`;
 }
 
+function golfIcon(closed?: boolean) {
+  const color = closed ? GOLF_CLOSED_COLOR : GOLF_COLOR;
+  return `
+    <div style="
+      background:${color};
+      color:white;
+      border-radius:50%;
+      width:28px;
+      height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid white;
+      box-shadow:0 2px 6px rgba(0,0,0,0.35);
+      cursor:pointer;
+    ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 22V4a1 1 0 0 1 1.4-.9l12.6 5.4a1 1 0 0 1 0 1.8L4 15"/>
+      </svg>
+    </div>`;
+}
+
 const goldPinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
   <path d="M14 0C6.268 0 0 6.268 0 14c0 9.333 14 22 14 22S28 23.333 28 14C28 6.268 21.732 0 14 0z" fill="#C9A961"/>
   <circle cx="14" cy="14" r="5" fill="white"/>
@@ -110,15 +140,19 @@ const goldPinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="3
 export function Areas() {
   const { t } = useTranslation();
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const layersRef = useRef<{ areas: any; michelin: any }>({ areas: null, michelin: null });
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
+  const layersRef = useRef<Record<MapMode, LayerGroup | null>>({ areas: null, michelin: null, golf: null });
   const [mapReady, setMapReady] = useState(false);
   const [mode, setMode] = useState<MapMode>('areas');
   const [starsFilter, setStarsFilter] = useState<StarsFilter>(0);
+  const [regionFilter, setRegionFilter] = useState<RegionFilter>('all');
   const [selected, setSelected] = useState<Selected>(null);
 
   const locations = t('areas.locations', { returnObjects: true }) as Record<
     string, { name: string; description: string; highlights: string[] }
+  >;
+  const golfCopy = t('areas.golf.courses', { returnObjects: true }) as Record<
+    string, { comment: string; highlights: string[] }
   >;
 
   // Init map once
@@ -146,6 +180,7 @@ export function Areas() {
 
       layersRef.current.areas = L.layerGroup();
       layersRef.current.michelin = L.layerGroup();
+      layersRef.current.golf = L.layerGroup();
 
       mapInstanceRef.current = map;
       setMapReady(true);
@@ -167,12 +202,16 @@ export function Areas() {
     (async () => {
       const L = (await import('leaflet')).default;
       const map = mapInstanceRef.current;
+      const areasLayer = layersRef.current.areas;
+      const michelinLayer = layersRef.current.michelin;
+      const golfLayer = layersRef.current.golf;
+      if (!map || !areasLayer || !michelinLayer || !golfLayer) return;
 
-      // Clear both layer groups
-      layersRef.current.areas.clearLayers();
-      layersRef.current.michelin.clearLayers();
-      layersRef.current.areas.remove();
-      layersRef.current.michelin.remove();
+      // Clear every layer group before rebuilding the active one
+      [areasLayer, michelinLayer, golfLayer].forEach((g) => {
+        g.clearLayers();
+        g.remove();
+      });
 
       if (mode === 'areas') {
         const pinIcon = L.divIcon({ html: goldPinSvg, className: '', iconSize: [28, 36], iconAnchor: [14, 36] });
@@ -181,9 +220,23 @@ export function Areas() {
           const marker = L.marker([area.lat, area.lng], { icon: pinIcon });
           marker.bindTooltip(name, { permanent: false, direction: 'top', offset: [0, -38], className: 'leaflet-gold-tooltip' });
           marker.on('click', () => setSelected({ type: 'area', data: area }));
-          layersRef.current.areas.addLayer(marker);
+          areasLayer.addLayer(marker);
         });
-        layersRef.current.areas.addTo(map);
+        areasLayer.addTo(map);
+      } else if (mode === 'golf') {
+        const courses = regionFilter === 'all'
+          ? GOLF_COURSES
+          : GOLF_COURSES.filter(c => c.region === regionFilter);
+        courses.forEach((c) => {
+          const icon = L.divIcon({ html: golfIcon(c.closed), className: '', iconSize: [28, 28], iconAnchor: [14, 14] });
+          const marker = L.marker([c.lat, c.lng], { icon });
+          marker.bindTooltip(`<strong>${c.name}</strong><br/>${c.city}`, {
+            permanent: false, direction: 'top', offset: [0, -18], className: 'leaflet-gold-tooltip',
+          });
+          marker.on('click', () => setSelected({ type: 'golf', data: c }));
+          golfLayer.addLayer(marker);
+        });
+        golfLayer.addTo(map);
       } else {
         const filtered = starsFilter === 0 ? MICHELIN : MICHELIN.filter(r => r.stars === starsFilter);
         filtered.forEach((r) => {
@@ -193,12 +246,12 @@ export function Areas() {
             permanent: false, direction: 'top', offset: [0, -20], className: 'leaflet-gold-tooltip',
           });
           marker.on('click', () => setSelected({ type: 'michelin', data: r }));
-          layersRef.current.michelin.addLayer(marker);
+          michelinLayer.addLayer(marker);
         });
-        layersRef.current.michelin.addTo(map);
+        michelinLayer.addTo(map);
       }
     })();
-  }, [mapReady, mode, starsFilter, locations]);
+  }, [mapReady, mode, starsFilter, regionFilter, locations]);
 
   return (
     <section id="areas" className="py-12 md:py-24 bg-gray-50">
@@ -248,7 +301,7 @@ export function Areas() {
                     mode === 'areas' ? 'bg-gold text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
-                  <MapPin size={12} /> Service Areas
+                  <MapPin size={12} /> {t('areas.tabs.areas')}
                 </button>
                 <button
                   onClick={() => setMode('michelin')}
@@ -256,7 +309,16 @@ export function Areas() {
                     mode === 'michelin' ? 'bg-[#9B2335] text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
                   }`}
                 >
-                  <span aria-hidden="true">★</span> Michelin Stars
+                  <span aria-hidden="true">★</span> {t('areas.tabs.michelin')}
+                </button>
+                <button
+                  onClick={() => setMode('golf')}
+                  className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    mode === 'golf' ? 'text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
+                  }`}
+                  style={mode === 'golf' ? { backgroundColor: GOLF_COLOR } : {}}
+                >
+                  <Flag size={12} /> {t('areas.golf.tab')}
                 </button>
               </div>
 
@@ -286,7 +348,36 @@ export function Areas() {
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              {/* Region filter — only in golf mode */}
+              <AnimatePresence>
+                {mode === 'golf' && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    className="flex flex-wrap bg-white border border-gray-200 rounded-full p-1 shadow-sm gap-0.5 max-w-full"
+                  >
+                    {(['all', ...GOLF_REGIONS] as RegionFilter[]).map((r) => (
+                      <button
+                        key={r}
+                        onClick={() => setRegionFilter(r)}
+                        className={`px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                          regionFilter === r ? 'text-white shadow-sm' : 'text-gray-500 hover:text-gray-800'
+                        }`}
+                        style={regionFilter === r ? { backgroundColor: r === 'all' ? '#1f2937' : GOLF_COLOR } : {}}
+                      >
+                        {t(`areas.golf.filters.${r}`)}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
+
+            {mode === 'golf' && (
+              <p className="text-sm text-gray-500 mb-3 leading-relaxed">{t('areas.golf.intro')}</p>
+            )}
 
             {/* Map */}
             <div
@@ -304,7 +395,21 @@ export function Areas() {
                     <span className="text-xs text-gray-500 font-medium">{'★'.repeat(n)}</span>
                   </div>
                 ))}
-                <span className="text-xs text-gray-400 ml-auto">Click a pin for details</span>
+                <span className="text-xs text-gray-400 ml-auto">{t('areas.golf.hint')}</span>
+              </div>
+            )}
+
+            {mode === 'golf' && (
+              <div className="flex items-center gap-4 mt-3 px-1">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: GOLF_COLOR }} />
+                  <span className="text-xs text-gray-500 font-medium">{t('areas.golf.tab')}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: GOLF_CLOSED_COLOR }} />
+                  <span className="text-xs text-gray-500 font-medium">{t('areas.golf.closedBadge')}</span>
+                </div>
+                <span className="text-xs text-gray-400 ml-auto">{t('areas.golf.hint')}</span>
               </div>
             )}
           </motion.div>
@@ -350,9 +455,78 @@ export function Areas() {
                         ))}
                       </div>
                     )}
-                    <a href="https://customer.moovs.app/0800-limos-inc/request/new" target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors" onClick={() => setSelected(null)}>
+                    <a href={moovsUrl('area_modal')} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-gold hover:bg-gold-hover text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
+                      onClick={() => { trackBookingClick(`area_${selected.data.key}`); setSelected(null); }}>
                       {t('areas.cta')} <ArrowRight size={16} />
+                    </a>
+                  </div>
+                </>
+              ) : selected.type === 'golf' ? (
+                /* ── Golf modal ── */
+                <>
+                  <div className="relative p-6 pb-5" style={{ background: `linear-gradient(135deg, ${GOLF_COLOR} 0%, #145435 100%)` }}>
+                    <button onClick={() => setSelected(null)} className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/25 transition-colors cursor-pointer">
+                      <X size={16} />
+                    </button>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Flag size={14} className="text-white/80" />
+                      <span className="text-white/80 text-xs font-medium uppercase tracking-wider">{selected.data.city}</span>
+                      {selected.data.closed && (
+                        <span className="ml-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold uppercase tracking-wide">
+                          {t('areas.golf.closedBadge')}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-display font-bold text-2xl text-white tracking-wide pr-8">{selected.data.name}</h3>
+                  </div>
+                  <div className="bg-white p-5">
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {golfCopy[selected.data.key]?.comment}
+                    </p>
+                    {golfCopy[selected.data.key]?.highlights && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {golfCopy[selected.data.key].highlights.map((h, i) => (
+                          <span key={i} className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full border"
+                            style={{ color: GOLF_COLOR, backgroundColor: `${GOLF_COLOR}14`, borderColor: `${GOLF_COLOR}33` }}>
+                            {h}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <dl className="grid grid-cols-3 gap-2 text-xs mb-4 border-t border-gray-100 pt-4">
+                      <div>
+                        <dt className="text-gray-400 uppercase tracking-wider mb-0.5">{t('areas.golf.meta.architect')}</dt>
+                        <dd className="text-gray-700 font-medium leading-snug">{selected.data.architect}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gray-400 uppercase tracking-wider mb-0.5">{t('areas.golf.meta.opened')}</dt>
+                        <dd className="text-gray-700 font-medium">{selected.data.year}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-gray-400 uppercase tracking-wider mb-0.5">{t('areas.golf.meta.holes')}</dt>
+                        <dd className="text-gray-700 font-medium">{selected.data.holes}</dd>
+                      </div>
+                    </dl>
+                    <div className="flex gap-3">
+                      <a href={selected.data.website} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">
+                        <ExternalLink size={14} /> {t('areas.golf.website')}
+                      </a>
+                      <a href={selected.data.maps} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">
+                        <Navigation size={14} /> Google Maps
+                      </a>
+                    </div>
+                    <a
+                      href={moovsUrl('golf_modal')}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => { trackBookingClick(`golf_${selected.data.key}`); setSelected(null); }}
+                      className="mt-3 w-full inline-flex items-center justify-center gap-2 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-opacity hover:opacity-90"
+                      style={{ backgroundColor: GOLF_COLOR }}
+                    >
+                      {t('areas.golf.ride')} <ArrowRight size={16} />
                     </a>
                   </div>
                 </>

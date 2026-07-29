@@ -11,6 +11,7 @@ import { WhyUs } from '../components/sections/WhyUs';
 import { Testimonials } from '../components/sections/Testimonials';
 import { Areas } from '../components/sections/Areas';
 import { FloatingQuoteButton } from '../components/FloatingQuoteButton';
+import { MobileContactBar } from '../components/MobileContactBar';
 import { useSeo } from '../hooks/useSeo';
 
 interface Props {
@@ -70,7 +71,8 @@ export function Landing({ locale }: Props) {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main>
+      {/* Bottom padding on mobile so the fixed contact bar never covers the footer */}
+      <main className="pb-16 md:pb-0">
         <Hero />
         <Services />
         <Destinations />
@@ -80,6 +82,7 @@ export function Landing({ locale }: Props) {
         <BookingWidget />
       </main>
       <FloatingQuoteButton />
+      <MobileContactBar />
       <Footer />
     </div>
   );

@@ -27,7 +27,8 @@ export function FloatingQuoteButton() {
           y: isVisible ? 0 : 20
         }}
         transition={{ duration: 0.3 }}
-        className="fixed bottom-6 right-6 z-50"
+        // Sits above the mobile contact bar, back to normal from md up
+        className="fixed bottom-24 md:bottom-6 right-6 z-50"
       >
         <button
           onClick={() => setIsOpen(!isOpen)}

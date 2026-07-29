@@ -6,6 +6,7 @@ import { Analytics } from './components/Analytics';
 // Lazy-load blog pages — landing visitors don't pay the cost
 const BlogIndex = lazy(() => import('./pages/BlogIndex').then((m) => ({ default: m.BlogIndex })));
 const BlogPost = lazy(() => import('./pages/BlogPost').then((m) => ({ default: m.BlogPost })));
+const Offer = lazy(() => import('./pages/Offer').then((m) => ({ default: m.Offer })));
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<Landing locale="en-US" />} />
           <Route path="/pt" element={<Landing locale="pt-BR" />} />
           <Route path="/es" element={<Landing locale="es" />} />
+          <Route path="/offer" element={<Offer />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="*" element={<Landing locale="en-US" />} />

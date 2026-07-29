@@ -117,4 +117,45 @@ npm run build
 
 ---
 
-**Última atualização:** 2026-03-27
+## Variáveis de ambiente (Vercel → Settings → Environment Variables)
+
+Todas são opcionais: sem elas o site funciona, só perde a funcionalidade correspondente.
+
+| Variável | Para que serve | Sem ela |
+|---|---|---|
+| `VITE_GA_ID` | Google Analytics 4 (`G-XXXXXXX`) — contador de visitas e eventos de conversão | Nenhum tracking é injetado; `trackEvent` vira no-op |
+| `VITE_GTM_ID` | Google Tag Manager, se um dia for usado | GTM não carrega |
+| `VITE_LEAD_ENDPOINT` | URL que recebe o POST do formulário da `/offer` | O formulário não é renderizado |
+
+Depois de criar ou alterar qualquer uma delas é preciso **redeployar** — o Vite injeta as
+variáveis em build time, não em runtime.
+
+### Criando o `VITE_LEAD_ENDPOINT` com Google Sheets
+
+Caminho mais barato (grátis) e o que o cliente consegue acompanhar sozinho:
+
+1. Criar uma planilha no Google Sheets com as colunas `data`, `nome`, `email`, `idioma`.
+2. Extensões → Apps Script, colar:
+
+```javascript
+function doPost(e) {
+  const d = JSON.parse(e.postData.contents);
+  SpreadsheetApp.getActiveSheet().appendRow([new Date(), d.name, d.email, d.locale]);
+  return ContentService.createTextOutput(JSON.stringify({ ok: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+3. Implantar → Nova implantação → Tipo "App da Web", executar como você, acesso "Qualquer pessoa".
+4. Copiar a URL gerada e colar em `VITE_LEAD_ENDPOINT` na Vercel. Redeployar.
+
+Alternativa sem código: criar um form no Formspree e usar a URL do endpoint deles.
+
+O formulário coleta **apenas nome e email** — nada de telefone. Capturar telefone só faz
+sentido se um dia for montado o pipeline de SMS, que exige registro A2P 10DLC na operadora
+e consentimento explícito (TCPA). Enquanto isso não existir, guardar telefone é risco sem
+contrapartida.
+
+---
+
+**Última atualização:** 2026-07-28

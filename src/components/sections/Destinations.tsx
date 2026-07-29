@@ -1,28 +1,28 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const getDestinations = () => [
+const DESTINATIONS = [
   { id: 1, key: 'shasta', image: '/images/destinations/mount-shasta.jpg' },
   { id: 2, key: 'parasailing', image: '/images/destinations/parasailing.jpg' },
   { id: 3, key: 'winery', image: '/images/destinations/winery.jpg' },
   { id: 4, key: 'tours', image: '/images/destinations/winery-tour.jpg' },
 ];
 
+const mod = (n: number, m: number) => ((n % m) + m) % m;
+
 export function Destinations() {
   const { t } = useTranslation();
-  const destinations = getDestinations();
+  const destinations = DESTINATIONS;
   const total = destinations.length;
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
 
-  const mod = (n: number, m: number) => ((n % m) + m) % m;
-
-  const go = useCallback((dir: number) => {
+  const go = (dir: number) => {
     setDirection(dir);
     setCurrent((c) => mod(c + dir, total));
-  }, [total]);
+  };
 
   const getCard = (offset: number) => destinations[mod(current + offset, total)];
 

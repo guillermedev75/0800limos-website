@@ -4,7 +4,11 @@
 
 | Status | Milestone | Descrição | Prazo estimado |
 |--------|-----------|-----------|----------------|
-| 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations"; unificar tudo na Areas com 3 abas (Service Areas / Michelin Restaurants / **Golf Courses**) + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. Pebble Beach (Monterey) é o pin âncora da aba de golf. | Semana de 2026-05-11 |
+| ✅ | Aba Golf Courses | Terceira aba na seção Areas com 16 campos pesquisados, comentários positivos sem ranking, filtro por região | Concluído em 2026-07-28 |
+| ✅ | CTAs de contato no mobile | Barra fixa de telefone + WhatsApp visível na primeira dobra | Concluído em 2026-07-28 |
+| ✅ | Landing de promoção `/offer` | 1st Trip 20% Off com código FIRST20, captura de email e tracking de conversão | Concluído em 2026-07-28 |
+| 🔲 | Banco de imagens IA da frota | 13 modelos × 4 tomadas, pretos 2026, geração no Gemini + WebP + galeria | Semana de 2026-08-03 |
+| 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations" e mover o que sobrar para dentro da Areas + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. As 3 abas já existem. | Semana de 2026-08-03 |
 | 🔲 | Pré-renderização estática | Migrar de SPA pura para `vite-ssg` para que Googlebot indexe HTML pronto, não shell | Semana de 2026-05-18 |
 | 🔲 | Tradução do blog (pt-BR + es) | Traduzir os 5 posts existentes e criar rotas `/pt/blog` e `/es/blog` | Semana de 2026-05-25 |
 | 🔲 | Imagens otimizadas (WebP/AVIF) | Converter heros e imagens de áreas, adicionar `<picture>` responsivo | Semana de 2026-06-01 |
@@ -15,6 +19,34 @@
 ---
 
 ## Histórico
+
+## [2026-07-28] — Milestone: Golf, CTAs mobile e landing de promoção
+
+Lote de pedidos do cliente via WhatsApp em 2026-07-24.
+
+### Adicionado
+- `MobileContactBar` — barra fixa no rodapé, só no mobile, com telefone e WhatsApp visíveis sem rolagem. Constante `SHOW_LABELS` alterna entre a variante só-ícones e a variante com "CALL US NOW", que o cliente quer comparar
+- Aba **Golf Courses** na seção Areas: 16 campos em `src/data/golf.ts` cobrindo Monterey, SF & Costa, Wine Country, Silicon Valley e Lake Tahoe, com filtro por região, pin próprio e modal com arquiteto, ano, buracos, site e Google Maps
+- Comentários positivos de cada campo nos 3 locales, **sem ranking ou pontuação** — pedido explícito do cliente para que nenhum campo se sinta diminuído
+- Sinalização de campo fechado: The Links at Spanish Bay está em reforma (Gil Hanse) desde 18/03/2026 e reabre na primavera de 2027 — pin cinza + badge no modal, para não vender corrida para um campo fechado
+- Landing `/offer` (lazy-loaded) com a promoção "1st Trip 20% Off", código `FIRST20` com botão de copiar, passo a passo de como funciona e JSON-LD `Offer`
+- Formulário de captura de nome + email na `/offer`, gated por `VITE_LEAD_ENDPOINT`; sem a env o bloco não renderiza
+- `src/lib/analytics.ts` — `trackEvent`, `trackBookingClick` e `moovsUrl` (UTMs por origem). Como o tracking do Moovs só existe no plano caro, o clique de saída para o Moovs é o proxy de conversão
+- `/offer` no `public/sitemap.xml`
+
+### Alterado
+- Rótulos das abas da seção Areas ("Service Areas" / "Michelin Stars") saíram do código para os locales — antes eram texto fixo em inglês nas três línguas
+- `FloatingQuoteButton` sobe para `bottom-24` no mobile para não colidir com a nova barra de contato
+
+### Corrigido
+- Removidas as dependências `react-globe.gl` e `react-leaflet`, que estavam instaladas e não eram importadas em lugar nenhum (a `react-globe.gl` arrasta o three.js junto)
+- Tipagem do Leaflet em `Areas.tsx`: os quatro `any` viraram `Map`/`LayerGroup`
+- `Destinations.tsx`: `mod` e a lista de destinos hoisted para fora do componente e `useCallback` removido — o React Compiler estava pulando a otimização do componente inteiro por causa da memoização manual
+- Lint saiu de 5 erros para 0
+
+### Removido do escopo
+- Pipeline de SMS / mala direta (Twilio, registro A2P 10DLC, consentimento TCPA) — abortado pelo cliente
+- Cupom automático no Moovs — o plano dele não expõe a funcionalidade, então o desconto é aplicado à mão na confirmação
 
 ## [2026-05-05] — Milestone: SEO foundation + blog launch
 
