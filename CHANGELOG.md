@@ -42,6 +42,9 @@ Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orç
 
 - **Seletor de paletas na `/offer`**, escondido atrás de `?palettes`. Seis opções — azul-marinho, azul royal, azul claro, preto, bordô e verde esmeralda — trocáveis em um clique, com a escolha persistida em `localStorage`. Visitante real nunca vê o painel; o padrão é `DEFAULT_THEME`. A paleta clara inverte o texto para escuro: branco sobre azul claro é ilegível, então "azul clarinho" não é só trocar o valor do fundo
 
+- **Quatro destinos novos no mapa**, pedido do cliente: Healdsburg, Santa Rosa, Petaluma e Big Sur, com descrição e destaques nos 3 idiomas. Total de 17 áreas atendidas. *Lake Tahoe ele também pediu, mas já estava no mapa desde o início*
+- **Paleta definitiva da `/offer`: azul royal.** `DEFAULT_THEME` fixado; o seletor continua atrás de `?palettes` porque mais rodadas de ajuste estão previstas
+
 ### Pendente de decisão do cliente
 - "wine" ainda aparece em três lugares deixados de propósito: a `seoDescription` da landing, as meta keywords do `index.html` e o post `best-napa-valley-wineries-by-limo`. **"napa wine tour" é o termo que as pessoas efetivamente buscam no Google** — tirá-lo custa tráfego real. Sugestão: manter nas meta como descritor de destino ("Napa & Sonoma wine country"), já que ali não se anuncia serviço, e decidir o post à parte
 

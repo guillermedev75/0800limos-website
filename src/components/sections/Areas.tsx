@@ -23,6 +23,10 @@ const AREAS = [
   { key: 'calistoga',  lat: 38.5788, lng: -122.5797, image: '/images/areas/napa.jpg' },
   { key: 'yountville', lat: 38.4024, lng: -122.3614, image: '/images/areas/napa.jpg' },
   { key: 'halfmoon',   lat: 37.4636, lng: -122.4286, image: '/images/areas/sf.jpg' },
+  { key: 'healdsburg', lat: 38.6102, lng: -122.8694, image: '/images/areas/sonoma.jpg' },
+  { key: 'santarosa',  lat: 38.4405, lng: -122.7141, image: '/images/areas/sonoma.jpg' },
+  { key: 'petaluma',   lat: 38.2324, lng: -122.6367, image: '/images/areas/sonoma.jpg' },
+  { key: 'bigsur',     lat: 36.2704, lng: -121.8081, image: '/images/areas/monterey.jpg' },
 ];
 
 // ── Michelin Restaurants ──────────────────────────────────────────────────────

@@ -24,7 +24,7 @@ const SITE_URL = 'https://0800limos.com';
  * DEFAULT_THEME is what every real visitor sees. Once the client picks one,
  * change this constant and the picker becomes irrelevant.
  */
-const DEFAULT_THEME: ThemeKey = 'navy';
+const DEFAULT_THEME: ThemeKey = 'royal';
 
 interface HeroTheme {
   label: string;
