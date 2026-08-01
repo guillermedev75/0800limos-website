@@ -5,7 +5,7 @@
 | Status | Milestone | Descrição | Prazo estimado |
 |--------|-----------|-----------|----------------|
 | ✅ | Aba Golf Courses | Terceira aba na seção Areas com 16 campos pesquisados, comentários positivos sem ranking, filtro por região | Concluído em 2026-07-28 |
-| ✅ | CTAs de contato no mobile | Barra fixa de telefone + WhatsApp visível na primeira dobra | Concluído em 2026-07-28 |
+| ✅ | CTAs de contato no mobile | Barra fixa com Ligar, SMS e WhatsApp visível na primeira dobra | Concluído em 2026-07-28 |
 | ✅ | Landing de promoção `/offer` | 1st Trip 20% Off com código 0800FIRST, captura de email e tracking de conversão | Concluído em 2026-07-28 |
 | 🔲 | Banco de imagens IA da frota | 13 modelos × 4 tomadas, pretos 2026, geração no Gemini + WebP + galeria | Semana de 2026-08-03 |
 | 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations" e mover o que sobrar para dentro da Areas + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. As 3 abas já existem. | Semana de 2026-08-03 |
@@ -32,6 +32,8 @@ Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orç
 - **"Or call" virou "Text us · or · Call 650-666-9333"**, com o link de texto usando `sms:` e vindo primeiro. Leitura do cliente sobre o mercado dele: quase ninguém liga, mas se souberem que podem mandar mensagem, mandam
 - Paleta da `/offer` mais viva, a pedido: selo vermelho `#C0392B` com o "20% OFF", radiais de fundo bem mais saturadas (ouro 0.30 + vermelho 0.22) e a caixa do código com borda dupla e brilho. A base escura foi mantida — vermelho e amarelo chapados descaracterizariam o resto do site
 
+- **Barra de contato mobile agora tem três botões: Ligar · SMS · WhatsApp.** O WhatsApp sozinho não cobre o mercado americano, onde "mandar texto" significa SMS e a adoção do WhatsApp é baixa. Rótulos encurtados porque três botões dividem 320px; a variante longa "CALL US NOW" só existia no formato de dois
+
 ### Removido
 - Linha "gratuity and tolls are not discounted" dos termos, a pedido explícito do cliente. Sem ela a promoção não delimita o que entra no desconto
 
@@ -40,7 +42,7 @@ Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orç
 Lote de pedidos do cliente via WhatsApp em 2026-07-24.
 
 ### Adicionado
-- `MobileContactBar` — barra fixa no rodapé, só no mobile, com telefone e WhatsApp visíveis sem rolagem. Constante `SHOW_LABELS` alterna entre a variante só-ícones e a variante com "CALL US NOW", que o cliente quer comparar
+- `MobileContactBar` — barra fixa no rodapé, só no mobile, com os contatos visíveis sem rolagem. Constante `SHOW_LABELS` alterna entre a variante só-ícones e a variante com "CALL US NOW", que o cliente quer comparar
 - Aba **Golf Courses** na seção Areas: 16 campos em `src/data/golf.ts` cobrindo Monterey, SF & Costa, Wine Country, Silicon Valley e Lake Tahoe, com filtro por região, pin próprio e modal com arquiteto, ano, buracos, site e Google Maps
 - Comentários positivos de cada campo nos 3 locales, **sem ranking ou pontuação** — pedido explícito do cliente para que nenhum campo se sinta diminuído
 - Sinalização de campo fechado: The Links at Spanish Bay está em reforma (Gil Hanse) desde 18/03/2026 e reabre na primavera de 2027 — pin cinza + badge no modal, para não vender corrida para um campo fechado

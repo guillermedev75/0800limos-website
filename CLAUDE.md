@@ -83,6 +83,14 @@ Lazy-loaded like the blog. Shows the `0800FIRST` code with copy-to-clipboard, th
 
 The form collects name and email only. No phone: US promotional SMS needs A2P 10DLC registration plus explicit TCPA consent, and the client dropped messaging from scope. Don't reintroduce a phone field without that pipeline.
 
+## Mobile contact bar
+
+`src/components/MobileContactBar.tsx` renders three actions — Call (`tel:`), Text (`sms:`) and WhatsApp — pinned to the bottom on mobile only. **SMS is there deliberately**: WhatsApp adoption is low in the US market this site sells to, where "text me" means SMS. Don't drop it back to WhatsApp-only.
+
+The component renders a spacer sibling that reserves its own height at the end of the document, so it must stay **after** `<Footer />` in the page tree — the footer lives outside `<main>`, so padding on `<main>` never protected it.
+
+Labels have to stay short: three buttons share a 320px viewport. `SHOW_LABELS` toggles icons-only vs icons + labels.
+
 ## Conventions
 
 - **Tailwind v4** with custom tokens defined in `src/index.css` and `tailwind.config.js`. Brand colors: `gold` (#C9A961), `gold-hover`, gradient utility `text-gradient-gold`. Use these tokens, not raw hex values.

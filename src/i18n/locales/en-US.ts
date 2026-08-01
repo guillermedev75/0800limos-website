@@ -236,9 +236,11 @@ export default {
     },
   },
   mobileBar: {
-    call: 'Call us now',
+    call: 'Call',
+    text: 'Text',
     whatsapp: 'WhatsApp',
     callAria: 'Call 0800 Limos',
+    textAria: 'Send a text message to 0800 Limos',
     whatsappAria: 'Message 0800 Limos on WhatsApp',
   },
   offer: {

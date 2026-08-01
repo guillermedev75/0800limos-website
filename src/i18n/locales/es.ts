@@ -236,9 +236,11 @@ export default {
     },
   },
   mobileBar: {
-    call: 'Llame ahora',
+    call: 'Llamar',
+    text: 'SMS',
     whatsapp: 'WhatsApp',
     callAria: 'Llamar a 0800 Limos',
+    textAria: 'Enviar SMS a 0800 Limos',
     whatsappAria: 'Escribir a 0800 Limos por WhatsApp',
   },
   offer: {
