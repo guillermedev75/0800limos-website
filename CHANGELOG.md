@@ -6,7 +6,7 @@
 |--------|-----------|-----------|----------------|
 | ✅ | Aba Golf Courses | Terceira aba na seção Areas com 16 campos pesquisados, comentários positivos sem ranking, filtro por região | Concluído em 2026-07-28 |
 | ✅ | CTAs de contato no mobile | Barra fixa de telefone + WhatsApp visível na primeira dobra | Concluído em 2026-07-28 |
-| ✅ | Landing de promoção `/offer` | 1st Trip 20% Off com código FIRST20, captura de email e tracking de conversão | Concluído em 2026-07-28 |
+| ✅ | Landing de promoção `/offer` | 1st Trip 20% Off com código 0800FIRST, captura de email e tracking de conversão | Concluído em 2026-07-28 |
 | 🔲 | Banco de imagens IA da frota | 13 modelos × 4 tomadas, pretos 2026, geração no Gemini + WebP + galeria | Semana de 2026-08-03 |
 | 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations" e mover o que sobrar para dentro da Areas + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. As 3 abas já existem. | Semana de 2026-08-03 |
 | 🔲 | Pré-renderização estática | Migrar de SPA pura para `vite-ssg` para que Googlebot indexe HTML pronto, não shell | Semana de 2026-05-18 |
@@ -20,6 +20,21 @@
 
 ## Histórico
 
+## [2026-08-01] — Rodada de ajustes da /offer (feedback do cliente por áudio)
+
+Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orçamento.
+
+### Alterado
+- **Código promocional `FIRST20` → `0800FIRST`** — pedido do cliente, porque o código carrega a marca. Trocado também no UTM `utm_campaign` e em toda a documentação
+- **"ride" → "trip"** em toda a copy. O cliente não quer o termo, que em português vira "corrida"
+- **"chauffeur service" → "limo service"** no texto visível: na leitura dele, "chauffeur" soa como contratar alguém para dirigir o carro *do cliente*. A palavra continua na `seoDescription`, onde tem valor de busca
+- **CTA "Request your ride" → "Get your quote"** — "request" soava como compromisso fechado; a promessa agora é cotação, o que também combina com o passo novo "sem compromisso até você aprovar o preço"
+- **"Or call" virou "Text us · or · Call 650-666-9333"**, com o link de texto usando `sms:` e vindo primeiro. Leitura do cliente sobre o mercado dele: quase ninguém liga, mas se souberem que podem mandar mensagem, mandam
+- Paleta da `/offer` mais viva, a pedido: selo vermelho `#C0392B` com o "20% OFF", radiais de fundo bem mais saturadas (ouro 0.30 + vermelho 0.22) e a caixa do código com borda dupla e brilho. A base escura foi mantida — vermelho e amarelo chapados descaracterizariam o resto do site
+
+### Removido
+- Linha "gratuity and tolls are not discounted" dos termos, a pedido explícito do cliente. Sem ela a promoção não delimita o que entra no desconto
+
 ## [2026-07-28] — Milestone: Golf, CTAs mobile e landing de promoção
 
 Lote de pedidos do cliente via WhatsApp em 2026-07-24.
@@ -29,7 +44,7 @@ Lote de pedidos do cliente via WhatsApp em 2026-07-24.
 - Aba **Golf Courses** na seção Areas: 16 campos em `src/data/golf.ts` cobrindo Monterey, SF & Costa, Wine Country, Silicon Valley e Lake Tahoe, com filtro por região, pin próprio e modal com arquiteto, ano, buracos, site e Google Maps
 - Comentários positivos de cada campo nos 3 locales, **sem ranking ou pontuação** — pedido explícito do cliente para que nenhum campo se sinta diminuído
 - Sinalização de campo fechado: The Links at Spanish Bay está em reforma (Gil Hanse) desde 18/03/2026 e reabre na primavera de 2027 — pin cinza + badge no modal, para não vender corrida para um campo fechado
-- Landing `/offer` (lazy-loaded) com a promoção "1st Trip 20% Off", código `FIRST20` com botão de copiar, passo a passo de como funciona e JSON-LD `Offer`
+- Landing `/offer` (lazy-loaded) com a promoção "1st Trip 20% Off", código `0800FIRST` com botão de copiar, passo a passo de como funciona e JSON-LD `Offer`
 - Formulário de captura de nome + email na `/offer`, gated por `VITE_LEAD_ENDPOINT`; sem a env o bloco não renderiza
 - `src/lib/analytics.ts` — `trackEvent`, `trackBookingClick` e `moovsUrl` (UTMs por origem). Como o tracking do Moovs só existe no plano caro, o clique de saída para o Moovs é o proxy de conversão
 - `/offer` no `public/sitemap.xml`

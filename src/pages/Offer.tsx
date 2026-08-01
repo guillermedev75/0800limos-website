@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Check, Copy, Phone } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Copy, Phone, MessageSquare } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { MobileContactBar } from '../components/MobileContactBar';
@@ -10,8 +10,10 @@ import { Container } from '../components/layout/Container';
 import { useSeo } from '../hooks/useSeo';
 import { moovsUrl, trackBookingClick, trackEvent } from '../lib/analytics';
 
-const PROMO_CODE = 'FIRST20';
+const PROMO_CODE = '0800FIRST';
 const SITE_URL = 'https://0800limos.com';
+/** Vivid accent used only on this page — the rest of the site is gold on black. */
+const ACCENT = '#C0392B';
 
 /**
  * Where the lead form posts. Any endpoint that accepts a JSON POST works —
@@ -107,8 +109,15 @@ export function Offer() {
 
       <main>
         {/* Hero */}
-        <section className="relative bg-gradient-to-br from-midnight via-charcoal to-midnight pt-32 pb-20 md:pt-40 md:pb-28">
-          <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #C9A961 0%, transparent 45%)' }} />
+        <section className="relative overflow-hidden bg-gradient-to-br from-midnight via-charcoal to-midnight pt-32 pb-20 md:pt-40 md:pb-28">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'radial-gradient(circle at 18% 25%, rgba(201,169,97,0.30) 0%, transparent 50%),' +
+                'radial-gradient(circle at 85% 75%, rgba(192,57,43,0.22) 0%, transparent 55%)',
+            }}
+          />
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -116,9 +125,17 @@ export function Offer() {
               transition={{ duration: 0.7 }}
               className="relative max-w-2xl"
             >
-              <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
-                {t('offer.eyebrow')}
-              </span>
+              <div className="flex items-center gap-3 flex-wrap">
+                <span
+                  className="inline-flex items-center font-display font-extrabold text-white text-sm tracking-wider px-3 py-1.5 rounded-md shadow-lg"
+                  style={{ backgroundColor: ACCENT }}
+                >
+                  {t('offer.badge')}
+                </span>
+                <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
+                  {t('offer.eyebrow')}
+                </span>
+              </div>
               <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white uppercase tracking-wider mt-4 mb-6 leading-tight">
                 {t('offer.title')}
               </h1>
@@ -128,7 +145,7 @@ export function Offer() {
               </p>
 
               {/* Promo code */}
-              <div className="bg-white/5 border border-gold/30 rounded-xl p-5 backdrop-blur-sm mb-8">
+              <div className="bg-gold/10 border-2 border-gold/60 rounded-xl p-5 backdrop-blur-sm mb-8 shadow-[0_0_40px_-12px_rgba(201,169,97,0.5)]">
                 <span className="block text-gold text-xs font-semibold uppercase tracking-[0.2em] mb-3">
                   {t('offer.codeLabel')}
                 </span>
@@ -147,7 +164,7 @@ export function Offer() {
 
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
                 <a
-                  href={moovsUrl('offer_page', 'first20')}
+                  href={moovsUrl('offer_page', '0800first')}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackBookingClick('offer_hero')}
@@ -155,13 +172,25 @@ export function Offer() {
                 >
                   {t('offer.cta')} <ArrowRight size={18} />
                 </a>
-                <a
-                  href="tel:+16506669333"
-                  onClick={() => trackEvent('contact_click', { method: 'phone', source: 'offer_page' })}
-                  className="inline-flex items-center justify-center gap-2 text-gray-300 hover:text-gold font-semibold px-4 py-4 transition-colors"
-                >
-                  <Phone size={16} /> {t('offer.callCta')}
-                </a>
+                {/* Text first, on purpose: the client's read of this market is that
+                    people barely call, but they will text if they know they can. */}
+                <div className="inline-flex items-center gap-2 text-gray-300 px-2 py-4">
+                  <a
+                    href="sms:+16506669333"
+                    onClick={() => trackEvent('contact_click', { method: 'sms', source: 'offer_page' })}
+                    className="inline-flex items-center gap-2 font-semibold hover:text-gold transition-colors"
+                  >
+                    <MessageSquare size={16} /> {t('offer.textUs')}
+                  </a>
+                  <span className="text-gray-500">{t('offer.orSeparator')}</span>
+                  <a
+                    href="tel:+16506669333"
+                    onClick={() => trackEvent('contact_click', { method: 'phone', source: 'offer_page' })}
+                    className="inline-flex items-center gap-2 font-semibold hover:text-gold transition-colors"
+                  >
+                    <Phone size={16} /> {t('offer.callUs')}
+                  </a>
+                </div>
               </div>
             </motion.div>
           </Container>

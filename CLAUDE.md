@@ -79,7 +79,7 @@ Nothing here breaks when `VITE_GA_ID` is unset; `trackEvent` no-ops. Write call 
 
 ## Promo landing (`/offer`)
 
-Lazy-loaded like the blog. Shows the `FIRST20` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `DEPLOY.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
+Lazy-loaded like the blog. Shows the `0800FIRST` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `DEPLOY.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
 
 The form collects name and email only. No phone: US promotional SMS needs A2P 10DLC registration plus explicit TCPA consent, and the client dropped messaging from scope. Don't reintroduce a phone field without that pipeline.
 
