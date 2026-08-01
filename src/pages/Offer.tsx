@@ -12,29 +12,102 @@ import { moovsUrl, trackBookingClick, trackEvent } from '../lib/analytics';
 
 const PROMO_CODE = '0800FIRST';
 const SITE_URL = 'https://0800limos.com';
-/** Vivid accent used only on this page — the rest of the site is gold on black. */
-const ACCENT = '#C0392B';
 
 /**
- * Hero background. The client found the black version flat and asked to see
- * royal/navy blue, so both live here — flip HERO_THEME to compare.
+ * Hero palettes. The client wanted to compare light blue / royal / navy against
+ * the original black, so instead of shipping one and asking, the page can render
+ * any of them and a hidden picker lets him choose — see PALETTE_PARAM below.
+ *
+ * `light: true` flips the whole hero to dark text. White on pale blue is
+ * unreadable, so a light palette is not just a different background value.
+ *
+ * DEFAULT_THEME is what every real visitor sees. Once the client picks one,
+ * change this constant and the picker becomes irrelevant.
  */
-const HERO_THEME: keyof typeof HERO_THEMES = 'navy';
+const DEFAULT_THEME: ThemeKey = 'navy';
+
+interface HeroTheme {
+  label: string;
+  swatch: string;
+  base: string;
+  glow: string;
+  /** Badge background. Red reads as urgency but clashes with warm palettes. */
+  accent: string;
+  light?: boolean;
+}
 
 const HERO_THEMES = {
   navy: {
+    label: 'Azul-marinho',
+    swatch: '#143879',
     base: 'linear-gradient(135deg, #08152B 0%, #143879 52%, #091C3C 100%)',
     glow:
       'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.32) 0%, transparent 52%),' +
       'radial-gradient(circle at 88% 78%, rgba(56,118,232,0.40) 0%, transparent 58%)',
+    accent: '#C0392B',
+  },
+  royal: {
+    label: 'Azul royal',
+    swatch: '#1E52C8',
+    base: 'linear-gradient(135deg, #0B2A6F 0%, #1E52C8 50%, #0C2E76 100%)',
+    glow:
+      'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.34) 0%, transparent 52%),' +
+      'radial-gradient(circle at 88% 78%, rgba(120,170,255,0.34) 0%, transparent 58%)',
+    accent: '#C0392B',
+  },
+  sky: {
+    label: 'Azul claro',
+    swatch: '#BFD8F2',
+    base: 'linear-gradient(135deg, #EEF5FC 0%, #C3DBF4 55%, #DCEAF8 100%)',
+    glow:
+      'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.30) 0%, transparent 52%),' +
+      'radial-gradient(circle at 88% 78%, rgba(30,82,200,0.16) 0%, transparent 58%)',
+    accent: '#A5301F',
+    light: true,
   },
   black: {
+    label: 'Preto',
+    swatch: '#2C2C2C',
     base: 'linear-gradient(135deg, #0A0A0A 0%, #2C2C2C 50%, #0A0A0A 100%)',
     glow:
       'radial-gradient(circle at 18% 25%, rgba(201,169,97,0.30) 0%, transparent 50%),' +
       'radial-gradient(circle at 85% 75%, rgba(192,57,43,0.22) 0%, transparent 55%)',
+    accent: '#C0392B',
   },
-} as const;
+  burgundy: {
+    label: 'Bordô',
+    swatch: '#6E1A2B',
+    base: 'linear-gradient(135deg, #26060E 0%, #6E1A2B 52%, #2C0810 100%)',
+    glow:
+      'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.38) 0%, transparent 52%),' +
+      'radial-gradient(circle at 88% 78%, rgba(160,40,60,0.35) 0%, transparent 58%)',
+    accent: '#0F3D2E',
+  },
+  emerald: {
+    label: 'Verde esmeralda',
+    swatch: '#0E5140',
+    base: 'linear-gradient(135deg, #04201A 0%, #0E5140 52%, #06261F 100%)',
+    glow:
+      'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.36) 0%, transparent 52%),' +
+      'radial-gradient(circle at 88% 78%, rgba(30,150,120,0.30) 0%, transparent 58%)',
+    accent: '#A5301F',
+  },
+} satisfies Record<string, HeroTheme>;
+
+type ThemeKey = keyof typeof HERO_THEMES;
+
+/** Add ?palettes to the URL to reveal the picker. Real visitors never see it. */
+const PALETTE_PARAM = 'palettes';
+const THEME_STORAGE_KEY = 'offer-hero-theme';
+
+function readInitialTheme(): ThemeKey {
+  if (typeof window === 'undefined') return DEFAULT_THEME;
+  const fromUrl = new URLSearchParams(window.location.search).get('theme');
+  if (fromUrl && fromUrl in HERO_THEMES) return fromUrl as ThemeKey;
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  if (stored && stored in HERO_THEMES) return stored as ThemeKey;
+  return DEFAULT_THEME;
+}
 
 /**
  * Where the lead form posts. Any endpoint that accepts a JSON POST works —
@@ -48,6 +121,7 @@ type FormState = 'idle' | 'sending' | 'success' | 'error';
 export function Offer() {
   const { t, i18n } = useTranslation();
   const [copied, setCopied] = useState(false);
+  const [theme, setTheme] = useState<ThemeKey>(readInitialTheme);
   const [formState, setFormState] = useState<FormState>('idle');
 
   useSeo({
@@ -124,6 +198,33 @@ export function Offer() {
 
   const terms = t('offer.terms.items', { returnObjects: true }) as string[];
 
+  const hero = HERO_THEMES[theme];
+  const light = 'light' in hero && hero.light;
+  const showPicker =
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).has(PALETTE_PARAM);
+
+  const pickTheme = (key: ThemeKey) => {
+    setTheme(key);
+    window.localStorage.setItem(THEME_STORAGE_KEY, key);
+  };
+
+  // Hero text has to invert on the light palette — white on pale blue is unreadable.
+  const c = {
+    heading: light ? 'text-gray-900' : 'text-white',
+    body: light ? 'text-gray-700' : 'text-gray-300',
+    muted: light ? 'text-gray-600' : 'text-gray-400',
+    label: light ? 'text-[#8A6D2F]' : 'text-gold',
+    codeBox: light
+      ? 'bg-white/70 border-[#8A6D2F]/50 shadow-[0_0_40px_-14px_rgba(30,82,200,0.45)]'
+      : 'bg-gold/10 border-gold/60 shadow-[0_0_40px_-12px_rgba(201,169,97,0.5)]',
+    copyBtn: light
+      ? 'border-[#8A6D2F]/50 text-[#8A6D2F] hover:bg-[#8A6D2F] hover:text-white'
+      : 'border-gold/40 text-gold hover:bg-gold hover:text-white',
+    contact: light ? 'text-gray-700 hover:text-[#8A6D2F]' : 'text-gray-300 hover:text-gold',
+    separator: light ? 'text-gray-500' : 'text-gray-500',
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -132,9 +233,9 @@ export function Offer() {
         {/* Hero */}
         <section
           className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
-          style={{ background: HERO_THEMES[HERO_THEME].base }}
+          style={{ background: hero.base }}
         >
-          <div className="absolute inset-0" style={{ backgroundImage: HERO_THEMES[HERO_THEME].glow }} />
+          <div className="absolute inset-0" style={{ backgroundImage: hero.glow }} />
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -145,38 +246,38 @@ export function Offer() {
               <div className="flex items-center gap-3 flex-wrap">
                 <span
                   className="inline-flex items-center font-display font-extrabold text-white text-sm tracking-wider px-3 py-1.5 rounded-md shadow-lg"
-                  style={{ backgroundColor: ACCENT }}
+                  style={{ backgroundColor: hero.accent }}
                 >
                   {t('offer.badge')}
                 </span>
-                <span className="text-gold font-display text-sm tracking-[0.3em] uppercase">
+                <span className={`${c.label} font-display text-sm tracking-[0.3em] uppercase`}>
                   {t('offer.eyebrow')}
                 </span>
               </div>
-              <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-white uppercase tracking-wider mt-4 mb-6 leading-tight">
+              <h1 className={`font-display font-bold text-4xl sm:text-5xl md:text-6xl ${c.heading} uppercase tracking-wider mt-4 mb-6 leading-tight`}>
                 {t('offer.title')}
               </h1>
               <div className="w-24 h-1 bg-gradient-to-r from-gold to-transparent mb-6" />
-              <p className="text-gray-300 text-lg leading-relaxed mb-10">
+              <p className={`${c.body} text-lg leading-relaxed mb-10`}>
                 {t('offer.subtitle')}
               </p>
 
               {/* Promo code */}
-              <div className="bg-gold/10 border-2 border-gold/60 rounded-xl p-5 backdrop-blur-sm mb-8 shadow-[0_0_40px_-12px_rgba(201,169,97,0.5)]">
-                <span className="block text-gold text-xs font-semibold uppercase tracking-[0.2em] mb-3">
+              <div className={`border-2 rounded-xl p-5 backdrop-blur-sm mb-8 ${c.codeBox}`}>
+                <span className={`block ${c.label} text-xs font-semibold uppercase tracking-[0.2em] mb-3`}>
                   {t('offer.codeLabel')}
                 </span>
                 <div className="flex items-center gap-3 flex-wrap">
-                  <code className="font-display font-bold text-3xl text-white tracking-[0.2em]">{PROMO_CODE}</code>
+                  <code className={`font-display font-bold text-3xl ${c.heading} tracking-[0.2em]`}>{PROMO_CODE}</code>
                   <button
                     onClick={copyCode}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-gold/40 text-gold hover:bg-gold hover:text-white transition-colors cursor-pointer"
+                    className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${c.copyBtn}`}
                   >
                     {copied ? <Check size={13} /> : <Copy size={13} />}
                     {copied ? t('offer.copied') : t('offer.copy')}
                   </button>
                 </div>
-                <p className="text-gray-400 text-sm mt-3 leading-relaxed">{t('offer.codeHint')}</p>
+                <p className={`${c.muted} text-sm mt-3 leading-relaxed`}>{t('offer.codeHint')}</p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
@@ -191,19 +292,19 @@ export function Offer() {
                 </a>
                 {/* Text first, on purpose: the client's read of this market is that
                     people barely call, but they will text if they know they can. */}
-                <div className="inline-flex items-center gap-2 text-gray-300 px-2 py-4">
+                <div className={`inline-flex items-center gap-2 px-2 py-4 ${c.contact}`}>
                   <a
                     href="sms:+16506669333"
                     onClick={() => trackEvent('contact_click', { method: 'sms', source: 'offer_page' })}
-                    className="inline-flex items-center gap-2 font-semibold hover:text-gold transition-colors"
+                    className="inline-flex items-center gap-2 font-semibold transition-colors"
                   >
                     <MessageSquare size={16} /> {t('offer.textUs')}
                   </a>
-                  <span className="text-gray-500">{t('offer.orSeparator')}</span>
+                  <span className={c.separator}>{t('offer.orSeparator')}</span>
                   <a
                     href="tel:+16506669333"
                     onClick={() => trackEvent('contact_click', { method: 'phone', source: 'offer_page' })}
-                    className="inline-flex items-center gap-2 font-semibold hover:text-gold transition-colors"
+                    className="inline-flex items-center gap-2 font-semibold transition-colors"
                   >
                     <Phone size={16} /> {t('offer.callUs')}
                   </a>
@@ -280,6 +381,43 @@ export function Offer() {
           </Container>
         </section>
       </main>
+
+      {/* Internal palette preview. Hidden unless ?palettes is in the URL, so a
+          real visitor never sees it. Once the client picks one, set
+          DEFAULT_THEME to that key and this can go. */}
+      {showPicker && (
+        <div className="fixed bottom-20 md:bottom-6 left-4 right-4 md:left-auto md:right-6 md:w-72 z-[60] bg-white rounded-xl shadow-2xl border border-gray-200 p-4">
+          <p className="font-display font-bold text-sm text-gray-900 uppercase tracking-wider mb-1">
+            Paletas
+          </p>
+          <p className="text-xs text-gray-500 mb-3 leading-snug">
+            Escolha uma e me diga o nome — eu fixo no site.
+          </p>
+          <div className="grid grid-cols-3 gap-2">
+            {(Object.keys(HERO_THEMES) as ThemeKey[]).map((key) => (
+              <button
+                key={key}
+                onClick={() => pickTheme(key)}
+                className={`group flex flex-col items-center gap-1 p-1.5 rounded-lg border-2 transition-colors cursor-pointer ${
+                  theme === key ? 'border-gray-900 bg-gray-50' : 'border-transparent hover:border-gray-300'
+                }`}
+                aria-pressed={theme === key}
+              >
+                <span
+                  className="w-full h-8 rounded-md border border-black/10"
+                  style={{ background: HERO_THEMES[key].base }}
+                />
+                <span className="text-[10px] font-medium text-gray-600 leading-tight text-center">
+                  {HERO_THEMES[key].label}
+                </span>
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] text-gray-400 mt-3">
+            Selecionada: <strong className="text-gray-700">{hero.label}</strong> (<code>{theme}</code>)
+          </p>
+        </div>
+      )}
 
       <Footer />
       <MobileContactBar />

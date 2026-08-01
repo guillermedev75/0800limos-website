@@ -40,6 +40,8 @@ Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orç
 ### Removido
 - Linha "gratuity and tolls are not discounted" dos termos, a pedido explícito do cliente. Sem ela a promoção não delimita o que entra no desconto
 
+- **Seletor de paletas na `/offer`**, escondido atrás de `?palettes`. Seis opções — azul-marinho, azul royal, azul claro, preto, bordô e verde esmeralda — trocáveis em um clique, com a escolha persistida em `localStorage`. Visitante real nunca vê o painel; o padrão é `DEFAULT_THEME`. A paleta clara inverte o texto para escuro: branco sobre azul claro é ilegível, então "azul clarinho" não é só trocar o valor do fundo
+
 ### Pendente de decisão do cliente
 - "wine" ainda aparece em três lugares deixados de propósito: a `seoDescription` da landing, as meta keywords do `index.html` e o post `best-napa-valley-wineries-by-limo`. **"napa wine tour" é o termo que as pessoas efetivamente buscam no Google** — tirá-lo custa tráfego real. Sugestão: manter nas meta como descritor de destino ("Napa & Sonoma wine country"), já que ali não se anuncia serviço, e decidir o post à parte
 
