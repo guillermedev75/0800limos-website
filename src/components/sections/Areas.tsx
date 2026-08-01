@@ -91,6 +91,8 @@ const STAR_COLORS: Record<number, string> = { 3: '#9B2335', 2: '#C0392B', 1: '#C
 const STAR_LABEL = (n: number) => '★'.repeat(n);
 const GOLF_COLOR = '#1F7A4D';
 const GOLF_CLOSED_COLOR = '#8A8F98';
+/** Client's most-requested courses get a star instead of a pin. */
+const HIGHLIGHT_COLORS = { red: '#C0392B', blue: '#1E52C8' } as const;
 
 function michelinIcon(stars: number) {
   const color = STAR_COLORS[stars];
@@ -111,6 +113,19 @@ function michelinIcon(stars: number) {
       cursor:pointer;
       letter-spacing:-0.5px;
     ">${STAR_LABEL(stars)}</div>`;
+}
+
+function golfStarIcon(color: string) {
+  return `
+    <div style="
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,0.45));cursor:pointer;
+    ">
+      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24"
+        fill="${color}" stroke="white" stroke-width="1.6" stroke-linejoin="round">
+        <path d="M12 2l2.9 6.2 6.6.9-4.8 4.7 1.2 6.7L12 17.3 6.1 20.5l1.2-6.7L2.5 9.1l6.6-.9z"/>
+      </svg>
+    </div>`;
 }
 
 function golfIcon(closed?: boolean) {
@@ -232,9 +247,16 @@ export function Areas() {
           ? GOLF_COURSES
           : GOLF_COURSES.filter(c => c.region === regionFilter);
         courses.forEach((c) => {
-          const icon = L.divIcon({ html: golfIcon(c.closed), className: '', iconSize: [28, 28], iconAnchor: [14, 14] });
+          const star = c.highlight && !c.closed;
+          const icon = L.divIcon({
+            html: star ? golfStarIcon(HIGHLIGHT_COLORS[c.highlight!]) : golfIcon(c.closed),
+            className: '',
+            iconSize: star ? [38, 38] : [28, 28],
+            iconAnchor: star ? [19, 19] : [14, 14],
+          });
           const marker = L.marker([c.lat, c.lng], { icon });
-          marker.bindTooltip(`<strong>${c.name}</strong><br/>${c.city}`, {
+          const subtitle = c.formerName ? `${c.city} · ex-${c.formerName}` : c.city;
+          marker.bindTooltip(`<strong>${c.name}</strong><br/>${subtitle}`, {
             permanent: false, direction: 'top', offset: [0, -18], className: 'leaflet-gold-tooltip',
           });
           marker.on('click', () => setSelected({ type: 'golf', data: c }));
@@ -415,6 +437,11 @@ export function Areas() {
                   <div className="w-4 h-4 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: GOLF_CLOSED_COLOR }} />
                   <span className="text-xs text-gray-500 font-medium">{t('areas.golf.closedBadge')}</span>
                 </div>
+                <div className="flex items-center gap-1.5">
+                  <span aria-hidden="true" style={{ color: HIGHLIGHT_COLORS.red, fontSize: 15, lineHeight: 1 }}>★</span>
+                  <span aria-hidden="true" style={{ color: HIGHLIGHT_COLORS.blue, fontSize: 15, lineHeight: 1 }}>★</span>
+                  <span className="text-xs text-gray-500 font-medium">{t('areas.golf.featured')}</span>
+                </div>
                 <span className="text-xs text-gray-400 w-full sm:w-auto sm:ml-auto">{t('areas.golf.hint')}</span>
               </div>
             )}
@@ -480,11 +507,19 @@ export function Areas() {
                       <span className="text-white/80 text-xs font-medium uppercase tracking-wider">{selected.data.city}</span>
                       {selected.data.closed && (
                         <span className="ml-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold uppercase tracking-wide">
-                          {t('areas.golf.closedBadge')}
+                          {t(selected.data.formerName ? 'areas.golf.formerBadge' : 'areas.golf.closedBadge')}
+                        </span>
+                      )}
+                      {selected.data.privateClub && (
+                        <span className="ml-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold uppercase tracking-wide">
+                          {t('areas.golf.privateBadge')}
                         </span>
                       )}
                     </div>
                     <h3 className="font-display font-bold text-2xl text-white tracking-wide pr-8">{selected.data.name}</h3>
+                    {selected.data.formerName && (
+                      <p className="text-white/70 text-sm mt-1">({t('areas.golf.formerly')} {selected.data.formerName})</p>
+                    )}
                   </div>
                   <div className="bg-white p-5">
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">
@@ -511,14 +546,16 @@ export function Areas() {
                       </div>
                       <div>
                         <dt className="text-gray-400 uppercase tracking-wider mb-0.5">{t('areas.golf.meta.holes')}</dt>
-                        <dd className="text-gray-700 font-medium">{selected.data.holes}</dd>
+                        <dd className="text-gray-700 font-medium">{selected.data.holes || '—'}</dd>
                       </div>
                     </dl>
                     <div className="flex gap-3">
-                      <a href={selected.data.website} target="_blank" rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">
-                        <ExternalLink size={14} /> {t('areas.golf.website')}
-                      </a>
+                      {selected.data.website && (
+                        <a href={selected.data.website} target="_blank" rel="noopener noreferrer"
+                          className="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">
+                          <ExternalLink size={14} /> {t('areas.golf.website')}
+                        </a>
+                      )}
                       <a href={selected.data.maps} target="_blank" rel="noopener noreferrer"
                         className="flex-1 inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors">
                         <Navigation size={14} /> Google Maps

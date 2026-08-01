@@ -20,6 +20,21 @@
 
 ## Histórico
 
+## [2026-08-01] — Expansão do golfe: 16 → 37 campos
+
+Cliente aprovou a lista inteira de pesquisa ("todos") e mandou dois links do Maps.
+
+### Adicionado
+- **20 campos novos**, com texto e destaques nos 3 idiomas: Bayonet & Black Horse, Quail Lodge, Carmel Valley Ranch, Laguna Seca, Cypress Point, Tehàma, The Preserve, Sharp Park, The Olympic Club, Crystal Springs, Northwood, Windsor, Bodega Harbour, Sea Ranch, Mayacama, Wente Vineyards, Poppy Ridge, Cinnabar Hills, Gray's Crossing e Martis Camp
+- **Região nova no filtro: Livermore & East Bay**, para acomodar Wente e Poppy Ridge
+- **Estrela vermelha no Pebble Beach e azul no Silverado** — os dois mais procurados segundo o cliente. Pin vira estrela maior, e a legenda ganha a entrada "Mais procurados"
+- **Selo "Clube privado"** para Cypress Point, Tehàma, The Preserve, Olympic Club, Mayacama e Martis Camp. O botão de site some quando o clube não publica um — só Maps e o CTA de corrida, que é o que importa: quem anda nesses campos é convidado de sócio, e convidado precisa de motorista
+- **Palo Corona Regional Park**, com o nome antigo entre parênteses. O Rancho Cañada fechou em 2017 e virou parque; como a vizinhança ainda dá referência pelo nome velho, a entrada fica com o selo próprio "Hoje é parque público" — diferente do "fechado temporariamente" do Spanish Bay, que reabre em 2027
+
+### Verificado
+- Os dois links do Maps que o cliente mandou apontavam para Carmel Valley Ranch e Tehàma, ambos já na lista pesquisada; usei os endereços exatos deles nos links de navegação
+- 166 chaves em paridade nos 3 locales, 37 campos com texto em cada, zero scroll horizontal em 320px
+
 ## [2026-08-01] — Rodada de ajustes da /offer (feedback do cliente por áudio)
 
 Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orçamento.
