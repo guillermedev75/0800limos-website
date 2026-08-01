@@ -16,6 +16,27 @@ const SITE_URL = 'https://0800limos.com';
 const ACCENT = '#C0392B';
 
 /**
+ * Hero background. The client found the black version flat and asked to see
+ * royal/navy blue, so both live here — flip HERO_THEME to compare.
+ */
+const HERO_THEME: keyof typeof HERO_THEMES = 'navy';
+
+const HERO_THEMES = {
+  navy: {
+    base: 'linear-gradient(135deg, #08152B 0%, #143879 52%, #091C3C 100%)',
+    glow:
+      'radial-gradient(circle at 16% 22%, rgba(201,169,97,0.32) 0%, transparent 52%),' +
+      'radial-gradient(circle at 88% 78%, rgba(56,118,232,0.40) 0%, transparent 58%)',
+  },
+  black: {
+    base: 'linear-gradient(135deg, #0A0A0A 0%, #2C2C2C 50%, #0A0A0A 100%)',
+    glow:
+      'radial-gradient(circle at 18% 25%, rgba(201,169,97,0.30) 0%, transparent 50%),' +
+      'radial-gradient(circle at 85% 75%, rgba(192,57,43,0.22) 0%, transparent 55%)',
+  },
+} as const;
+
+/**
  * Where the lead form posts. Any endpoint that accepts a JSON POST works —
  * a Google Apps Script web app, Formspree, or a Vercel function. When the var
  * is unset the form is not rendered at all, so we never show a dead input.
@@ -109,15 +130,11 @@ export function Offer() {
 
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-midnight via-charcoal to-midnight pt-32 pb-20 md:pt-40 md:pb-28">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 18% 25%, rgba(201,169,97,0.30) 0%, transparent 50%),' +
-                'radial-gradient(circle at 85% 75%, rgba(192,57,43,0.22) 0%, transparent 55%)',
-            }}
-          />
+        <section
+          className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
+          style={{ background: HERO_THEMES[HERO_THEME].base }}
+        >
+          <div className="absolute inset-0" style={{ backgroundImage: HERO_THEMES[HERO_THEME].glow }} />
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 24 }}

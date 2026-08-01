@@ -34,8 +34,14 @@ Seis áudios do Hussein em 2026-08-01. É a rodada de revisão combinada no orç
 
 - **Barra de contato mobile agora tem três botões: Ligar · SMS · WhatsApp.** O WhatsApp sozinho não cobre o mercado americano, onde "mandar texto" significa SMS e a adoção do WhatsApp é baixa. Rótulos encurtados porque três botões dividem 320px; a variante longa "CALL US NOW" só existia no formato de dois
 
+- **Fundo da `/offer` em azul-marinho/royal**, a pedido do cliente, que achou a versão preta "apagada, apática". As duas paletas ficam em `HERO_THEMES` dentro de `Offer.tsx` — trocar a constante `HERO_THEME` alterna entre `navy` e `black` para comparar
+- **"Wine Tours" → "Napa Valley Tours"** nos rótulos de serviço e destino, nos 3 idiomas. O cliente não vende a parte do vinho, ele dirige. "Premium Wineries" virou "Napa Valley Estates" e o filtro de golfe "Wine Country" virou "Napa & Sonoma". **Não** mexi no post do blog nem nas meta tags de SEO — ver nota abaixo
+
 ### Removido
 - Linha "gratuity and tolls are not discounted" dos termos, a pedido explícito do cliente. Sem ela a promoção não delimita o que entra no desconto
+
+### Pendente de decisão do cliente
+- "wine" ainda aparece em três lugares deixados de propósito: a `seoDescription` da landing, as meta keywords do `index.html` e o post `best-napa-valley-wineries-by-limo`. **"napa wine tour" é o termo que as pessoas efetivamente buscam no Google** — tirá-lo custa tráfego real. Sugestão: manter nas meta como descritor de destino ("Napa & Sonoma wine country"), já que ali não se anuncia serviço, e decidir o post à parte
 
 ## [2026-07-28] — Milestone: Golf, CTAs mobile e landing de promoção
 
