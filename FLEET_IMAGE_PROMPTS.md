@@ -8,21 +8,18 @@ Referência: pedido do cliente por WhatsApp em 2026-07-24.
 
 ---
 
-## Antes de gerar: três coisas a confirmar com o Hussein
+## Decisões do cliente (confirmadas em 2026-08-04)
 
-1. **São 3 ou 4 tomadas por veículo?** A mensagem dele diz "3 imagens de cada" e em
-   seguida descreve 4 (externa, externa com porta aberta, painel, banco de trás).
-   13 × 4 = 52 imagens; 13 × 3 = 39.
-2. **Cadillac CTS não existe em 2026.** Saiu de linha em 2019, substituído pelo CT5.
-   Pedir "2026 Cadillac CTS" faz a IA inventar um carro que não existe. Opções: trocar
-   por **CT5**, ou gerar sem citar o ano. O mesmo vale para "Mercedes E Series", cujo
-   nome correto é **E-Class**.
-3. **Sprinter "Luxury" e "Premium" são nomes dele, não da Mercedes.** Geradas com o mesmo
-   prompt, as duas saem idênticas e o cliente não vê diferença nenhuma. Sugestão:
-   diferenciar pela configuração interna — uma com poltronas executivas de frente uma
-   para a outra, outra com bancos em fileiras para mais passageiros.
+- **3 tomadas por veículo**, não 4 → **39 imagens no total**.
+  A tomada cortada foi a do **painel**: quem contrata o serviço viaja no banco de trás,
+  não dirige. O painel é a única das quatro que mostra a área do motorista.
+  *Se ele preferir outra combinação, é só trocar — os quatro prompts seguem abaixo.*
+- **Cadillac CT5** no lugar do CTS, que saiu de linha em 2019.
+- **Mercedes-Benz E-Class** (o nome "E Series" não existe).
+- **Os dois Sprinter são diferentes de verdade** — falta ele dizer *o que* muda entre
+  eles (número de lugares, layout dos bancos, comodidades) para os prompts refletirem.
 
-Também vale confirmar se o Freightliner é de 35 lugares mesmo (ele escreveu com "?").
+Ainda em aberto: confirmar se o Freightliner é de 35 lugares (ele escreveu com "?").
 
 ---
 
@@ -75,23 +72,23 @@ No people, no readable license plate. Clean, editorial, luxury transportation ca
 style. 16:9.
 ```
 
-### Tomada 3 — interior, painel
-
-```
-Interior photograph of a black 2026 {VEÍCULO}, dashboard and front console view from the
-driver's seat position. Dark leather, brushed metal and piano-black trim, ambient interior
-lighting, instrument cluster and centre screen switched on. Soft late-afternoon daylight
-through the windshield. 24mm lens, natural perspective, no distortion. No people. Clean,
-editorial, luxury transportation catalogue style. 3:2.
-```
-
-### Tomada 4 — interior, visão do passageiro traseiro
+### Tomada 3 — interior, visão do passageiro traseiro
 
 ```
 Interior photograph of a black 2026 {VEÍCULO}, seen from the rear passenger seat behind
 the front passenger seat, looking forward. Dark leather upholstery, rear legroom visible,
 front seatbacks and centre console in frame, ambient interior lighting. Soft daylight
 through the windows. 24mm lens, natural perspective, no distortion. No people. Clean,
+editorial, luxury transportation catalogue style. 3:2.
+```
+
+### Tomada extra (fora das 3) — interior, painel
+
+```
+Interior photograph of a black 2026 {VEÍCULO}, dashboard and front console view from the
+driver's seat position. Dark leather, brushed metal and piano-black trim, ambient interior
+lighting, instrument cluster and centre screen switched on. Soft late-afternoon daylight
+through the windshield. 24mm lens, natural perspective, no distortion. No people. Clean,
 editorial, luxury transportation catalogue style. 3:2.
 ```
 
@@ -109,7 +106,7 @@ cartoon, illustration, HDR halo, oversaturated colours
 
 | # | Categoria | Modelo no prompt |
 |---|---|---|
-| 1 | Sedan | Cadillac CT5 *(era "CTS" — ver nota acima)* |
+| 1 | Sedan | Cadillac CT5 |
 | 2 | Sedan | Volvo S90 |
 | 3 | Sedan | Mercedes-Benz E-Class |
 | 4 | Premium | Mercedes-Benz S-Class |
@@ -119,22 +116,22 @@ cartoon, illustration, HDR halo, oversaturated colours
 | 8 | SUV | Lincoln Navigator |
 | 9 | SUV | Ford Expedition |
 | 10 | SUV | Cadillac Escalade ESV |
-| 11 | Van | Mercedes-Benz Sprinter, executive seating |
-| 12 | Van | Mercedes-Benz Sprinter, passenger rows |
+| 11 | Van | Mercedes-Benz Sprinter — *aguardando o que diferencia* |
+| 12 | Van | Mercedes-Benz Sprinter — *aguardando o que diferencia* |
 | 13 | Bus | Freightliner 35-passenger shuttle bus |
 
 ---
 
 ## Fluxo de trabalho sugerido
 
-1. Gerar **um modelo inteiro** (as 4 tomadas) e aprovar o padrão visual antes de seguir.
-   Ajustar o prompt base uma vez sai muito mais barato que refazer 52 imagens.
+1. Gerar **um modelo inteiro** (as 3 tomadas) e aprovar o padrão visual antes de seguir.
+   Ajustar o prompt base uma vez sai muito mais barato que refazer 39 imagens.
 2. Gerar de 3 a 4 variações por tomada e escolher a melhor. Interior de carro é onde a IA
    mais erra — volante deformado, painel inventado, banco com proporção errada.
 3. Descartar sem dó qualquer imagem com volante torto, retrovisor duplicado ou logo
    deformado. Uma imagem ruim contamina a percepção da galeria inteira.
 4. Nomear os arquivos como `modelo-tomada.jpg`, por exemplo `escalade-esv-exterior.jpg`,
-   `escalade-esv-porta-aberta.jpg`, `escalade-esv-painel.jpg`, `escalade-esv-traseira.jpg`.
+   `escalade-esv-porta-aberta.jpg` e `escalade-esv-traseira.jpg`.
 5. Entregar os arquivos que a conversão para WebP e a montagem da galeria acontecem no
    código.
 
