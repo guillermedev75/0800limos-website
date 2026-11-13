@@ -1,3 +1,11 @@
+---
+created: 2026-05-05
+updated: 2026-08-14
+type: referencia
+tags: [0800limos, deploy, dns, vercel]
+projeto: "[[0800limos]]"
+---
+
 # 🚀 Deploy do Site 0800 Limos
 
 ## Opção 1: Deploy Manual na Vercel (Recomendado)

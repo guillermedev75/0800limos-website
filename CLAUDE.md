@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Documentation vault
+
+Project docs live in `docs/` (Obsidian-style). **Read `docs/STATUS.md` first** in any
+substantive session — it carries the current blocker and the non-obvious findings —
+then `docs/ROADMAP.md` for what to do next and `docs/INDEX.md` for which document owns
+which topic. `CHANGELOG.md` stays at the repo root, and this file owns architecture.
+When you finish substantive work, write back: STATUS, ROADMAP, CHANGELOG, and a session
+note in `docs/5-AI/sessions/`.
+
 ## Project context
 
 Institutional/marketing site for **0800 Limos**, a luxury executive transportation company in the San Francisco Bay Area. Client: Hussein. This is a personal project of Guillerme (not LuminaLab, not DreamTeam) — see `~/Documents/ObsidianVault/1-Projects/0800limos.md` for the canonical project note.
@@ -64,7 +73,7 @@ The site is a client-rendered SPA; Googlebot does execute JS but indexes the pos
 
 `src/pages/Landing.tsx` composes sections from `src/components/sections/`. Two sections have non-trivial behavior worth knowing:
 
-- **`Areas.tsx`** — Leaflet 2D map (NOT react-leaflet) with three modes: "Service Areas" (13 city pins), "Michelin Stars" (40 restaurants, filterable by stars) and "Golf Courses" (16 courses, filterable by region). Areas and Michelin coordinates are **hardcoded inside the component**; golf lives in `src/data/golf.ts` with its prose in the locales under `areas.golf.courses.<key>`. The map container has `position: relative; zIndex: 0` to create a stacking context so the navbar (`z-50`) and modal (`z-[9999]`) sit above it. Leaflet CSS is statically imported (used to be dynamic — caused FOUC).
+- **`Areas.tsx`** — Leaflet 2D map (NOT react-leaflet) with three modes: "Service Areas" (17 city pins), "Michelin Stars" (40 restaurants, filterable by stars) and "Golf Courses" (37 courses, filterable by region). Areas and Michelin coordinates are **hardcoded inside the component**; golf lives in `src/data/golf.ts` with its prose in the locales under `areas.golf.courses.<key>`. The map container has `position: relative; zIndex: 0` to create a stacking context so the navbar (`z-50`) and modal (`z-[9999]`) sit above it. Leaflet CSS is statically imported (used to be dynamic — caused FOUC).
 
   **Golf courses are never ranked.** No stars, no scores, no "top 10" ordering — the client asked explicitly that no venue read as lesser than another. Group and filter geographically instead. A course that is closed gets `closed: true`, which greys its pin and shows a badge; keep that flag current or the site sells rides to a course nobody can play.
 - **`Services.tsx`** — accordion is **mobile-only**. Desktop renders all cards expanded. Active card is determined by scroll position (`getBoundingClientRect`), not IntersectionObserver — observers caused two-cards-open glitches.
@@ -79,7 +88,7 @@ Nothing here breaks when `VITE_GA_ID` is unset; `trackEvent` no-ops. Write call 
 
 ## Promo landing (`/offer`)
 
-Lazy-loaded like the blog. Shows the `0800FIRST` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `DEPLOY.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
+Lazy-loaded like the blog. Shows the `0800FIRST` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `docs/3-Resources/deploy.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
 
 The form collects name and email only. No phone: US promotional SMS needs A2P 10DLC registration plus explicit TCPA consent, and the client dropped messaging from scope. Don't reintroduce a phone field without that pipeline.
 
@@ -109,6 +118,6 @@ Labels have to stay short: three buttons share a 320px viewport. `SHOW_LABELS` t
 
 Shipped: full SEO meta + JSON-LD, robots/sitemap, locale URLs with hreflang, lazy-loaded blog with 5 researched posts (EN), analytics scaffolding, security headers, golf courses tab, mobile contact bar, `/offer` promo landing.
 
-Open / not started: AI fleet image bank (13 models), pre-rendering (vite-ssg), pt-BR/es translations of the 5 posts, more posts, WebP/AVIF + `<picture>`, Google Business Profile setup, real OG image at `/public/og-image.jpg`, real `apple-touch-icon.png`.
+Open / not started: AI fleet image bank (13 models × 3 shots = 39 images; prompt kit and model list are in `docs/1-Projects/banco-de-imagens-frota.md`, generation not started), pre-rendering (vite-ssg), pt-BR/es translations of the 5 posts, more posts, WebP/AVIF + `<picture>`, Google Business Profile setup, real OG image at `/public/og-image.jpg`, real `apple-touch-icon.png`.
 
-Waiting on the client: `VITE_GA_ID` (nothing is measured without it — no visit counter, no conversion proxy), his own list of golf courses to add or drop, and confirmation of whether the fleet images are 3 or 4 shots per model (his message says 3 and describes 4).
+Waiting on the client: `VITE_GA_ID` (nothing is measured without it — no visit counter, no conversion proxy), what actually differentiates the two Sprinter vans (seat count, layout, amenities) — without it both van prompts render the same vehicle twice. Everything else on the fleet job is settled: 3 shots per model with the dashboard dropped (2026-08-04), Cadillac **CT5** (settled 2026-08-14 — his messages went CTS → CT4 → CT5; the CT4 is the compact one and its rear seat is the weak spot), Freightliner confirmed at 35 passengers. The golf list is closed at 37 courses (full research list approved 2026-08-01).

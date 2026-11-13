@@ -1,3 +1,11 @@
+---
+created: 2026-08-03
+updated: 2026-08-14
+type: referencia
+tags: [0800limos, frota, imagens, ia]
+projeto: "[[0800limos]]"
+---
+
 # Banco de imagens da frota — kit de prompts
 
 Guia para gerar as imagens da frota no Gemini de forma **consistente**. O risco desse job
@@ -14,12 +22,22 @@ Referência: pedido do cliente por WhatsApp em 2026-07-24.
   A tomada cortada foi a do **painel**: quem contrata o serviço viaja no banco de trás,
   não dirige. O painel é a única das quatro que mostra a área do motorista.
   *Se ele preferir outra combinação, é só trocar — os quatro prompts seguem abaixo.*
-- **Cadillac CT5** no lugar do CTS, que saiu de linha em 2019.
+  A lista reenviada em 2026-08-14 repete a mesma contradição ("3 imagens" seguido de
+  quatro tomadas descritas), então a decisão de 2026-08-04 continua valendo.
+- **Cadillac CT5** — decisão final (2026-08-14). O caminho até aqui: o cliente escreveu
+  "CTS" (fora de linha desde 2019), o reenvio da lista pediu "CT4", e a definição ficou no
+  **CT5**. O CT4 é o compacto da linha e o banco de trás é justamente o ponto fraco dele;
+  o CT5 tem ~17 cm a mais de entre-eixos, quase todos revertidos em espaço para as pernas
+  atrás — que é onde o cliente do serviço viaja.
 - **Mercedes-Benz E-Class** (o nome "E Series" não existe).
 - **Os dois Sprinter são diferentes de verdade** — falta ele dizer *o que* muda entre
   eles (número de lugares, layout dos bancos, comodidades) para os prompts refletirem.
 
-Ainda em aberto: confirmar se o Freightliner é de 35 lugares (ele escreveu com "?").
+- **Freightliner de 35 lugares confirmado** — a primeira mensagem trazia "(35 passengers?)"
+  com interrogação; a lista reenviada em 2026-08-14 fecha em 35 sem a dúvida.
+
+Ainda em aberto: o que diferencia o Sprinter "luxury" do "premium". Sem isso os dois
+prompts saem idênticos e a galeria mostra duas vezes a mesma van.
 
 ---
 

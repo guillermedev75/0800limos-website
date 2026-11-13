@@ -1,3 +1,18 @@
+---
+created: 2026-05-05
+updated: 2026-08-14
+type: referencia
+tags: [0800limos, arquivo, obsoleto]
+projeto: "[[0800limos]]"
+---
+
+> [!warning] Documento obsoleto — arquivado em 2026-08-14
+> Descreve o site **antes do lançamento**: seção "Fleet" que não existe mais, 6 áreas em
+> vez de 17, sem blog, sem i18n, sem SEO. E o pior: a seção de DNS abaixo apresenta
+> **registros A/CNAME no GoDaddy** como alternativa válida — esse caminho quebrou a
+> emissão do certificado SSL. Hoje o domínio usa **só nameservers Vercel**.
+> Para deploy, use [[deploy]]. Este arquivo fica apenas como registro histórico.
+
 # 🎉 Projeto Concluído: 0800 Limos Website
 
 ## ✅ Status do Projeto

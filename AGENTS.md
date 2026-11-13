@@ -1,0 +1,123 @@
+# AGENTS.md
+
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+
+## Documentation vault
+
+Project docs live in `docs/` (Obsidian-style). **Read `docs/STATUS.md` first** in any
+substantive session — it carries the current blocker and the non-obvious findings —
+then `docs/ROADMAP.md` for what to do next and `docs/INDEX.md` for which document owns
+which topic. `CHANGELOG.md` stays at the repo root, and this file owns architecture.
+When you finish substantive work, write back: STATUS, ROADMAP, CHANGELOG, and a session
+note in `docs/5-AI/sessions/`.
+
+## Project context
+
+Institutional/marketing site for **0800 Limos**, a luxury executive transportation company in the San Francisco Bay Area. Client: Hussein. This is a personal project of Guillerme (not LuminaLab, not DreamTeam) — see `~/Documents/ObsidianVault/1-Projects/0800limos.md` for the canonical project note.
+
+The site is **static-content only** — no backend, no database, no auth. Bookings happen on Moovs (`https://customer.moovs.app/0800-limos-inc/request/new`); contact happens via WhatsApp / phone / email. Everything you see is rendered from in-repo content.
+
+## Commands
+
+```bash
+npm run dev       # Vite dev server, http://localhost:5173
+npm run build     # tsc -b && vite build → dist/
+npm run lint      # eslint .
+npm run preview   # Preview production build locally
+```
+
+There is no test suite. TypeScript strict mode is on; the build does `tsc -b` first, so type errors fail CI. Push to `main` deploys automatically via Vercel.
+
+## Architecture
+
+### Routing & locales
+
+`src/App.tsx` defines the route table. Locale and URL are coupled — each language has its own URL so Google can index it independently:
+
+| Path | Locale |
+|---|---|
+| `/`   | `en-US` (default) |
+| `/pt` | `pt-BR` |
+| `/es` | `es` |
+| `/offer` | Promo landing, renders in whatever locale i18n is on; canonical is always `/offer` |
+| `/blog`, `/blog/:slug` | EN-only for now |
+
+`src/pages/Landing.tsx` receives `locale` as a prop and calls `i18n.changeLanguage(locale)` on mount. Do **not** add a locale-switching mechanism that doesn't update the URL — it breaks hreflang and SEO.
+
+`vercel.json` permanently redirects the legacy `/en` path to `/`. The 404 catch-all also lands on the EN landing.
+
+### i18n
+
+`src/i18n/index.ts` registers three locale files in `src/i18n/locales/` (`pt-BR.ts`, `en-US.ts`, `es.ts`). **Keys must stay in sync across all three files** — missing keys fall back to pt-BR silently, which is invisible during dev. When adding a translatable string, edit all three.
+
+`LanguageSwitcher` navigates between `/`, `/pt`, `/es` when on a landing route. On the blog (which is EN-only), it switches the i18n runtime locale only — the URL stays put.
+
+### SEO architecture (this is the heart of the site)
+
+Three layers cooperate:
+
+1. **Static `index.html`** — base meta, OG defaults, three JSON-LD blocks (`LimousineService` / `WebSite` / `Organization`), default canonical and hreflang. This is what crawlers see before JS runs.
+2. **`src/hooks/useSeo.ts`** — per-route override. Each page calls `useSeo({ title, description, canonical, lang, jsonLd, ... })` and the hook mutates the `<head>` (title, meta tags, canonical, OG/Twitter, `<html lang>`, plus a `data-page-jsonld` script that's removed/replaced on every route change). Article-type pages also emit `article:*` OG tags.
+3. **`public/sitemap.xml`** — manually curated. **When you add a new page or blog post, add the URL here** (and to `robots.txt` if needed). There is no auto-generation.
+
+The site is a client-rendered SPA; Googlebot does execute JS but indexes the post-hydration DOM less reliably than static HTML. If we ever add `vite-ssg` / pre-rendering, the `useSeo` hook is designed to work with static head injection too.
+
+### Blog system
+
+- **Content registry**: `src/data/posts.ts` exports `POSTS: BlogPost[]`. Each post is fully self-contained (title, meta, body markdown, FAQs, `published` flag). Drafts (`published: false`) are excluded from listings. To add a post: append to the array, add the URL to `public/sitemap.xml`.
+- **Markdown**: `src/lib/markdown.tsx` is a custom zero-dep renderer supporting only: `##`/`###` headings, paragraphs, `**bold**`, `*italic*`, `[text](url)`, `- ` and `1. ` lists, `>` blockquote, `---` hr. Don't author posts using features outside this subset (no tables, no code blocks, no images-in-markdown).
+- **Pages**: `src/pages/BlogIndex.tsx` (grid with first card featured) and `src/pages/BlogPost.tsx` (hero, reading-progress bar, FAQ accordion, related posts, CTA). Both lazy-loaded from `App.tsx` via `React.lazy` — they don't ship in the landing bundle.
+- **Schema**: each post emits `BlogPosting` + `BreadcrumbList` + (if `faqs` present) `FAQPage` JSON-LD via `useSeo`.
+
+### Landing sections
+
+`src/pages/Landing.tsx` composes sections from `src/components/sections/`. Two sections have non-trivial behavior worth knowing:
+
+- **`Areas.tsx`** — Leaflet 2D map (NOT react-leaflet) with three modes: "Service Areas" (17 city pins), "Michelin Stars" (40 restaurants, filterable by stars) and "Golf Courses" (37 courses, filterable by region). Areas and Michelin coordinates are **hardcoded inside the component**; golf lives in `src/data/golf.ts` with its prose in the locales under `areas.golf.courses.<key>`. The map container has `position: relative; zIndex: 0` to create a stacking context so the navbar (`z-50`) and modal (`z-[9999]`) sit above it. Leaflet CSS is statically imported (used to be dynamic — caused FOUC).
+
+  **Golf courses are never ranked.** No stars, no scores, no "top 10" ordering — the client asked explicitly that no venue read as lesser than another. Group and filter geographically instead. A course that is closed gets `closed: true`, which greys its pin and shows a badge; keep that flag current or the site sells rides to a course nobody can play.
+- **`Services.tsx`** — accordion is **mobile-only**. Desktop renders all cards expanded. Active card is determined by scroll position (`getBoundingClientRect`), not IntersectionObserver — observers caused two-cards-open glitches.
+
+### Analytics — disabled by default
+
+`src/components/Analytics.tsx` injects GA4 / GTM scripts at runtime, but only if `VITE_GA_ID` (`G-XXXXXXX`) and/or `VITE_GTM_ID` are set in the Vercel environment. Until the client provides those IDs, the component renders nothing. Don't hard-code an ID.
+
+`src/lib/analytics.ts` is the call-site wrapper: `trackEvent`, `trackBookingClick` and `moovsUrl`. Every booking link should go through `moovsUrl(source)` so it carries UTMs, and fire `trackBookingClick(source)` on click. **That outbound click is the only conversion signal we have** — the client's Moovs plan doesn't include tracking, so nothing tells us whether a booking actually completed. Don't design reporting that assumes otherwise.
+
+Nothing here breaks when `VITE_GA_ID` is unset; `trackEvent` no-ops. Write call sites without guards.
+
+## Promo landing (`/offer`)
+
+Lazy-loaded like the blog. Shows the `0800FIRST` code with copy-to-clipboard, the terms, and an optional lead form gated by `VITE_LEAD_ENDPOINT` (see `docs/3-Resources/deploy.md` for the Google Apps Script recipe). **Moovs has no coupon feature on the client's plan** — the page tells the customer to paste the code into the booking notes and the discount is applied by hand on confirmation. If that instruction is ever removed, the page starts promising a discount the checkout doesn't apply.
+
+The form collects name and email only. No phone: US promotional SMS needs A2P 10DLC registration plus explicit TCPA consent, and the client dropped messaging from scope. Don't reintroduce a phone field without that pipeline.
+
+## Mobile contact bar
+
+`src/components/MobileContactBar.tsx` renders three actions — Call (`tel:`), Text (`sms:`) and WhatsApp — pinned to the bottom on mobile only. **SMS is there deliberately**: WhatsApp adoption is low in the US market this site sells to, where "text me" means SMS. Don't drop it back to WhatsApp-only.
+
+The component renders a spacer sibling that reserves its own height at the end of the document, so it must stay **after** `<Footer />` in the page tree — the footer lives outside `<main>`, so padding on `<main>` never protected it.
+
+Labels have to stay short: three buttons share a 320px viewport. `SHOW_LABELS` toggles icons-only vs icons + labels.
+
+## Conventions
+
+- **Tailwind v4** with custom tokens defined in `src/index.css` and `tailwind.config.js`. Brand colors: `gold` (#C9A961), `gold-hover`, gradient utility `text-gradient-gold`. Use these tokens, not raw hex values.
+- **No emoji in committed code** unless the user asks.
+- **No new markdown libraries** — use the existing `Markdown` component for any rendered prose.
+- **External links** that open in a new tab need `target="_blank" rel="noopener noreferrer"`.
+- Phone/WhatsApp number (`650-666-9333` / `+16506669333`) and email (`hussein@0800limos.com`) appear in many places. If they ever change, grep widely.
+
+## Deploy & domain
+
+- Hosting: **Vercel**, auto-deploy from `main`.
+- Domain: **0800limos.com** on **GoDaddy**, switched to **Vercel nameservers** (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`). Do not revert to A/CNAME records — that path triggered SSL cert generation failures in the past.
+- `vercel.json` handles SPA rewrites, security headers (HSTS, X-Frame-Options, etc.) and immutable cache for static assets.
+
+## What's pending vs. shipped (P0 done; P1+ open)
+
+Shipped: full SEO meta + JSON-LD, robots/sitemap, locale URLs with hreflang, lazy-loaded blog with 5 researched posts (EN), analytics scaffolding, security headers, golf courses tab, mobile contact bar, `/offer` promo landing.
+
+Open / not started: AI fleet image bank (13 models × 3 shots = 39 images; prompt kit and model list are in `docs/1-Projects/banco-de-imagens-frota.md`, generation not started), pre-rendering (vite-ssg), pt-BR/es translations of the 5 posts, more posts, WebP/AVIF + `<picture>`, Google Business Profile setup, real OG image at `/public/og-image.jpg`, real `apple-touch-icon.png`.
+
+Waiting on the client: `VITE_GA_ID` (nothing is measured without it — no visit counter, no conversion proxy), what actually differentiates the two Sprinter vans (seat count, layout, amenities) — without it both van prompts render the same vehicle twice. Everything else on the fleet job is settled: 3 shots per model with the dashboard dropped (2026-08-04), Cadillac **CT5** (settled 2026-08-14 — his messages went CTS → CT4 → CT5; the CT4 is the compact one and its rear seat is the weak spot), Freightliner confirmed at 35 passengers. The golf list is closed at 37 courses (full research list approved 2026-08-01).

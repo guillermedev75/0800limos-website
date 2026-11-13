@@ -4,6 +4,14 @@
 
 Site executivo/premium para 0800 Limos em React + TypeScript + Tailwind CSS, com integração Moovs API.
 
+## Documentação
+
+O estado do projeto vive em [`docs/`](docs/) — comece por [`docs/STATUS.md`](docs/STATUS.md)
+(onde estamos, o que está bloqueado) e [`docs/ROADMAP.md`](docs/ROADMAP.md) (o que falta).
+Histórico em [`CHANGELOG.md`](CHANGELOG.md); arquitetura e invariantes em
+[`CLAUDE.md`](CLAUDE.md); deploy e DNS em
+[`docs/3-Resources/deploy.md`](docs/3-Resources/deploy.md).
+
 ## 🚀 Tecnologias
 
 - **React 18** - Framework UI

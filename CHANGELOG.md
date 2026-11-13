@@ -1,24 +1,32 @@
 # Changelog
 
-## Roadmap — Milestones planejados
-
-| Status | Milestone | Descrição | Prazo estimado |
-|--------|-----------|-----------|----------------|
-| ✅ | Aba Golf Courses | Terceira aba na seção Areas com 16 campos pesquisados, comentários positivos sem ranking, filtro por região | Concluído em 2026-07-28 |
-| ✅ | CTAs de contato no mobile | Barra fixa com Ligar, SMS e WhatsApp visível na primeira dobra | Concluído em 2026-07-28 |
-| ✅ | Landing de promoção `/offer` | 1st Trip 20% Off com código 0800FIRST, captura de email e tracking de conversão | Concluído em 2026-07-28 |
-| 🔲 | Banco de imagens IA da frota | 13 modelos × 4 tomadas, pretos 2026, geração no Gemini + WebP + galeria | Semana de 2026-08-03 |
-| 🔲 | Refactor seção de descoberta | Remover "Bay Area Destinations" e mover o que sobrar para dentro da Areas + CTA no topo que rola até as abas. Pedido do cliente via áudio 2026-05-05. As 3 abas já existem. | Semana de 2026-08-03 |
-| 🔲 | Pré-renderização estática | Migrar de SPA pura para `vite-ssg` para que Googlebot indexe HTML pronto, não shell | Semana de 2026-05-18 |
-| 🔲 | Tradução do blog (pt-BR + es) | Traduzir os 5 posts existentes e criar rotas `/pt/blog` e `/es/blog` | Semana de 2026-05-25 |
-| 🔲 | Imagens otimizadas (WebP/AVIF) | Converter heros e imagens de áreas, adicionar `<picture>` responsivo | Semana de 2026-06-01 |
-| 🔲 | Mais 5 posts de blog | LinkedIn corporate, Lake Tahoe ski, Half Moon Bay, Yountville Michelin guide, SF wedding | Semana de 2026-06-08 |
-| 🔲 | Setup GA4 + Google Business Profile | Após cliente fornecer IDs e reivindicar GBP | Aguarda cliente |
-| 🔲 | Tradução das 5 áreas e blog para pt-BR/es | Conteúdo do blog hoje só em EN; áreas estão localizadas | Pós-pré-render |
+Histórico do projeto, mais recente no topo. **O placar do que ainda falta fica em
+`docs/ROADMAP.md`**, e o estado vivo em `docs/STATUS.md` — a tabela de milestones que
+ficava aqui foi movida para lá em 2026-08-14 para não existir em dois lugares.
 
 ---
 
-## Histórico
+## [2026-08-14] — Banco de imagens da frota: lista fechada
+
+Hussein reenviou a lista de veículos. Nada de código mudou; a documentação sim.
+
+### Alterado
+- **Cadillac CT5 fechado.** A primeira mensagem dizia "CTS" (fora de linha desde 2019), o
+  reenvio da lista pediu "CT4", e a decisão final ficou no CT5 — o CT4 é o compacto da
+  linha e tem justamente o banco de trás como ponto fraco, que é onde o passageiro viaja
+- **Freightliner de 35 lugares confirmado** — antes vinha com interrogação
+- Kit de prompts, `CLAUDE.md` e roadmap atualizados para **39 imagens** (13 modelos × 3
+  tomadas), não as 52 que constavam
+- Documentação reorganizada em `docs/` no formato de vault: `STATUS.md`, `ROADMAP.md`,
+  `INDEX.md`, e `DEPLOY.md`/`FLEET_IMAGE_PROMPTS.md`/`PROJECT_SUMMARY.md` movidos para
+  dentro. O `PROJECT_SUMMARY.md` foi arquivado como obsoleto — ele recomendava registros
+  A/CNAME no GoDaddy, caminho que depois quebrou a emissão do certificado SSL
+
+### Ainda aguarda o cliente
+- **O que diferencia o Sprinter "luxury" do "premium".** Sem isso os dois prompts saem
+  idênticos e a galeria mostra a mesma van duas vezes — é o único bloqueio da geração
+- A lista reenviada repete a contradição original: diz "3 imagens" e descreve quatro
+  tomadas. Fica valendo a confirmação de 2026-08-04 (3 tomadas, painel cortado)
 
 ## [2026-08-01] — Expansão do golfe: 16 → 37 campos
 
